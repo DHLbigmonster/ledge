@@ -43,19 +43,19 @@ const copy = {
       'Free download, no subscription, no sign-up',
     ],
     setupTitle: 'Install it in a minute.',
-    setupSub: 'The current v0.9.0 beta is built for Apple silicon. A universal Intel build has compiled successfully and will ship after hardware verification.',
+    setupSub: 'The latest public beta is built for Apple silicon. A universal Intel build has compiled successfully and will ship after hardware verification.',
     setupSteps: [
       'Download the DMG and drag Ledge into Applications.',
       'On first launch, right-click Ledge and choose Open.',
       'Grant Accessibility only when you use window parking.',
     ],
     compatibilityTitle: 'Compatibility',
-    compatibility: ['macOS 14 Sonoma or newer', 'Works with or without a physical notch', 'Apple silicon in v0.9.0 · Intel build in verification'],
+    compatibility: ['macOS 14 Sonoma or newer', 'Works with or without a physical notch', 'Latest download: Apple silicon · Intel build in verification'],
     pricingTitle: 'Free public beta.',
     pricingSub: 'Download the complete beta for free. No account, trial timer, subscription, or payment details.',
     pricingCta: 'Download Ledge',
     buyCta: 'Release notes',
-    pricingNote: 'v0.9.0 · Apple silicon · macOS 14+ · beta build is not notarized yet',
+    pricingNote: 'Latest public beta · Apple silicon · macOS 14+ · not notarized yet',
     footerTag: 'The notch is a drawer · © 2026',
   },
   zh: {
@@ -91,19 +91,19 @@ const copy = {
       '免费下载，无订阅，无需注册',
     ],
     setupTitle: '一分钟装好。',
-    setupSub: '当前 v0.9.0 测试版适用于 Apple 芯片；Intel 通用版已经编译通过，完成真机验证后发布。',
+    setupSub: '当前最新公开测试版适用于 Apple 芯片；Intel 通用版已经编译通过，完成真机验证后发布。',
     setupSteps: [
       '下载 DMG，把 Ledge 拖入“应用程序”。',
       '首次启动时右键 Ledge，选择“打开”。',
       '只有使用窗口收纳时，才需要授予辅助功能权限。',
     ],
     compatibilityTitle: '兼容性',
-    compatibility: ['macOS 14 Sonoma 或更高版本', '有无实体刘海都能使用', 'v0.9.0 支持 Apple 芯片 · Intel 版验证中'],
+    compatibility: ['macOS 14 Sonoma 或更高版本', '有无实体刘海都能使用', '最新下载支持 Apple 芯片 · Intel 版验证中'],
     pricingTitle: '免费公开测试版。',
     pricingSub: '完整测试版免费下载。无需账号，没有试用倒计时、订阅或付款信息。',
     pricingCta: '下载 Ledge 纳岛',
     buyCta: '查看版本说明',
-    pricingNote: 'v0.9.0 · Apple 芯片 · macOS 14+ · 测试版暂未公证',
+    pricingNote: '最新公开测试版 · Apple 芯片 · macOS 14+ · 暂未公证',
     footerTag: '刘海是个抽屉 · © 2026',
   },
 }
@@ -111,8 +111,8 @@ const copy = {
 type Lang = keyof typeof copy
 
 /* 免费公开测试版由 GitHub Release 提供下载 */
-const DOWNLOAD_LINK = "https://github.com/DHLbigmonster/ledge/releases/download/v0.9.0/Ledge-0.9.0.dmg"
-const RELEASE_LINK = "https://github.com/DHLbigmonster/ledge/releases/tag/v0.9.0"
+const DOWNLOAD_LINK = "https://github.com/DHLbigmonster/ledge/releases/latest/download/Ledge.dmg"
+const RELEASE_LINK = "https://github.com/DHLbigmonster/ledge/releases/latest"
 
 /* ---------- 首屏演示：实机 demo.gif（public/ 下，由真机截屏合成） ---------- */
 

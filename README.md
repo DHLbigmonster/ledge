@@ -3,7 +3,7 @@
 Ledge 把 Mac 屏幕顶部变成一个本地收纳抽屉：文件、截图、链接和窗口都能放进去，随时取回。
 
 - 官网：https://dhlbigmonster.github.io/ledge/
-- 下载：https://github.com/DHLbigmonster/ledge/releases/tag/v0.9.0
+- 下载：https://github.com/DHLbigmonster/ledge/releases/latest
 - 当前版本：v0.9.0，macOS 14+，Apple silicon
 - 隐私：核心功能本地运行，无需账号
 
