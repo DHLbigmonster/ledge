@@ -13,6 +13,7 @@ const copy = {
   en: {
     download: 'Download for Mac',
     freeNote: 'macOS 14+ · Apple silicon · free public beta',
+    openingNote: 'Free public beta. On first launch, macOS may ask you to confirm opening it in System Settings → Privacy & Security.',
     heroTitle1: 'The notch',
     heroTitle2: 'is a drawer.',
     heroSub: 'Drop in files, screenshots, links, even windows. Pull them out whenever. The rest of the time, it stays out of your way.',
@@ -72,6 +73,7 @@ const copy = {
   zh: {
     download: '免费下载',
     freeNote: 'macOS 14+ · Apple 芯片 · 免费公开测试版',
+    openingNote: '免费公开测试版。首次打开时，macOS 可能要求前往“系统设置 → 隐私与安全性”确认打开。',
     heroTitle1: '刘海，',
     heroTitle2: '是个抽屉。',
     heroSub: '文件、截图、链接，甚至窗口，拖进去就好。要用的时候拿出来。其余时间，它安安静静待在顶上。',
@@ -267,6 +269,9 @@ export default function Home() {
           </a>
           <span className="text-[13px] text-neutral-400">{t.freeNote}</span>
         </div>
+        <p className="hero-rise mx-auto mt-3 max-w-xl text-balance text-[12px] leading-relaxed text-neutral-400" style={{ animationDelay: '300ms' }}>
+          {t.openingNote}
+        </p>
         <div
           className="hero-rise parallax mt-16"
           style={{
