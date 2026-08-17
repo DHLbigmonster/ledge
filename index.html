@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google" content="notranslate" />
+    <script>
+      // This is a Vite source entry, so opening it through file:// cannot load
+      // the module graph. Send accidental double-clicks to the published site.
+      if (window.location.protocol === "file:") {
+        window.location.replace("https://dhlbigmonster.github.io/ledge/");
+      }
+    </script>
     <title>Ledge 纳岛 — Your Mac's notch is a drawer</title>
 
     <!-- SEO -->
