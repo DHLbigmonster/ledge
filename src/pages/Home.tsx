@@ -2,7 +2,7 @@ import { useEffect, useState, type MouseEvent } from 'react'
 import '../App.css'
 import { Reveal } from '../hooks/useReveal'
 import {
-  FolderDown, Link2, MonitorDown, ClipboardList, Zap, Keyboard,
+  FolderDown, Link2, MonitorDown, ClipboardList, Keyboard,
   ShieldCheck, WifiOff, Feather, ArrowDownToLine, Languages,
   Cpu, CheckCircle2, MousePointerClick
 } from 'lucide-react'
@@ -21,11 +21,22 @@ const copy = {
     featuresSub: 'Six things. All of them about keeping stuff within reach.',
     features: [
       { title: 'Drop it in.', desc: 'Drag anything to the top of the screen. The island opens and catches it. Your originals stay put — Ledge keeps references, not copies.' },
-      { title: 'Park a window.', desc: 'Drag a window by its title bar into the notch — or just press ⌃⌥L — and it folds away with a live thumbnail. Click it and it comes back where it was.' },
+      { title: 'Park a window.', desc: 'Drag a window by its title bar into the notch — or press Control + Option + L — and it folds away with a snapshot thumbnail. Click it and it comes back where it was.' },
       { title: 'Back to that tab.', desc: 'Drop a page in now. Later, one click takes you to the tab you already had open — not a fresh duplicate.' },
       { title: 'Screenshots, sorted.', desc: 'Turn it on and clipboard shots land on the island, then disappear after 24 hours. Things copied from your password manager never get in.' },
-      { title: 'AI activity up top.', desc: 'Recent Claude and Codex token activity at a glance, estimated from local logs. No network calls, no credentials touched.' },
-      { title: '⌥1–9.', desc: 'Pin your staples to slots. One key opens the file, jumps to the tab, restores the window. The island doesn\u2019t even wake up.' },
+      { title: 'Private by design.', desc: 'Everything stays on this Mac. Temporary items clear themselves, and password-manager clipboard content is never captured.' },
+      { title: 'Option + 1–9.', desc: 'Pin your staples to slots. One shortcut opens the file, jumps to the tab, or restores the window. The island doesn\u2019t even wake up.' },
+    ],
+    controlsTitle: 'Know every move.',
+    controlsSub: 'The complete shortcut and gesture guide for the current public beta.',
+    controls: [
+      { keys: 'Option + Space', action: 'Open or close the island' },
+      { keys: 'Control + Option + L', action: 'Park the current front window' },
+      { keys: 'Control + Option + Shift + L', action: 'Restore the most recently parked window' },
+      { keys: 'Command + V', action: 'Paste clipboard content while the island is open' },
+      { keys: 'Option + 1–9', action: 'Open a pinned item without opening the island' },
+      { keys: 'Escape', action: 'Close the island immediately' },
+      { keys: 'Mouse', action: 'Click to preview, double-click to open, right-click to pin or remove, and drag items back out' },
     ],
     specsTitle: 'Built like a Mac app.',
     specsSub: 'Native where it matters. Local by default.',
@@ -69,11 +80,22 @@ const copy = {
     featuresSub: '六件事。每一件都为了让东西触手可及。',
     features: [
       { title: '拖进去就行。', desc: '任何东西拖到屏幕顶边，岛会张开接住。原文件原地不动——纳岛只存引用，不做拷贝。' },
-      { title: '窗口也能收。', desc: '拖着窗口标题栏到刘海，或者直接按 ⌃⌥L，窗口就带着实时截图折进岛里。点一下，原样回来。' },
+      { title: '窗口也能收。', desc: '拖着窗口标题栏到刘海，或者按 Control + Option + L，窗口就带着截图缩略图折进岛里。点一下，原样回来。' },
       { title: '回到那个标签页。', desc: '网页拖进去，之后点一下，回的是你早就开着的那个标签页，不是再开一个新的。' },
       { title: '截图有着落了。', desc: '开启后，剪贴板里的截图自动落在岛上，24 小时后自己消失。密码管理器里的东西，永远进不来。' },
-      { title: 'AI 活跃用量抬头可见。', desc: '最近 5 小时的 Claude 和 Codex token 活跃量瞥一眼就知道。基于本地日志估算，不走网络，不碰凭据。' },
-      { title: '⌥1–9。', desc: '常用的东西钉进槽位，一个键直接打开文件、跳回标签页、恢复窗口。岛都不用醒。' },
+      { title: '只留在这台 Mac。', desc: '收纳内容只保存在本机；临时项目会自动清理，密码管理器剪贴板内容不会被捕获。' },
+      { title: 'Option + 1–9。', desc: '常用的东西钉进槽位，一组快捷键直接打开文件、跳回标签页或恢复窗口。岛都不用醒。' },
+    ],
+    controlsTitle: '所有操作，一眼看懂。',
+    controlsSub: '当前公开测试版完整的快捷键与鼠标操作说明。',
+    controls: [
+      { keys: 'Option + Space', action: '展开或收起纳岛' },
+      { keys: 'Control + Option + L', action: '收纳当前最前方窗口' },
+      { keys: 'Control + Option + Shift + L', action: '恢复最近收纳的窗口' },
+      { keys: 'Command + V', action: '纳岛展开时粘贴剪贴板内容' },
+      { keys: 'Option + 1–9', action: '不展开纳岛，直接打开固定槽位' },
+      { keys: 'Escape', action: '立即收起纳岛' },
+      { keys: '鼠标', action: '单击预览、双击打开、右键固定或移除，也可把项目直接拖出' },
     ],
     specsTitle: '像 Mac 应用一样构建。',
     specsSub: '关键体验原生实现，数据默认留在本地。',
@@ -110,14 +132,65 @@ const copy = {
 
 type Lang = keyof typeof copy
 
+function IslandDemo({ lang }: { lang: Lang }) {
+  const zh = lang === 'zh'
+  const demoItems = [
+    { icon: <ClipboardList size={20} />, title: zh ? '剪贴板 17:03' : 'Clipboard 17:03' },
+    { icon: <MonitorDown size={20} />, title: zh ? '设计窗口' : 'Design window' },
+    { icon: <Link2 size={20} />, title: zh ? '项目页面' : 'Project page' },
+    { icon: <FolderDown size={20} />, title: zh ? '资料文件夹' : 'Assets folder' },
+  ]
+
+  return (
+    <div
+      role="img"
+      aria-label={zh ? '纳岛展开后的收纳界面示意' : 'Ledge expanded shelf interface'}
+      className="relative mx-auto min-h-[260px] w-full max-w-3xl overflow-hidden rounded-[28px] border border-neutral-200/70 bg-[radial-gradient(circle_at_50%_0%,rgba(99,102,241,0.14),transparent_56%),linear-gradient(180deg,#f6f7fb,#ffffff)] shadow-[0_40px_90px_-24px_rgba(0,0,0,0.28)] sm:min-h-[330px]"
+    >
+      <div className="absolute left-1/2 top-0 w-[calc(100%_-_28px)] max-w-[620px] -translate-x-1/2 overflow-hidden rounded-b-[22px] bg-neutral-950 text-white shadow-2xl sm:w-[82%] sm:rounded-[24px]">
+        <div className="flex h-11 items-center gap-2 border-b border-white/10 px-3 sm:px-4">
+          <span translate="no" className="notranslate text-[11px] font-semibold sm:text-[13px]">Ledge</span>
+          <span className="text-[9px] text-white/40 sm:text-[11px]">4 {zh ? '项' : 'items'}</span>
+          <span className="flex-1" />
+          <span className="hidden text-[10px] text-white/55 md:inline">{zh ? '收纳窗口' : 'Park window'}</span>
+          <kbd translate="no" className="notranslate rounded-full bg-white/[0.08] px-2 py-1 font-sans text-[8px] font-medium text-white/55 sm:text-[9px]">
+            Control + Option + L
+          </kbd>
+          <span className="hidden text-[10px] text-white/40 sm:inline">{zh ? '清空' : 'Clear'}</span>
+        </div>
+
+        <div className="flex h-[116px] items-center justify-center -space-x-3 px-3 sm:h-[152px] sm:-space-x-2 sm:px-6">
+          {demoItems.map((item, index) => (
+            <div key={item.title} className="relative shrink-0" style={{ transform: `rotate(${[-4, 3, -2, 4][index]}deg)` }}>
+              <div className="flex h-[82px] w-[76px] flex-col items-center justify-center gap-2 rounded-2xl border border-white/[0.08] bg-white/[0.07] shadow-lg transition duration-300 hover:z-10 hover:scale-110 hover:bg-white/[0.13] sm:h-[104px] sm:w-[96px]">
+                <span className="text-white/75">{item.icon}</span>
+                <span className="max-w-[68px] truncate text-[8px] text-white/55 sm:max-w-[84px] sm:text-[9px]">{item.title}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex h-8 items-center gap-2 border-t border-white/[0.07] bg-white/[0.03] px-3 sm:px-4">
+          <ShieldCheck size={12} className="text-emerald-400/75" />
+          <span className="text-[8px] text-white/55 sm:text-[9px]">{zh ? '仅保存在这台 Mac' : 'Stored only on this Mac'}</span>
+          <span className="flex-1" />
+          <span className="text-[8px] text-white/30 sm:text-[9px]">{zh ? '临时项目自动清理' : 'Temporary items auto-clear'}</span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /* 免费公开测试版由 GitHub Release 提供下载 */
 const DOWNLOAD_LINK = "https://github.com/DHLbigmonster/ledge/releases/latest/download/Ledge.dmg"
 const RELEASE_LINK = "https://github.com/DHLbigmonster/ledge/releases/latest"
 
-/* ---------- 首屏演示：实机 demo.gif（public/ 下，由真机截屏合成） ---------- */
+/* ---------- 首屏演示：与当前应用信息架构同步的响应式界面示意 ---------- */
 
 export default function Home() {
-  const [lang, setLang] = useState<Lang>('en')   // 欧美市场优先：默认英文
+  const [lang, setLang] = useState<Lang>(() =>
+    navigator.languages.some((language) => language.toLowerCase().startsWith('zh')) ? 'zh' : 'en'
+  )
   const t = copy[lang]
 
   useEffect(() => {
@@ -145,12 +218,17 @@ export default function Home() {
       <nav className="relative mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
         <div className="flex items-center gap-2.5">
           <div className="capsule-breathe h-5 w-10 rounded-full bg-black" />
-          <span className="text-[15px] font-semibold tracking-tight">Ledge 纳岛</span>
+          <span className="text-[15px] font-semibold tracking-tight">
+            <span translate="no" className="notranslate">Ledge</span> 纳岛
+          </span>
         </div>
         <div className="flex items-center gap-3">
           <button
+            type="button"
+            translate="no"
+            aria-label={lang === 'en' ? '切换为中文' : 'Switch to English'}
             onClick={() => setLang(lang === 'en' ? 'zh' : 'en')}
-            className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 px-3 py-1.5 text-[12px] text-neutral-600 transition hover:border-neutral-400"
+            className="notranslate inline-flex items-center gap-1.5 rounded-full border border-neutral-200 px-3 py-1.5 text-[12px] text-neutral-600 transition hover:border-neutral-400"
           >
             <Languages size={13} />
             {lang === 'en' ? '中文' : 'EN'}
@@ -197,11 +275,7 @@ export default function Home() {
             perspective: '800px',
           }}
         >
-          <img
-            src="./demo.gif"
-            alt="Ledge live demo — the notch capsule opens into a shelf"
-            className="mx-auto w-full max-w-3xl rounded-[28px] border border-neutral-200/70 shadow-[0_40px_90px_-24px_rgba(0,0,0,0.28)]"
-          />
+          <IslandDemo lang={lang} />
         </div>
       </section>
 
@@ -217,10 +291,40 @@ export default function Home() {
               <Reveal key={f.title} delay={(i % 3) * 90}>
                 <div className="lift h-full rounded-2xl border border-neutral-100 bg-white p-6 hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.12)]">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-900 text-white">
-                    {[<FolderDown size={22} strokeWidth={1.8} />, <MonitorDown size={22} strokeWidth={1.8} />, <Link2 size={22} strokeWidth={1.8} />, <ClipboardList size={22} strokeWidth={1.8} />, <Zap size={22} strokeWidth={1.8} />, <Keyboard size={22} strokeWidth={1.8} />][i]}
+                    {[<FolderDown size={22} strokeWidth={1.8} />, <MonitorDown size={22} strokeWidth={1.8} />, <Link2 size={22} strokeWidth={1.8} />, <ClipboardList size={22} strokeWidth={1.8} />, <ShieldCheck size={22} strokeWidth={1.8} />, <Keyboard size={22} strokeWidth={1.8} />][i]}
                   </div>
-                  <h3 className="mt-4 text-[15px] font-semibold">{f.title}</h3>
+                  <h3
+                    className={`mt-4 text-[15px] font-semibold ${i === 5 ? 'notranslate' : ''}`}
+                    translate={i === 5 ? 'no' : undefined}
+                  >
+                    {f.title}
+                  </h3>
                   <p className="mt-2 text-[13.5px] leading-relaxed text-neutral-500">{f.desc}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 完整操作说明：快捷键统一使用英文键名，避免符号识别成本 */}
+      <section className="border-t border-neutral-100 bg-white">
+        <div className="mx-auto max-w-5xl px-6 py-24">
+          <Reveal>
+            <h2 className="text-center text-3xl font-semibold tracking-tight">{t.controlsTitle}</h2>
+            <p className="mt-3 text-center text-[15px] text-neutral-500">{t.controlsSub}</p>
+          </Reveal>
+          <div className="mt-12 grid gap-3 md:grid-cols-2">
+            {t.controls.map((control, index) => (
+              <Reveal key={control.keys} delay={(index % 2) * 70} className={index === t.controls.length - 1 ? 'md:col-span-2' : ''}>
+                <div className="lift flex h-full flex-col gap-3 rounded-2xl border border-neutral-100 bg-neutral-50/60 p-5 sm:flex-row sm:items-center sm:justify-between">
+                  <span className="text-[13.5px] leading-relaxed text-neutral-600">{control.action}</span>
+                  <kbd
+                    translate="no"
+                    className="notranslate shrink-0 rounded-lg border border-neutral-200 bg-white px-3 py-2 font-mono text-[11px] font-medium text-neutral-800 shadow-sm"
+                  >
+                    {control.keys}
+                  </kbd>
                 </div>
               </Reveal>
             ))}
@@ -341,7 +445,7 @@ export default function Home() {
         <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-3 px-6 py-8 text-[12px] text-neutral-400 sm:flex-row">
           <div className="flex items-center gap-2">
             <div className="h-3.5 w-7 rounded-full bg-neutral-900" />
-            <span>Ledge 纳岛</span>
+            <span><span translate="no" className="notranslate">Ledge</span> 纳岛</span>
           </div>
           <span>{t.footerTag}</span>
         </div>
