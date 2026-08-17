@@ -6,7 +6,8 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  // shadcn/ui 的生成组件目前没有被官网入口引用；避免模板导出规则干扰发布检查。
+  globalIgnores(['dist', 'src/components/ui']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -18,6 +19,12 @@ export default defineConfig([
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+    },
+  },
+  {
+    files: ['src/hooks/useReveal.tsx'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
     },
   },
 ])

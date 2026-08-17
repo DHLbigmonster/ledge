@@ -3,7 +3,8 @@ import '../App.css'
 import { Reveal } from '../hooks/useReveal'
 import {
   FolderDown, Link2, MonitorDown, ClipboardList, Zap, Keyboard,
-  ShieldCheck, WifiOff, Feather, ArrowDownToLine, Languages
+  ShieldCheck, WifiOff, Feather, ArrowDownToLine, Languages,
+  Cpu, CheckCircle2, MousePointerClick
 } from 'lucide-react'
 
 /* ================= 文案（英文为主，面向欧美市场） ================= */
@@ -11,141 +12,109 @@ import {
 const copy = {
   en: {
     download: 'Download for Mac',
-    freeNote: 'macOS 14+ · free during early access',
+    freeNote: 'macOS 14+ · Apple silicon · free public beta',
     heroTitle1: 'The notch',
     heroTitle2: 'is a drawer.',
     heroSub: 'Drop in files, screenshots, links, even windows. Pull them out whenever. The rest of the time, it stays out of your way.',
     items: 'items',
-    mockItems: ['deck.sketch', 'PRD page', 'WeChat window', 'screenshot', 'Claude 82%'],
     featuresTitle: 'What it does',
     featuresSub: 'Six things. All of them about keeping stuff within reach.',
     features: [
       { title: 'Drop it in.', desc: 'Drag anything to the top of the screen. The island opens and catches it. Your originals stay put — Ledge keeps references, not copies.' },
-      { title: 'Park a window.', desc: 'Drag a window by its title bar into the notch — or just press ⌃⌥L — and it folds away with a live thumbnail. Click it and it comes back where it was. Nothing else on the Mac does this.' },
+      { title: 'Park a window.', desc: 'Drag a window by its title bar into the notch — or just press ⌃⌥L — and it folds away with a live thumbnail. Click it and it comes back where it was.' },
       { title: 'Back to that tab.', desc: 'Drop a page in now. Later, one click takes you to the tab you already had open — not a fresh duplicate.' },
       { title: 'Screenshots, sorted.', desc: 'Turn it on and clipboard shots land on the island, then disappear after 24 hours. Things copied from your password manager never get in.' },
-      { title: 'AI quotas up top.', desc: 'Claude and Codex usage at a glance, read from local logs. No network calls, no credentials touched.' },
+      { title: 'AI activity up top.', desc: 'Recent Claude and Codex token activity at a glance, estimated from local logs. No network calls, no credentials touched.' },
       { title: '⌥1–9.', desc: 'Pin your staples to slots. One key opens the file, jumps to the tab, restores the window. The island doesn\u2019t even wake up.' },
     ],
-    specsTitle: 'Fast is a feature.',
-    specsSub: 'We measure smoothness in milliseconds, not adjectives.',
+    specsTitle: 'Built like a Mac app.',
+    specsSub: 'Native where it matters. Local by default.',
     specs: [
-      { value: '150ms', label: 'drop feels instant' },
-      { value: '120Hz', label: 'motion at full refresh' },
+      { value: 'Swift', label: 'native macOS app' },
+      { value: '14+', label: 'minimum macOS' },
       { value: '0', label: 'network calls in the core' },
-      { value: '120MB', label: 'memory, tops' },
+      { value: '~39MB', label: 'observed idle memory' },
     ],
     privacyTitle: 'No cloud. No account. No kidding.',
-    privacyDesc: 'Everything lives on your Mac. The core never touches the network. One purchase and it\u2019s yours — that\u2019s the whole business model.',
+    privacyDesc: 'Everything lives on your Mac. The core never touches the network. The public beta is free to download and needs no account.',
     privacyPoints: [
       'Core features work fully offline',
       'Password-manager clipboard content never stored',
-      'Pay once, no subscription, no sign-up',
+      'Free download, no subscription, no sign-up',
     ],
-    pricingTitle: 'Free during early access.',
-    pricingSub: 'The beta is free, full-featured, no sign-up. A paid one-time license comes later — early users get it free, forever.',
+    setupTitle: 'Install it in a minute.',
+    setupSub: 'The current v0.9.0 beta is built for Apple silicon. A universal Intel build has compiled successfully and will ship after hardware verification.',
+    setupSteps: [
+      'Download the DMG and drag Ledge into Applications.',
+      'On first launch, right-click Ledge and choose Open.',
+      'Grant Accessibility only when you use window parking.',
+    ],
+    compatibilityTitle: 'Compatibility',
+    compatibility: ['macOS 14 Sonoma or newer', 'Works with or without a physical notch', 'Apple silicon in v0.9.0 · Intel build in verification'],
+    pricingTitle: 'Free public beta.',
+    pricingSub: 'Download the complete beta for free. No account, trial timer, subscription, or payment details.',
     pricingCta: 'Download Ledge',
-    buyCta: 'Star on GitHub',
-    pricingNote: 'Requires macOS 14+ · first launch: right-click → Open (beta build, not notarized yet)',
+    buyCta: 'Release notes',
+    pricingNote: 'v0.9.0 · Apple silicon · macOS 14+ · beta build is not notarized yet',
     footerTag: 'The notch is a drawer · © 2026',
   },
   zh: {
     download: '免费下载',
-    freeNote: 'macOS 14+ · 免费试用',
+    freeNote: 'macOS 14+ · Apple 芯片 · 免费公开测试版',
     heroTitle1: '刘海，',
     heroTitle2: '是个抽屉。',
     heroSub: '文件、截图、链接，甚至窗口，拖进去就好。要用的时候拿出来。其余时间，它安安静静待在顶上。',
     items: '项',
-    mockItems: ['设计稿.sketch', 'PRD 文档', '微信窗口', '刚截的图', 'Claude 82%'],
     featuresTitle: '它能做什么',
     featuresSub: '六件事。每一件都为了让东西触手可及。',
     features: [
       { title: '拖进去就行。', desc: '任何东西拖到屏幕顶边，岛会张开接住。原文件原地不动——纳岛只存引用，不做拷贝。' },
-      { title: '窗口也能收。', desc: '拖着窗口标题栏到刘海，或者直接按 ⌃⌥L，窗口就带着实时截图折进岛里。点一下，原样回来。Mac 上没人做过这个。' },
+      { title: '窗口也能收。', desc: '拖着窗口标题栏到刘海，或者直接按 ⌃⌥L，窗口就带着实时截图折进岛里。点一下，原样回来。' },
       { title: '回到那个标签页。', desc: '网页拖进去，之后点一下，回的是你早就开着的那个标签页，不是再开一个新的。' },
       { title: '截图有着落了。', desc: '开启后，剪贴板里的截图自动落在岛上，24 小时后自己消失。密码管理器里的东西，永远进不来。' },
-      { title: 'AI 额度抬头可见。', desc: 'Claude 和 Codex 的用量瞥一眼就知道。读的是本地日志，不走网络，不碰凭据。' },
+      { title: 'AI 活跃用量抬头可见。', desc: '最近 5 小时的 Claude 和 Codex token 活跃量瞥一眼就知道。基于本地日志估算，不走网络，不碰凭据。' },
       { title: '⌥1–9。', desc: '常用的东西钉进槽位，一个键直接打开文件、跳回标签页、恢复窗口。岛都不用醒。' },
     ],
-    specsTitle: '快，本身就是功能。',
-    specsSub: '我们拿毫秒衡量丝滑，不拿形容词。',
+    specsTitle: '像 Mac 应用一样构建。',
+    specsSub: '关键体验原生实现，数据默认留在本地。',
     specs: [
-      { value: '150ms', label: '拖入快过眨眼' },
-      { value: '120Hz', label: '满刷新率动效' },
+      { value: 'Swift', label: '原生 macOS 应用' },
+      { value: '14+', label: '最低 macOS 版本' },
       { value: '0 次', label: '核心功能网络请求' },
-      { value: '120MB', label: '内存占用上限' },
+      { value: '约 39MB', label: '实测空闲内存' },
     ],
     privacyTitle: '没有云，没有账号，不开玩笑。',
-    privacyDesc: '所有东西都在你的 Mac 上。核心功能不碰网络。买断一次就一直是你的——这就是全部商业模式。',
+    privacyDesc: '所有东西都在你的 Mac 上。核心功能不碰网络。公开测试版免费下载，也不需要账号。',
     privacyPoints: [
       '核心功能完全离线可用',
       '密码管理器的剪贴板内容绝不入库',
-      '买断制，无订阅，无需注册',
+      '免费下载，无订阅，无需注册',
     ],
-    pricingTitle: '限免中。',
-    pricingSub: '测试阶段完全免费，全功能，不用注册。正式版将转为买断制——早期用户永久免费。',
+    setupTitle: '一分钟装好。',
+    setupSub: '当前 v0.9.0 测试版适用于 Apple 芯片；Intel 通用版已经编译通过，完成真机验证后发布。',
+    setupSteps: [
+      '下载 DMG，把 Ledge 拖入“应用程序”。',
+      '首次启动时右键 Ledge，选择“打开”。',
+      '只有使用窗口收纳时，才需要授予辅助功能权限。',
+    ],
+    compatibilityTitle: '兼容性',
+    compatibility: ['macOS 14 Sonoma 或更高版本', '有无实体刘海都能使用', 'v0.9.0 支持 Apple 芯片 · Intel 版验证中'],
+    pricingTitle: '免费公开测试版。',
+    pricingSub: '完整测试版免费下载。无需账号，没有试用倒计时、订阅或付款信息。',
     pricingCta: '下载 Ledge 纳岛',
-    buyCta: '去 GitHub 看看',
-    pricingNote: '需要 macOS 14+ · 首次打开请右键 → 打开（测试版未公证）',
+    buyCta: '查看版本说明',
+    pricingNote: 'v0.9.0 · Apple 芯片 · macOS 14+ · 测试版暂未公证',
     footerTag: '刘海是个抽屉 · © 2026',
   },
 }
 
 type Lang = keyof typeof copy
 
-/* 下载走 GitHub Release（限免阶段）；正式收费后在此接入 Stripe/Paddle Payment Link */
-const GITHUB_LINK = "https://github.com/DHLbigmonster/ledge"
+/* 免费公开测试版由 GitHub Release 提供下载 */
 const DOWNLOAD_LINK = "https://github.com/DHLbigmonster/ledge/releases/download/v0.9.0/Ledge-0.9.0.dmg"
+const RELEASE_LINK = "https://github.com/DHLbigmonster/ledge/releases/tag/v0.9.0"
 
-/* ---------- 首屏岛演示（CSS 循环动画：物料飞入 → 岛弹跳） ---------- */
-function IslandMock({ t }: { t: (typeof copy)['en'] }) {
-  const icons = [
-    <FolderDown key="a" size={16} />,
-    <Link2 key="b" size={16} />,
-    <MonitorDown key="c" size={16} />,
-    <ClipboardList key="d" size={16} />,
-    <Zap key="e" size={16} />,
-  ]
-  return (
-    <div className="relative mx-auto w-full max-w-2xl select-none">
-      <div className="rounded-t-[28px] border border-b-0 border-neutral-200 bg-white/70 px-6 pt-3 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.15)] backdrop-blur">
-        <div className="flex items-center justify-between text-[11px] text-neutral-500">
-          <span className="font-medium text-neutral-700">Finder</span>
-          <div className="capsule-breathe h-6 w-40 rounded-b-2xl bg-black" />
-          <span>12:00</span>
-        </div>
-        <div className="flex justify-center">
-          <div className="island-bounce relative z-10 mt-[-1px] w-[420px] rounded-b-3xl rounded-t-none bg-black px-5 pb-5 pt-3 text-white shadow-2xl">
-            {/* 飞入的物料 */}
-            <div className="pointer-events-none absolute -top-24 left-1/2 z-0 -translate-x-1/2">
-              <div className="chip-fly flex items-center gap-1.5 rounded-lg bg-neutral-900 px-2.5 py-1.5 text-[10px] text-white/85 shadow-lg ring-1 ring-white/15">
-                <FolderDown size={11} />
-                design.sketch
-              </div>
-            </div>
-            <div className="mb-3 flex items-center justify-between">
-              <span className="text-[12px] font-semibold text-white/90">Ledge</span>
-              <span className="text-[10px] text-white/40">5 {t.items}</span>
-            </div>
-            <div className="grid grid-cols-5 gap-2">
-              {t.mockItems.map((label, i) => (
-                <div key={label} className="flex flex-col items-center gap-1.5 rounded-xl bg-white/[0.07] px-1 py-2.5 transition-colors duration-300 hover:bg-white/[0.14]">
-                  <span className="text-white/80">{icons[i]}</span>
-                  <span className="w-full truncate text-center text-[9px] text-white/55">{label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div className="mt-6 grid grid-cols-3 gap-4 pb-8 opacity-60">
-          <div className="h-20 rounded-xl bg-neutral-100" />
-          <div className="h-20 rounded-xl bg-neutral-100" />
-          <div className="h-20 rounded-xl bg-neutral-100" />
-        </div>
-      </div>
-    </div>
-  )
-}
+/* ---------- 首屏演示：实机 demo.gif（public/ 下，由真机截屏合成） ---------- */
 
 export default function Home() {
   const [lang, setLang] = useState<Lang>('en')   // 欧美市场优先：默认英文
@@ -184,7 +153,7 @@ export default function Home() {
           </button>
           <a
             href="#download"
-            className="rounded-full bg-black px-4 py-1.5 text-[13px] font-medium text-white transition hover:scale-[1.03] hover:bg-neutral-800 active:scale-100"
+            className="hidden rounded-full bg-black px-4 py-1.5 text-[13px] font-medium text-white transition hover:scale-[1.03] hover:bg-neutral-800 active:scale-100 sm:inline-flex"
           >
             {t.download}
           </a>
@@ -197,7 +166,7 @@ export default function Home() {
         onMouseMove={onHeroMouseMove}
         onMouseLeave={() => setTilt({ x: 0, y: 0 })}
       >
-        <h1 className="hero-rise mx-auto max-w-3xl text-balance text-5xl font-semibold leading-[1.12] tracking-tight sm:text-6xl">
+        <h1 className="hero-rise mx-auto max-w-3xl text-balance text-4xl font-semibold leading-[1.12] tracking-tight sm:text-6xl">
           {t.heroTitle1}
           <br />
           {t.heroTitle2}
@@ -205,7 +174,7 @@ export default function Home() {
         <p className="hero-rise mx-auto mt-6 max-w-xl text-balance text-[17px] leading-relaxed text-neutral-500" style={{ animationDelay: '120ms' }}>
           {t.heroSub}
         </p>
-        <div className="hero-rise mt-9 flex items-center justify-center gap-3" style={{ animationDelay: '240ms' }}>
+        <div className="hero-rise mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row" style={{ animationDelay: '240ms' }}>
           <a
             id="download"
             href={DOWNLOAD_LINK}
@@ -224,7 +193,11 @@ export default function Home() {
             perspective: '800px',
           }}
         >
-          <IslandMock t={t} />
+          <img
+            src="./demo.gif"
+            alt="Ledge live demo — the notch capsule opens into a shelf"
+            className="mx-auto w-full max-w-3xl rounded-[28px] border border-neutral-200/70 shadow-[0_40px_90px_-24px_rgba(0,0,0,0.28)]"
+          />
         </div>
       </section>
 
@@ -248,6 +221,45 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* 安装与兼容性：在下载前把系统要求、权限与测试版边界讲清楚 */}
+      <section className="border-t border-neutral-100 bg-neutral-50/60">
+        <div className="mx-auto grid max-w-5xl gap-4 px-6 py-24 md:grid-cols-2">
+          <Reveal>
+            <div className="h-full rounded-2xl border border-neutral-100 bg-white p-7">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-900 text-white">
+                <MousePointerClick size={20} strokeWidth={1.8} />
+              </div>
+              <h2 className="mt-5 text-2xl font-semibold tracking-tight">{t.setupTitle}</h2>
+              <p className="mt-3 text-[14px] leading-relaxed text-neutral-500">{t.setupSub}</p>
+              <ol className="mt-6 space-y-3">
+                {t.setupSteps.map((step, index) => (
+                  <li key={step} className="flex gap-3 text-[13.5px] leading-relaxed text-neutral-700">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-[10px] font-semibold text-white">{index + 1}</span>
+                    {step}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </Reveal>
+          <Reveal delay={90}>
+            <div className="h-full rounded-2xl border border-neutral-100 bg-white p-7">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-900 text-white">
+                <Cpu size={20} strokeWidth={1.8} />
+              </div>
+              <h2 className="mt-5 text-2xl font-semibold tracking-tight">{t.compatibilityTitle}</h2>
+              <div className="mt-6 space-y-3">
+                {t.compatibility.map((item) => (
+                  <div key={item} className="flex items-start gap-3 text-[13.5px] leading-relaxed text-neutral-700">
+                    <CheckCircle2 className="mt-0.5 shrink-0" size={16} />
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -308,7 +320,7 @@ export default function Home() {
               {t.pricingCta}
             </a>
             <a
-              href={GITHUB_LINK}
+              href={RELEASE_LINK}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-neutral-900 px-8 py-3.5 text-[15px] font-medium text-neutral-900 transition hover:scale-[1.04] hover:bg-neutral-900 hover:text-white active:scale-100"
@@ -322,7 +334,7 @@ export default function Home() {
 
       {/* 页脚 */}
       <footer className="border-t border-neutral-100">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-8 text-[12px] text-neutral-400">
+        <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-3 px-6 py-8 text-[12px] text-neutral-400 sm:flex-row">
           <div className="flex items-center gap-2">
             <div className="h-3.5 w-7 rounded-full bg-neutral-900" />
             <span>Ledge 纳岛</span>
