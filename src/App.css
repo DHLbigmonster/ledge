@@ -1,0 +1,117 @@
+/* Ledge 官网全局样式 */
+
+#root {
+  margin: 0;
+  padding: 0;
+  max-width: none;
+  text-align: initial;
+}
+
+/* ---------- 滚动显现 ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Hero 入场 ---------- */
+@keyframes heroRise {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-rise {
+  opacity: 0;
+  animation: heroRise 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ---------- 首屏岛演示：物料飞入 + 落袋弹跳（4s 循环） ---------- */
+@keyframes chipFly {
+  0%   { opacity: 0; transform: translateY(110px) scale(0.85); }
+  12%  { opacity: 1; }
+  52%  { opacity: 1; transform: translateY(6px) scale(1); }
+  64%  { opacity: 0; transform: translateY(-6px) scale(0.5); }
+  100% { opacity: 0; transform: translateY(-6px) scale(0.5); }
+}
+.chip-fly {
+  opacity: 0;
+  animation: chipFly 4s cubic-bezier(0.3, 0.8, 0.4, 1) infinite;
+}
+
+@keyframes islandBounce {
+  0%, 58%  { transform: scale(1); }
+  66%      { transform: scale(1.035); }
+  78%      { transform: scale(0.995); }
+  88%, 100% { transform: scale(1); }
+}
+.island-bounce {
+  animation: islandBounce 4s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+/* ---------- 胶囊呼吸 ---------- */
+@keyframes capsuleBreathe {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.82; }
+}
+.capsule-breathe {
+  animation: capsuleBreathe 3.2s ease-in-out infinite;
+}
+
+/* ---------- 极光氛围（克制的单色石墨系，Kimi 式留白里的那一口呼吸） ---------- */
+@keyframes auroraDriftA {
+  0%   { transform: translate(-12%, -6%) scale(1) rotate(0deg); }
+  50%  { transform: translate(10%, 8%) scale(1.25) rotate(12deg); }
+  100% { transform: translate(-12%, -6%) scale(1) rotate(0deg); }
+}
+@keyframes auroraDriftB {
+  0%   { transform: translate(14%, 4%) scale(1.1) rotate(0deg); }
+  50%  { transform: translate(-8%, -10%) scale(0.9) rotate(-10deg); }
+  100% { transform: translate(14%, 4%) scale(1.1) rotate(0deg); }
+}
+.aurora-a {
+  animation: auroraDriftA 26s ease-in-out infinite;
+}
+.aurora-b {
+  animation: auroraDriftB 32s ease-in-out infinite;
+}
+
+/* ---------- 鼠标视差过渡 ---------- */
+.parallax {
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* ---------- 卡片悬浮 ---------- */
+.lift {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+.lift:hover {
+  transform: translateY(-4px);
+}
+
+/* ---------- 大数字微光 ---------- */
+@keyframes specGlow {
+  0%, 100% { text-shadow: 0 0 0 rgba(255,255,255,0); }
+  50%      { text-shadow: 0 0 24px rgba(255,255,255,0.25); }
+}
+.spec-glow {
+  animation: specGlow 4.5s ease-in-out infinite;
+}
+
+/* 尊重系统的减弱动效设置 */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .hero-rise, .chip-fly, .island-bounce, .capsule-breathe,
+  .aurora-a, .aurora-b, .parallax, .spec-glow {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
