@@ -175,6 +175,15 @@ function IslandDemo({ lang }: { lang: Lang }) {
           <span className="flex-1" />
           <span className="text-[8px] text-white/30 sm:text-[9px]">{zh ? '临时项目自动清理' : 'Temporary items auto-clear'}</span>
         </div>
+
+        <div className="flex h-8 items-center gap-2 border-t border-white/[0.07] bg-white/[0.06] px-3 text-[7px] text-white/55 sm:px-4 sm:text-[8px]">
+          <Keyboard size={12} className="shrink-0 text-white/45" />
+          <span translate="no" className="notranslate whitespace-nowrap font-mono font-semibold text-white/70">Option + Space</span>
+          <span className="whitespace-nowrap text-white/35">{zh ? '展开 / 收起' : 'Open / close'}</span>
+          <span className="h-3 w-px bg-white/10" />
+          <span translate="no" className="notranslate whitespace-nowrap font-mono font-semibold text-white/70">Control + Option + L</span>
+          <span className="hidden whitespace-nowrap text-white/35 sm:inline">{zh ? '收纳窗口' : 'Park window'}</span>
+        </div>
       </div>
     </div>
   )
