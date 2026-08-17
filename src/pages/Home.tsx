@@ -46,7 +46,7 @@ const copy = {
     setupSub: 'The latest public beta is built for Apple silicon. A universal Intel build has compiled successfully and will ship after hardware verification.',
     setupSteps: [
       'Download the DMG and drag Ledge into Applications.',
-      'On first launch, right-click Ledge and choose Open.',
+      'Open Ledge once. If macOS blocks it, use System Settings → Privacy & Security → Open Anyway.',
       'Grant Accessibility only when you use window parking.',
     ],
     compatibilityTitle: 'Compatibility',
@@ -94,7 +94,7 @@ const copy = {
     setupSub: '当前最新公开测试版适用于 Apple 芯片；Intel 通用版已经编译通过，完成真机验证后发布。',
     setupSteps: [
       '下载 DMG，把 Ledge 拖入“应用程序”。',
-      '首次启动时右键 Ledge，选择“打开”。',
+      '先尝试打开一次；若被系统拦截，到“系统设置 → 隐私与安全性”选择“仍要打开”。',
       '只有使用窗口收纳时，才需要授予辅助功能权限。',
     ],
     compatibilityTitle: '兼容性',
