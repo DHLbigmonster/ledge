@@ -1,4 +1,4 @@
-import { useState, type MouseEvent } from 'react'
+import { useEffect, useState, type MouseEvent } from 'react'
 import '../App.css'
 import { Reveal } from '../hooks/useReveal'
 import {
@@ -119,6 +119,10 @@ const RELEASE_LINK = "https://github.com/DHLbigmonster/ledge/releases/latest"
 export default function Home() {
   const [lang, setLang] = useState<Lang>('en')   // 欧美市场优先：默认英文
   const t = copy[lang]
+
+  useEffect(() => {
+    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en'
+  }, [lang])
 
   // 首屏鼠标视差
   const [tilt, setTilt] = useState({ x: 0, y: 0 })
