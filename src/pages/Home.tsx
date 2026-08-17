@@ -4,7 +4,7 @@ import { Reveal } from '../hooks/useReveal'
 import {
   FolderDown, Link2, MonitorDown, ClipboardList, Keyboard,
   ShieldCheck, WifiOff, Feather, ArrowDownToLine, Languages,
-  Cpu, CheckCircle2, MousePointerClick
+  Cpu, CheckCircle2, MousePointerClick, Settings
 } from 'lucide-react'
 
 /* ================= 文案（英文为主，面向欧美市场） ================= */
@@ -151,13 +151,10 @@ function IslandDemo({ lang }: { lang: Lang }) {
     >
       <div className="absolute left-1/2 top-0 w-[calc(100%_-_28px)] max-w-[620px] -translate-x-1/2 overflow-hidden rounded-b-[22px] bg-neutral-950 text-white shadow-2xl sm:w-[82%] sm:rounded-[24px]">
         <div className="flex h-11 items-center gap-2 border-b border-white/10 px-3 sm:px-4">
+          <Settings size={12} className="text-white/55" />
           <span translate="no" className="notranslate text-[11px] font-semibold sm:text-[13px]">Ledge</span>
           <span className="text-[9px] text-white/40 sm:text-[11px]">4 {zh ? '项' : 'items'}</span>
           <span className="flex-1" />
-          <span className="hidden text-[10px] text-white/55 md:inline">{zh ? '收纳窗口' : 'Park window'}</span>
-          <kbd translate="no" className="notranslate rounded-full bg-white/[0.08] px-2 py-1 font-sans text-[8px] font-medium text-white/55 sm:text-[9px]">
-            Control + Option + L
-          </kbd>
           <span className="hidden text-[10px] text-white/40 sm:inline">{zh ? '清空' : 'Clear'}</span>
         </div>
 
