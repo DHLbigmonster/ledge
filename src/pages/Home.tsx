@@ -52,6 +52,7 @@ const copy = {
     privacyPoints: [
       'Core features work fully offline',
       'Password-manager clipboard content never stored',
+      'Update checks run only with your permission',
       'Free download, no subscription, no sign-up',
     ],
     setupTitle: 'Install it in a minute.',
@@ -115,6 +116,7 @@ const copy = {
     privacyPoints: [
       '核心功能完全离线可用',
       '密码管理器的剪贴板内容绝不入库',
+      '更新检查会先征得你的同意',
       '免费下载，无订阅，无需注册',
     ],
     setupTitle: '一分钟装好。',

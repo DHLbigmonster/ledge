@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Ledge</title>
+        <item>
+            <title>0.9.11</title>
+            <pubDate>Wed, 19 Aug 2026 01:21:31 +0800</pubDate>
+            <sparkle:version>202608181719</sparkle:version>
+            <sparkle:shortVersionString>0.9.11</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <enclosure url="https://github.com/DHLbigmonster/ledge/releases/download/v0.9.11/Ledge-0.9.11.dmg" length="1733709" type="application/octet-stream" sparkle:edSignature="GEOxfEHtkK0e98bVwfpt5AClGOVuJNXpOYS0AmhNCDmEkTxOO9J3+i1YU2AWsi/DK+Wb8Tyxca7pw9r9ZtatBw=="/>
+        </item>
+    </channel>
+</rss>
