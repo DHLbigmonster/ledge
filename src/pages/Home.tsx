@@ -4,7 +4,7 @@ import { Reveal } from '../hooks/useReveal'
 import {
   FolderDown, Link2, MonitorDown, ClipboardList, Keyboard,
   ShieldCheck, WifiOff, Feather, ArrowDownToLine, Languages,
-  Cpu, CheckCircle2, MousePointerClick, Settings
+  Cpu, CheckCircle2, MousePointerClick, Settings, MessageSquarePlus
 } from 'lucide-react'
 
 /* ================= 文案（英文为主，面向欧美市场） ================= */
@@ -68,6 +68,9 @@ const copy = {
     pricingCta: 'Download Ledge',
     buyCta: 'Release notes',
     pricingNote: 'Latest public beta · Apple silicon · macOS 14+ · not notarized yet',
+    feedbackTitle: 'Found a bug? Have an idea?',
+    feedbackDesc: 'Ledge is built in the open. Report an issue or suggest a feature on GitHub — every report gets read.',
+    feedbackCta: 'Open GitHub Issues',
     footerTag: 'The notch is a drawer · © 2026',
   },
   zh: {
@@ -128,6 +131,9 @@ const copy = {
     pricingCta: '下载 Ledge 纳岛',
     buyCta: '查看版本说明',
     pricingNote: '最新公开测试版 · Apple 芯片 · macOS 14+ · 暂未公证',
+    feedbackTitle: '遇到问题？有想法？',
+    feedbackDesc: '纳岛在公开开发中。到 GitHub 提交问题或建议，每一条都会看。',
+    feedbackCta: '去 GitHub 反馈',
     footerTag: '刘海是个抽屉 · © 2026',
   },
 }
@@ -192,6 +198,7 @@ function IslandDemo({ lang }: { lang: Lang }) {
 /* 免费公开测试版由 GitHub Release 提供下载 */
 const DOWNLOAD_LINK = "https://github.com/DHLbigmonster/ledge/releases/latest/download/Ledge.dmg"
 const RELEASE_LINK = "https://github.com/DHLbigmonster/ledge/releases/latest"
+const ISSUES_LINK = "https://github.com/DHLbigmonster/ledge/issues/new/choose"
 
 /* ---------- 首屏演示：与当前应用信息架构同步的响应式界面示意 ---------- */
 
@@ -449,6 +456,27 @@ export default function Home() {
           </div>
           <p className="mt-4 text-[12px] text-neutral-400">{t.pricingNote}</p>
         </Reveal>
+      </section>
+
+      {/* 反馈 */}
+      <section className="border-t border-neutral-100">
+        <div className="mx-auto max-w-5xl px-6 py-20 text-center">
+          <Reveal>
+            <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-2xl bg-neutral-900 text-white">
+              <MessageSquarePlus size={20} />
+            </div>
+            <h2 className="mt-5 text-2xl font-semibold tracking-tight">{t.feedbackTitle}</h2>
+            <p className="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-neutral-500">{t.feedbackDesc}</p>
+            <a
+              href={ISSUES_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-7 inline-flex items-center gap-2 rounded-full border border-neutral-300 px-6 py-2.5 text-[14px] font-medium text-neutral-800 transition hover:scale-[1.04] hover:border-neutral-900 hover:bg-neutral-900 hover:text-white active:scale-100"
+            >
+              {t.feedbackCta}
+            </a>
+          </Reveal>
+        </div>
       </section>
 
       {/* 页脚 */}
