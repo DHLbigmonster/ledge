@@ -4,7 +4,7 @@ import { Reveal } from '../hooks/useReveal'
 import {
   FolderDown, Link2, MonitorDown, ClipboardList, Keyboard,
   ShieldCheck, WifiOff, Feather, ArrowDownToLine, Languages,
-  Cpu, CheckCircle2, MousePointerClick, Settings, MessageSquarePlus
+  Cpu, CheckCircle2, MousePointerClick, Settings, MessageSquarePlus, Wand2
 } from 'lucide-react'
 
 /* ================= 文案（英文为主，面向欧美市场） ================= */
@@ -19,15 +19,18 @@ const copy = {
     heroSub: 'Drop in files, screenshots, links, even windows. Pull them out whenever. The rest of the time, it stays out of your way.',
     items: 'items',
     featuresTitle: 'What it does',
-    featuresSub: 'Six things. All of them about keeping stuff within reach.',
+    featuresSub: 'Seven things. All of them about keeping stuff within reach.',
     features: [
       { title: 'Drop it in.', desc: 'Drag anything to the top of the screen. The island opens and catches it. Your originals stay put — Ledge keeps references, not copies.' },
+      { title: 'Beautify a screenshot.', desc: 'Drop a screenshot onto the Beautify zone — it comes back wrapped in an aurora gradient with rounded corners and a soft shadow, straight to your shelf and clipboard. Eight curated styles, zero sliders.' },
       { title: 'Park a window.', desc: 'Drag a window by its title bar into the notch — or press Control + Option + L — and it folds away with a snapshot thumbnail. Click it and it comes back where it was.' },
       { title: 'Back to that tab.', desc: 'Drop a page in now. Later, one click takes you to the tab you already had open — not a fresh duplicate.' },
       { title: 'Clipboard, sorted.', desc: 'Turn on image or text capture separately. New clipboard items land on the island, then disappear after 24 hours. Password-manager content never gets in.' },
       { title: 'Private by design.', desc: 'Everything stays on this Mac. Temporary items clear themselves, and password-manager clipboard content is never captured.' },
       { title: 'Option + 1–9.', desc: 'Pin your staples to slots. One shortcut opens the file, jumps to the tab, or restores the window. The island doesn\u2019t even wake up.' },
     ],
+    showcaseTitle: 'One drop. Share-ready.',
+    showcaseSub: 'Eight curated aurora styles. Rounded corners, soft shadow, straight to your shelf and clipboard. No sliders, no watermark.',
     controlsTitle: 'Know every move.',
     controlsSub: 'The complete shortcut and gesture guide for the current public beta.',
     controls: [
@@ -84,15 +87,18 @@ const copy = {
     heroSub: '文件、截图、链接，甚至窗口，拖进去就好。要用的时候拿出来。其余时间，它安安静静待在顶上。',
     items: '项',
     featuresTitle: '它能做什么',
-    featuresSub: '六件事。每一件都为了让东西触手可及。',
+    featuresSub: '七件事。每一件都为了让东西触手可及。',
     features: [
       { title: '拖进去就行。', desc: '任何东西拖到屏幕顶边，岛会张开接住。原文件原地不动——纳岛只存引用，不做拷贝。' },
+      { title: '截图一键精修。', desc: '截图拖到「美化」区，回来就是带极光渐变底、圆角和柔和投影的分享图，同时落进架子和剪贴板。八种精选风格，不用调任何参数。' },
       { title: '窗口也能收。', desc: '拖着窗口标题栏到刘海，或者按 Control + Option + L，窗口就带着截图缩略图折进岛里。点一下，原样回来。' },
       { title: '回到那个标签页。', desc: '网页拖进去，之后点一下，回的是你早就开着的那个标签页，不是再开一个新的。' },
       { title: '剪贴板有着落了。', desc: '图片和文字可分别开启自动捕获；新内容落在岛上，24 小时后自己消失。密码管理器里的东西永远进不来。' },
       { title: '只留在这台 Mac。', desc: '收纳内容只保存在本机；临时项目会自动清理，密码管理器剪贴板内容不会被捕获。' },
       { title: 'Option + 1–9。', desc: '常用的东西钉进槽位，一组快捷键直接打开文件、跳回标签页或恢复窗口。岛都不用醒。' },
     ],
+    showcaseTitle: '拖进去，就是成片。',
+    showcaseSub: '八种精选极光风格。圆角、柔和投影一次到位，成品同时进架子和剪贴板。零参数，无水印。',
     controlsTitle: '所有操作，一眼看懂。',
     controlsSub: '当前公开测试版完整的快捷键与鼠标操作说明。',
     controls: [
@@ -315,11 +321,11 @@ export default function Home({ forceLang }: { forceLang?: Lang } = {}) {
               <Reveal key={f.title} delay={(i % 3) * 90}>
                 <div className="lift h-full rounded-2xl border border-neutral-100 bg-white p-6 hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.12)]">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-900 text-white">
-                    {[<FolderDown size={22} strokeWidth={1.8} />, <MonitorDown size={22} strokeWidth={1.8} />, <Link2 size={22} strokeWidth={1.8} />, <ClipboardList size={22} strokeWidth={1.8} />, <ShieldCheck size={22} strokeWidth={1.8} />, <Keyboard size={22} strokeWidth={1.8} />][i]}
+                    {[<FolderDown size={22} strokeWidth={1.8} />, <Wand2 size={22} strokeWidth={1.8} />, <MonitorDown size={22} strokeWidth={1.8} />, <Link2 size={22} strokeWidth={1.8} />, <ClipboardList size={22} strokeWidth={1.8} />, <ShieldCheck size={22} strokeWidth={1.8} />, <Keyboard size={22} strokeWidth={1.8} />][i]}
                   </div>
                   <h3
-                    className={`mt-4 text-[15px] font-semibold ${i === 5 ? 'notranslate' : ''}`}
-                    translate={i === 5 ? 'no' : undefined}
+                    className={`mt-4 text-[15px] font-semibold ${i === 6 ? 'notranslate' : ''}`}
+                    translate={i === 6 ? 'no' : undefined}
                   >
                     {f.title}
                   </h3>
@@ -331,7 +337,23 @@ export default function Home({ forceLang }: { forceLang?: Lang } = {}) {
         </div>
       </section>
 
-      {/* 完整操作说明：快捷键统一使用英文键名，避免符号识别成本 */}
+      {/* 截图美化展示墙：8 种风格真实输出 */}
+      <section className="border-t border-neutral-100 bg-white">
+        <div className="mx-auto max-w-5xl px-6 py-24">
+          <Reveal>
+            <h2 className="text-center text-3xl font-semibold tracking-tight">{t.showcaseTitle}</h2>
+            <p className="mx-auto mt-3 max-w-xl text-center text-[15px] text-neutral-500">{t.showcaseSub}</p>
+          </Reveal>
+          <Reveal delay={120}>
+            <img
+              src={`${import.meta.env.BASE_URL}beautify-styles.jpg`}
+              alt="Ledge Beautify — eight aurora styles for screenshots"
+              loading="lazy"
+              className="lift mt-12 w-full rounded-2xl border border-neutral-100 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.18)]"
+            />
+          </Reveal>
+        </div>
+      </section>
       <section className="border-t border-neutral-100 bg-white">
         <div className="mx-auto max-w-5xl px-6 py-24">
           <Reveal>
