@@ -17,7 +17,7 @@ const faqJsonLd = {
   '@type': 'FAQPage',
   mainEntity: [
     ['Does Ledge work on a Mac without a notch?', 'Yes. On Macs without a notch it shows a slim floating capsule at the top center of the screen: semi-transparent when idle, solid black when open.'],
-    ['Which macOS version do I need?', 'macOS 14 Sonoma or newer. The public beta is built for Apple silicon; a universal Intel build ships after hardware verification.'],
+    ['Which macOS version do I need?', 'macOS 14 Sonoma or newer. One universal build runs on both Apple silicon and Intel Macs.'],
     ['Is Ledge free?', 'The public beta is completely free. A paid one-time license is planned for version 1.0.'],
     ['Where is my data stored?', 'Only on your Mac. The core app makes zero network calls.'],
     ['Does it really never read my password manager?', 'Correct. Clipboard capture hard-blocks the pasteboard types password managers use.'],
