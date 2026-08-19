@@ -37,6 +37,14 @@ const pages = [
     description: 'Ledge turns your Mac\'s notch into a private local drawer for files, screenshots, links, and windows. Free public beta for macOS 14+.',
   },
   {
+    path: '/zh/',
+    out: 'zh/index.html',
+    lang: 'zh-CN',
+    title: '纳岛 Ledge — 把 Mac 刘海变成抽屉',
+    description: '纳岛 Ledge 把 Mac 的刘海变成文件、截图、链接和窗口的本地抽屉：拖进去暂存，要用时取出。免费公开测试版，macOS 14+，Apple 芯片与 Intel 通用。',
+    keywords: 'Mac 灵动岛, 苹果电脑灵动岛, Mac 刘海利用, mac 文件暂存, 窗口收纳, 剪贴板管理, 纳岛, Ledge, dynamic island mac',
+  },
+  {
     path: '/faq/',
     out: 'faq/index.html',
     title: 'FAQ — Ledge, the Mac notch drawer',
@@ -72,6 +80,22 @@ for (const page of pages) {
     .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${page.title}$2`)
     .replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${page.description}$2`)
     .replace(/(<meta property="og:image" content=")[^"]*(")/, `$1${OG_IMAGE}$2`)
+
+  // 页面语言（默认模板为 en）
+  if (page.lang) {
+    html = html.replace('<html lang="en">', `<html lang="${page.lang}">`)
+  }
+  // 页面独立关键词
+  if (page.keywords) {
+    html = html.replace(/(<meta name="keywords" content=")[^"]*(")/, `$1${page.keywords}$2`)
+  }
+  // 中英文首页互指，告诉搜索引擎同一内容的语言版本关系
+  if (page.path === '/' || page.path === '/zh/') {
+    html = html.replace('</head>',
+      `    <link rel="alternate" hreflang="en" href="${SITE}/" />\n` +
+      `    <link rel="alternate" hreflang="zh-CN" href="${SITE}/zh/" />\n` +
+      `    <link rel="alternate" hreflang="x-default" href="${SITE}/" />\n  </head>`)
+  }
 
   if (page.jsonLd) {
     html = html.replace('</head>',

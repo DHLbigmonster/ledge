@@ -12,7 +12,7 @@ import {
 const copy = {
   en: {
     download: 'Download for Mac',
-    freeNote: 'macOS 14+ · Apple silicon · free public beta',
+    freeNote: 'macOS 14+ · Apple silicon & Intel · free public beta',
     openingNote: 'Free public beta. On first launch, macOS may ask you to confirm opening it in System Settings → Privacy & Security.',
     heroTitle1: 'The notch',
     heroTitle2: 'is a drawer.',
@@ -57,19 +57,19 @@ const copy = {
       'Free download, no subscription, no sign-up',
     ],
     setupTitle: 'Install it in a minute.',
-    setupSub: 'The latest public beta is built for Apple silicon. A universal Intel build has compiled successfully and will ship after hardware verification.',
+    setupSub: 'The latest public beta is a universal build — one download runs on both Apple silicon and Intel Macs.',
     setupSteps: [
       'Download the DMG and drag Ledge into Applications.',
       'Open Ledge once. If macOS blocks it, use System Settings → Privacy & Security → Open Anyway.',
       'Grant Accessibility only when you use window parking.',
     ],
     compatibilityTitle: 'Compatibility',
-    compatibility: ['macOS 14 Sonoma or newer', 'Works with or without a physical notch', 'Latest download: Apple silicon · Intel build in verification'],
+    compatibility: ['macOS 14 Sonoma or newer', 'Works with or without a physical notch', 'Latest download: universal build (Apple silicon + Intel)'],
     pricingTitle: 'Free public beta.',
     pricingSub: 'Download the complete beta for free. No account, trial timer, subscription, or payment details.',
     pricingCta: 'Download Ledge',
     buyCta: 'Release notes',
-    pricingNote: 'Latest public beta · Apple silicon · macOS 14+ · not notarized yet',
+    pricingNote: 'Latest public beta · Universal (Apple silicon + Intel) · macOS 14+ · not notarized yet',
     feedbackTitle: 'Found a bug? Have an idea?',
     feedbackDesc: 'Ledge is built in the open. Report an issue or suggest a feature on GitHub — every report gets read.',
     feedbackCta: 'Open GitHub Issues',
@@ -77,7 +77,7 @@ const copy = {
   },
   zh: {
     download: '免费下载',
-    freeNote: 'macOS 14+ · Apple 芯片 · 免费公开测试版',
+    freeNote: 'macOS 14+ · Apple 芯片 / Intel · 免费公开测试版',
     openingNote: '免费公开测试版。首次打开时，macOS 可能要求前往“系统设置 → 隐私与安全性”确认打开。',
     heroTitle1: '刘海，',
     heroTitle2: '是个抽屉。',
@@ -122,19 +122,19 @@ const copy = {
       '免费下载，无订阅，无需注册',
     ],
     setupTitle: '一分钟装好。',
-    setupSub: '当前最新公开测试版适用于 Apple 芯片；Intel 通用版已经编译通过，完成真机验证后发布。',
+    setupSub: '当前最新公开测试版为通用版本：一次下载，Apple 芯片和 Intel Mac 都能用。',
     setupSteps: [
       '下载 DMG，把 Ledge 拖入“应用程序”。',
       '先尝试打开一次；若被系统拦截，到“系统设置 → 隐私与安全性”选择“仍要打开”。',
       '只有使用窗口收纳时，才需要授予辅助功能权限。',
     ],
     compatibilityTitle: '兼容性',
-    compatibility: ['macOS 14 Sonoma 或更高版本', '有无实体刘海都能使用', '最新下载支持 Apple 芯片 · Intel 版验证中'],
+    compatibility: ['macOS 14 Sonoma 或更高版本', '有无实体刘海都能使用', '最新下载为通用版本（Apple 芯片 + Intel）'],
     pricingTitle: '免费公开测试版。',
     pricingSub: '完整测试版免费下载。无需账号，没有试用倒计时、订阅或付款信息。',
     pricingCta: '下载 Ledge 纳岛',
     buyCta: '查看版本说明',
-    pricingNote: '最新公开测试版 · Apple 芯片 · macOS 14+ · 暂未公证',
+    pricingNote: '最新公开测试版 · 通用版（Apple 芯片 + Intel）· macOS 14+ · 暂未公证',
     feedbackTitle: '遇到问题？有想法？',
     feedbackDesc: '纳岛在公开开发中。到 GitHub 提交问题或建议，每一条都会看。',
     feedbackCta: '去 GitHub 反馈',
@@ -206,11 +206,11 @@ const ISSUES_LINK = "https://github.com/DHLbigmonster/ledge/issues/new/choose"
 
 /* ---------- 首屏演示：与当前应用信息架构同步的响应式界面示意 ---------- */
 
-export default function Home() {
+export default function Home({ forceLang }: { forceLang?: Lang } = {}) {
   const [lang, setLang] = useState<Lang>(() =>
-    // SSR 预渲染时没有 navigator，默认英文；水合后按浏览器语言切换
-    typeof navigator !== 'undefined' &&
-    navigator.languages.some((language) => language.toLowerCase().startsWith('zh')) ? 'zh' : 'en'
+    // /zh/ 路由强制中文；否则 SSR 预渲染默认英文，水合后按浏览器语言切换
+    forceLang ?? (typeof navigator !== 'undefined' &&
+    navigator.languages.some((language) => language.toLowerCase().startsWith('zh')) ? 'zh' : 'en')
   )
   const t = copy[lang]
 

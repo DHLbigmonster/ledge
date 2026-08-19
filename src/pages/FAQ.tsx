@@ -7,7 +7,7 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: 'Which macOS version do I need?',
-    a: 'macOS 14 Sonoma or newer. The current public beta is built for Apple silicon; a universal Intel build has compiled successfully and ships after hardware verification.',
+    a: 'macOS 14 Sonoma or newer. One universal build runs on both Apple silicon and Intel Macs.',
   },
   {
     q: 'Is Ledge free?',
