@@ -46,8 +46,8 @@
       "alternateName": "纳岛",
       "operatingSystem": "macOS 14 or later",
       "applicationCategory": "UtilitiesApplication",
-      "softwareVersion": "0.9.4",
-      "processorRequirements": "Apple silicon",
+      "softwareVersion": "0.9.12",
+      "processorRequirements": "Apple silicon; Intel (universal build in verification)",
       "downloadUrl": "https://github.com/DHLbigmonster/ledge/releases/latest/download/Ledge.dmg",
       "isAccessibleForFree": true,
       "description": "Turn your Mac's notch into a private local drawer for files, screenshots, links, and windows.",
@@ -66,7 +66,7 @@
     <script data-goatcounter="https://ledge.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div id="root"><!--app-html--></div>
+    <script type="module" src="/src/entry-client.tsx"></script>
   </body>
 </html>

@@ -208,6 +208,8 @@ const ISSUES_LINK = "https://github.com/DHLbigmonster/ledge/issues/new/choose"
 
 export default function Home() {
   const [lang, setLang] = useState<Lang>(() =>
+    // SSR 预渲染时没有 navigator，默认英文；水合后按浏览器语言切换
+    typeof navigator !== 'undefined' &&
     navigator.languages.some((language) => language.toLowerCase().startsWith('zh')) ? 'zh' : 'en'
   )
   const t = copy[lang]
