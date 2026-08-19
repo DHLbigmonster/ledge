@@ -3,6 +3,14 @@
     <channel>
         <title>Ledge</title>
         <item>
+            <title>0.9.14</title>
+            <pubDate>Wed, 19 Aug 2026 12:09:58 +0800</pubDate>
+            <sparkle:version>202608190408</sparkle:version>
+            <sparkle:shortVersionString>0.9.14</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/DHLbigmonster/ledge/releases/download/v0.9.14/Ledge-0.9.14.dmg" length="2194564" type="application/octet-stream" sparkle:edSignature="F983VGDQaeESwEcTNZuQ6IaqWqGUNnO2XR01rkXNZHTpEa6KcnoZwEAjJylvKxoIaVOOU8pOVLxiFio7L+CNDw=="/>
+        </item>
+        <item>
             <title>0.9.13</title>
             <pubDate>Wed, 19 Aug 2026 11:45:06 +0800</pubDate>
             <sparkle:version>202608190343</sparkle:version>
