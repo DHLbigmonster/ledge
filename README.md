@@ -22,6 +22,7 @@ Drop files, screenshots, links — even windows. Grab them back whenever.
 Your desktop is not a storage system. Ledge lives in the notch — hover, drop, done. Everything stays on your Mac, exactly where you left it, until you need it again.
 
 - 📥 **Drop anything** — files, images, links, text. Drag them in, or just press `⌘V`.
+- ✨ **Beautify screenshots** — drop a screenshot onto the Beautify zone and get a share-ready image: aurora mesh gradient, rounded corners, soft shadow. 8 curated styles, result lands on your shelf and clipboard.
 - 🪟 **Stash windows** — park any app window into the island with a shortcut, jump straight back to it later. Perfect for background AI agents and chat windows.
 - 🗂 **Batch stacking** — drop several items at once and they stack into one tidy pile. Tap to fan them out, drag one out, or move the whole stack.
 - 📤 **AirDrop zone** — drag any item onto the AirDrop zone and it sends. No Finder, no Share menu.
