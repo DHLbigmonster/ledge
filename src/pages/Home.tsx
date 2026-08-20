@@ -2,7 +2,7 @@ import { useEffect, useState, type MouseEvent } from 'react'
 import '../App.css'
 import { Reveal } from '../hooks/useReveal'
 import {
-  FolderDown, Link2, MonitorDown, ClipboardList, Keyboard,
+  FolderDown, Link2, MonitorDown, ClipboardList, Layers3,
   ShieldCheck, WifiOff, Feather, ArrowDownToLine, Languages,
   Cpu, CheckCircle2, MousePointerClick, Settings, MessageSquarePlus, Wand2,
   AudioLines, Pin, RefreshCw
@@ -32,7 +32,7 @@ const copy = {
       { title: 'Private by design.', desc: 'Shelf content stays on this Mac. Temporary items clear themselves, and password-manager clipboard content is never captured.' },
     ],
     showcaseTitle: 'One drop. Share-ready.',
-    showcaseSub: 'Eight curated aurora styles. Rounded corners, soft shadow, straight to your shelf and clipboard. No sliders, no watermark.',
+    showcaseSub: 'Four of eight real outputs from the current app. Rounded corners, soft shadow, straight to your shelf and clipboard. No sliders, no watermark.',
     controlsTitle: 'Know every move.',
     controlsSub: 'The complete shortcut and gesture guide for the current public beta.',
     controls: [
@@ -101,7 +101,7 @@ const copy = {
       { title: '只留在这台 Mac。', desc: '收纳内容只保存在本机；临时项目会自动清理，密码管理器剪贴板内容不会被捕获。' },
     ],
     showcaseTitle: '拖进去，就是成片。',
-    showcaseSub: '八种精选极光风格。圆角、柔和投影一次到位，成品同时进架子和剪贴板。零参数，无水印。',
+    showcaseSub: '下面是当前版本八种预设中的四种真实输出。圆角、柔和投影一次到位，成品同时进架子和剪贴板。零参数，无水印。',
     controlsTitle: '所有操作，一眼看懂。',
     controlsSub: '当前公开测试版完整的快捷键与鼠标操作说明。',
     controls: [
@@ -161,6 +161,11 @@ function IslandDemo({ lang }: { lang: Lang }) {
     { icon: <Link2 size={20} />, title: zh ? '项目页面' : 'Project page' },
     { icon: <FolderDown size={20} />, title: zh ? '资料文件夹' : 'Assets folder' },
   ]
+  const tools = [
+    { icon: <WifiOff size={17} />, title: zh ? '投送' : 'AirDrop' },
+    { icon: <Wand2 size={17} />, title: zh ? '美化' : 'Beautify' },
+    { icon: <AudioLines size={17} className="text-red-400" />, title: zh ? '录音' : 'Record' },
+  ]
 
   return (
     <div
@@ -168,40 +173,38 @@ function IslandDemo({ lang }: { lang: Lang }) {
       aria-label={zh ? '纳岛展开后的收纳界面示意' : 'Ledge expanded shelf interface'}
       className="relative mx-auto min-h-[260px] w-full max-w-3xl overflow-hidden rounded-[28px] border border-neutral-200/70 bg-[radial-gradient(circle_at_50%_0%,rgba(99,102,241,0.14),transparent_56%),linear-gradient(180deg,#f6f7fb,#ffffff)] shadow-[0_40px_90px_-24px_rgba(0,0,0,0.28)] sm:min-h-[330px]"
     >
-      <div className="absolute left-1/2 top-0 w-[calc(100%_-_28px)] max-w-[620px] -translate-x-1/2 overflow-hidden rounded-b-[22px] bg-neutral-950 text-white shadow-2xl sm:w-[82%] sm:rounded-[24px]">
-        <div className="flex h-11 items-center gap-2 border-b border-white/10 px-3 sm:px-4">
-          <Settings size={12} className="text-white/55" />
+      <div className="absolute left-1/2 top-0 w-[calc(100%_-_18px)] max-w-[640px] -translate-x-1/2 overflow-hidden rounded-b-[30px] bg-neutral-950 text-white shadow-2xl sm:w-[86%]">
+        <div className="flex h-12 items-center gap-2 px-4">
+          <div className="flex h-5 w-5 items-center justify-center rounded-md bg-white text-black">
+            <span className="h-[3px] w-3 rounded-full bg-black" />
+          </div>
           <span translate="no" className="notranslate text-[11px] font-semibold sm:text-[13px]">Ledge</span>
           <span className="text-[9px] text-white/40 sm:text-[11px]">4 {zh ? '项' : 'items'}</span>
           <span className="flex-1" />
           <span className="hidden text-[10px] text-white/40 sm:inline">{zh ? '清空' : 'Clear'}</span>
+          <span className="ml-2 text-white/45"><Layers3 size={14} /></span>
+          <span className="ml-2 text-white/45"><Settings size={14} /></span>
         </div>
 
-        <div className="flex h-[116px] items-center justify-center -space-x-3 px-3 sm:h-[152px] sm:-space-x-2 sm:px-6">
-          {demoItems.map((item, index) => (
-            <div key={item.title} className="relative shrink-0" style={{ transform: `rotate(${[-4, 3, -2, 4][index]}deg)` }}>
-              <div className="flex h-[82px] w-[76px] flex-col items-center justify-center gap-2 rounded-2xl border border-white/[0.08] bg-white/[0.07] shadow-lg transition duration-300 hover:z-10 hover:scale-110 hover:bg-white/[0.13] sm:h-[104px] sm:w-[96px]">
-                <span className="text-white/75">{item.icon}</span>
-                <span className="max-w-[68px] truncate text-[8px] text-white/55 sm:max-w-[84px] sm:text-[9px]">{item.title}</span>
+        <div className="flex h-[194px] items-center gap-3 px-4 pb-3 sm:h-[216px]">
+          <div className="flex w-12 shrink-0 flex-col gap-1.5 sm:w-14">
+            {tools.map((tool) => (
+              <div key={tool.title} className="flex h-12 flex-col items-center justify-center gap-1 rounded-xl border border-dashed border-white/25 bg-white/[0.035] transition hover:scale-[1.04] hover:border-indigo-400 hover:bg-indigo-500/10 sm:h-[58px]">
+                <span className="text-white/80">{tool.icon}</span>
+                <span className="text-[7px] font-medium text-white/55 sm:text-[8px]">{tool.title}</span>
               </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="flex h-8 items-center gap-2 border-t border-white/[0.07] bg-white/[0.03] px-3 sm:px-4">
-          <ShieldCheck size={12} className="text-emerald-400/75" />
-          <span className="text-[8px] text-white/55 sm:text-[9px]">{zh ? '仅保存在这台 Mac' : 'Stored only on this Mac'}</span>
-          <span className="flex-1" />
-          <span className="text-[8px] text-white/30 sm:text-[9px]">{zh ? '临时项目自动清理' : 'Temporary items auto-clear'}</span>
-        </div>
-
-        <div className="flex h-8 items-center gap-2 border-t border-white/[0.07] bg-white/[0.06] px-3 text-[7px] text-white/55 sm:px-4 sm:text-[8px]">
-          <Keyboard size={12} className="shrink-0 text-white/45" />
-          <span translate="no" className="notranslate whitespace-nowrap font-mono font-semibold text-white/70">Option + Space</span>
-          <span className="whitespace-nowrap text-white/35">{zh ? '展开 / 收起' : 'Open / close'}</span>
-          <span className="h-3 w-px bg-white/10" />
-          <span translate="no" className="notranslate whitespace-nowrap font-mono font-semibold text-white/70">Control + Option + L</span>
-          <span className="hidden whitespace-nowrap text-white/35 sm:inline">{zh ? '收纳窗口' : 'Park window'}</span>
+            ))}
+          </div>
+          <div className="flex min-w-0 flex-1 items-center justify-center -space-x-3 sm:-space-x-2">
+            {demoItems.map((item, index) => (
+              <div key={item.title} className="relative shrink-0" style={{ transform: `rotate(${[-4, 3, -2, 4][index]}deg)` }}>
+                <div className="flex h-[86px] w-[74px] flex-col items-center justify-center gap-2 rounded-2xl border border-white/[0.08] bg-white/[0.07] shadow-lg transition duration-300 hover:z-10 hover:scale-110 hover:bg-white/[0.13] sm:h-[108px] sm:w-[98px]">
+                  <span className="text-white/75">{item.icon}</span>
+                  <span className="max-w-[66px] truncate text-[8px] text-white/55 sm:max-w-[86px] sm:text-[9px]">{item.title}</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -337,7 +340,7 @@ export default function Home({ forceLang }: { forceLang?: Lang } = {}) {
         </div>
       </section>
 
-      {/* 截图美化展示墙：8 种风格真实输出 */}
+      {/* 截图美化：当前版本的真实输出，Guizang Swiss 编排 */}
       <section className="border-t border-neutral-100 bg-white">
         <div className="mx-auto max-w-5xl px-6 py-24">
           <Reveal>
@@ -346,8 +349,8 @@ export default function Home({ forceLang }: { forceLang?: Lang } = {}) {
           </Reveal>
           <Reveal delay={120}>
             <img
-              src={`${import.meta.env.BASE_URL}beautify-styles.jpg`}
-              alt="Ledge Beautify — eight aurora styles for screenshots"
+              src={`${import.meta.env.BASE_URL}beautify-current.jpg`}
+              alt="Ledge Beautify — four real outputs from the current app"
               loading="lazy"
               className="lift mt-12 w-full rounded-2xl border border-neutral-100 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.18)]"
             />
