@@ -27,9 +27,11 @@ Your desktop is not a storage system. Ledge lives in the notch — hover, drop, 
 - 🗂 **Batch stacking** — drop several items at once and they stack into one tidy pile. Tap to fan them out, drag one out, or move the whole stack.
 - 📤 **AirDrop zone** — drag any item onto the AirDrop zone and it sends. No Finder, no Share menu.
 - 📋 **Clipboard capture** — screenshots and copied text can land on the shelf automatically (optional, off by default for text).
+- 🎙 **Meeting recording** — choose a save folder the first time, then mix Mac system audio and your microphone into one local AAC `.m4a`. Ledge records audio only, never screen frames or video.
+- 📌 **Permanent pinning** — pinned items never expire and survive Clear. Unpin them before using the card X, `⌘⌫`, or a bulk delete.
 - ⚡️ **Your shortcuts** — every hotkey is remappable in Settings.
 - 🖥 **Notch or no notch** — melts into the notch on notched MacBooks; becomes a slim Top Handle on notchless Macs, Intel included. One universal build.
-- 🔒 **100% local** — no account, no cloud, no analytics. Your items never leave your Mac.
+- 🔒 **Local core, transparent updates** — shelf content and recordings stay on your Mac. There is no account, cloud sync, or in-app usage telemetry; Sparkle checks a GitHub Pages feed and retrieves updates from GitHub Releases.
 
 ## Installation
 
@@ -46,8 +48,9 @@ Your desktop is not a storage system. Ledge lives in the notch — hover, drop, 
    **Or System Settings:** try to open the app → dismiss the warning → *System Settings → Privacy & Security* → scroll down → **Open Anyway**.
 
 4. Optional: for **window stashing**, grant Accessibility access when prompted (*System Settings → Privacy & Security → Accessibility*).
+5. Optional: the first **meeting recording** asks you to choose a save folder, then needs *Screen & System Audio Recording* permission for Mac audio and *Microphone* permission for your mic. Ledge saves audio only as a local `.m4a`; it does not save screen video.
 
-Ledge updates itself automatically in the background — no need to re-download.
+Ledge uses Sparkle for automatic update checks. Sparkle reads the signed appcast on GitHub Pages and retrieves approved releases from GitHub; Ledge does not send app-usage telemetry.
 
 ## Usage
 
@@ -56,6 +59,8 @@ Ledge updates itself automatically in the background — no need to re-download.
 3. **Drop** files, images, links or text onto it — or press `⌘V` while it's open to paste from the clipboard.
 4. **Hover** an item to preview, **double-click** to open, **right-click** for Copy / Open / AirDrop / Delete.
 5. **Drag** an item out to wherever you need it — Finder, a chat box, a browser.
+6. **Pin** anything you need to keep. Pinned items survive expiry and Clear; unpin before deleting.
+7. Use **Record** to choose a folder on first use and start an audio-only meeting recording; stop it to save the local `.m4a` onto the shelf.
 
 ### Default shortcuts
 
@@ -65,7 +70,7 @@ Ledge updates itself automatically in the background — no need to re-download.
 | Stash the front window | `⌃ ⌥ L` |
 | Jump back to a stashed window | `⌃ ⌥ ⇧ L` |
 | Paste clipboard into the island | `⌘ V` (while open) |
-| Delete hovered item | `⌘ ⌫` (while open) |
+| Delete hovered item | `⌘ ⌫` (while open; pinned items must be unpinned first) |
 | Close the island | `Esc` |
 
 All remappable in **Settings** (gear icon, top-left of the island).
@@ -73,13 +78,19 @@ All remappable in **Settings** (gear icon, top-left of the island).
 ## FAQ
 
 **Does anything leave my Mac?**
-No. Ledge has no account system, no cloud sync, no analytics. The only network request it ever makes is checking for app updates.
+Your shelf content, clipboard captures, and meeting recordings stay on your Mac. Ledge has no account system, cloud sync, or in-app usage telemetry. Sparkle does contact the signed appcast on GitHub Pages and GitHub Releases to check for and retrieve updates.
+
+**What does meeting recording capture?**
+Mac system audio and your microphone are mixed into one local AAC `.m4a` in the folder you choose on first use. The app registers audio output only, so it does not save screen frames or video. macOS asks for Screen & System Audio Recording and Microphone permissions.
+
+**Can Clear delete something important?**
+Not if you pin it. Pinned items never expire and Clear leaves them alone. The card X, `⌘⌫`, batch deletion, and stack deletion also refuse to remove pinned content until you unpin it.
 
 **Why does window stashing need Accessibility access?**
 macOS requires it to move and resize other apps' windows. Everything else in Ledge works without it.
 
 **Intel Mac? No notch?**
-Same download. Ledge detects your screen and shows a slim Top Handle instead — hover it and it opens just the same.
+Same download. Ledge detects your screen and attaches a slim, opaque-black Top Handle to the top edge. It stays compact while idle and expands into the same solid-black shelf.
 
 **Where are my items stored?**
 In `~/Library/Application Support/Ledge`. Files are referenced in place — Ledge never copies or uploads them.
@@ -93,7 +104,7 @@ Found a bug? Have an idea? [Open an issue](https://github.com/DHLbigmonster/ledg
 <details>
 <summary>中文简介</summary>
 
-纳岛（Ledge）把 MacBook 的刘海变成一个本地收纳架：文件、截图、链接、窗口都能拖进去，随时取回。支持批量堆叠、隔空投送专区、剪贴板捕获、自定义快捷键，纯本地运行、无任何账号与网络依赖。没有刘海的 Mac（含 Intel）会自动变成顶部细条，同一安装包通用。
+纳岛（Ledge）把 MacBook 的刘海变成一个本地收纳架：文件、截图、链接、窗口都能拖进去，随时取回。支持批量堆叠、隔空投送专区、剪贴板捕获、会议录音与永久固定。第一次录音先由用户选择保存文件夹；系统声音和麦克风会保存为本地 `.m4a`，只录音频，不保存屏幕画面。固定素材会被“清空”和删除操作保护。核心内容留在本机，没有账号、云同步或应用内使用遥测；Sparkle 仅通过 GitHub Pages 更新源和 GitHub Releases 检查、获取更新。没有刘海的 Mac（含 Intel）会显示贴顶的纯黑 Top Handle，同一安装包通用。
 
 </details>
 

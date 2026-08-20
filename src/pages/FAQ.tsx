@@ -1,39 +1,5 @@
 import Layout from '../components/Layout'
-
-const faqs: { q: string; a: string }[] = [
-  {
-    q: 'Does Ledge work on a Mac without a notch?',
-    a: 'Yes. On Macs with a physical notch, Ledge fuses with it. On Macs without one — including every Intel model — it shows a slim floating capsule at the top center of the screen: semi-transparent when idle, solid black when open. Everything works the same.',
-  },
-  {
-    q: 'Which macOS version do I need?',
-    a: 'macOS 14 Sonoma or newer. One universal build runs on both Apple silicon and Intel Macs.',
-  },
-  {
-    q: 'Is Ledge free?',
-    a: 'The public beta is completely free — no account, no trial timer, no subscription. A paid one-time license is planned for version 1.0, and everyone on the beta will get a launch discount.',
-  },
-  {
-    q: 'Where is my data stored?',
-    a: 'Only on your Mac, in ~/Library/Application Support/Ledge. The core app makes zero network calls. The single exception is the update checker, which asks a feed on GitHub Pages whether a newer version exists — it sends nothing about you.',
-  },
-  {
-    q: 'Does it really never read my password manager?',
-    a: 'Correct. Clipboard capture (which is off by default) hard-blocks the concealed, transient, and auto-generated pasteboard types that 1Password and other password managers use. That content is never read, never stored.',
-  },
-  {
-    q: 'How do I park a window in the notch?',
-    a: 'Press Control + Option + L while any window is frontmost, and it folds into the island with a snapshot thumbnail. Click the card — or press Control + Option + Shift + L — and the window comes back. Window parking needs Accessibility permission; Ledge walks you through it the first time.',
-  },
-  {
-    q: 'What happens to my files if I uninstall?',
-    a: 'Nothing. Ledge stores references, not copies — your originals never move. Delete the app and the shelf data in Application Support, and everything else stays exactly where it was.',
-  },
-  {
-    q: 'Why does macOS warn me when I first open it?',
-    a: 'The beta is signed but not yet notarized with Apple, so Gatekeeper asks for one extra confirmation: System Settings → Privacy & Security → Open Anyway. Notarization is planned before the paid release.',
-  },
-]
+import { faqs } from '../content/faqs'
 
 /** FAQ 页：英文优先（主战场欧美），FAQPage 结构化数据由构建脚本注入 */
 export default function FAQ() {
