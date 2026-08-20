@@ -7,7 +7,7 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const { render } = await import(join(root, 'dist-ssr/entry-server.js'))
+const { render, faqs } = await import(join(root, 'dist-ssr/entry-server.js'))
 
 const SITE = 'https://dhlbigmonster.github.io/ledge'
 const OG_IMAGE = `${SITE}/og-image.png`
@@ -15,13 +15,7 @@ const OG_IMAGE = `${SITE}/og-image.png`
 const faqJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: [
-    ['Does Ledge work on a Mac without a notch?', 'Yes. On Macs without a notch it shows a slim floating capsule at the top center of the screen: semi-transparent when idle, solid black when open.'],
-    ['Which macOS version do I need?', 'macOS 14 Sonoma or newer. One universal build runs on both Apple silicon and Intel Macs.'],
-    ['Is Ledge free?', 'The public beta is completely free. A paid one-time license is planned for version 1.0.'],
-    ['Where is my data stored?', 'Only on your Mac. The core app makes zero network calls.'],
-    ['Does it really never read my password manager?', 'Correct. Clipboard capture hard-blocks the pasteboard types password managers use.'],
-  ].map(([q, a]) => ({
+  mainEntity: faqs.map(({ q, a }) => ({
     '@type': 'Question',
     name: q,
     acceptedAnswer: { '@type': 'Answer', text: a },
@@ -34,15 +28,15 @@ const pages = [
     path: '/',
     out: 'index.html',
     title: 'Ledge 纳岛 — Your Mac\'s notch is a drawer',
-    description: 'Ledge turns your Mac\'s notch into a private local drawer for files, screenshots, links, and windows. Free public beta for macOS 14+.',
+    description: 'Ledge turns your Mac\'s notch into a local drawer for files, windows, pinned items, and audio-only meeting recordings. Free public beta for macOS 14+.',
   },
   {
     path: '/zh/',
     out: 'zh/index.html',
     lang: 'zh-CN',
     title: '纳岛 Ledge — 把 Mac 刘海变成抽屉',
-    description: '纳岛 Ledge 把 Mac 的刘海变成文件、截图、链接和窗口的本地抽屉：拖进去暂存，要用时取出。免费公开测试版，macOS 14+，Apple 芯片与 Intel 通用。',
-    keywords: 'Mac 灵动岛, 苹果电脑灵动岛, Mac 刘海利用, mac 文件暂存, 窗口收纳, 剪贴板管理, 纳岛, Ledge, dynamic island mac',
+    description: '纳岛 Ledge 把 Mac 刘海变成文件、窗口与永久固定内容的本地抽屉，还能把系统声音和麦克风录成本地 m4a。免费公开测试版，macOS 14+。',
+    keywords: 'Mac 灵动岛, 苹果电脑灵动岛, Mac 刘海利用, mac 文件暂存, 窗口收纳, 会议录音, 系统音频录制, 剪贴板管理, 纳岛, Ledge, dynamic island mac',
   },
   {
     path: '/faq/',
@@ -55,7 +49,7 @@ const pages = [
     path: '/compare/notchnook/',
     out: 'compare/notchnook/index.html',
     title: 'Ledge vs NotchNook — an honest comparison',
-    description: 'NotchNook is a widget tray; Ledge is a drawer. Feature-by-feature comparison: price, window parking, text drag-out, clipboard capture, and who should pick which.',
+    description: 'NotchNook is a widget tray; Ledge is a drawer. Compare price, window parking, text drag-out, clipboard capture, and who should pick which.',
   },
   {
     path: '/compare/yoink/',

@@ -9,7 +9,7 @@ const rows: { feature: string; ledge: string; rival: string }[] = [
   { feature: 'One click back to the original browser tab', ledge: 'Yes', rival: 'No' },
   { feature: 'Media controls / Now Playing', ledge: 'Not yet', rival: 'Yes' },
   { feature: 'Widgets (calendar, mirror, shortcuts)', ledge: 'Not yet', rival: 'Yes' },
-  { feature: 'Works on Macs without a notch', ledge: 'Yes — floating capsule', rival: 'Yes' },
+  { feature: 'Works on Macs without a notch', ledge: 'Yes — slim opaque-black Top Handle', rival: 'Yes' },
   { feature: 'Local-only, zero account', ledge: 'Yes — core makes no network calls', rival: 'Yes' },
 ]
 

@@ -4,7 +4,8 @@ import { Reveal } from '../hooks/useReveal'
 import {
   FolderDown, Link2, MonitorDown, ClipboardList, Keyboard,
   ShieldCheck, WifiOff, Feather, ArrowDownToLine, Languages,
-  Cpu, CheckCircle2, MousePointerClick, Settings, MessageSquarePlus, Wand2
+  Cpu, CheckCircle2, MousePointerClick, Settings, MessageSquarePlus, Wand2,
+  AudioLines, Pin, RefreshCw
 } from 'lucide-react'
 
 /* ================= 文案（英文为主，面向欧美市场） ================= */
@@ -19,14 +20,16 @@ const copy = {
     heroSub: 'Drop in files, screenshots, links, even windows. Pull them out whenever. The rest of the time, it stays out of your way.',
     items: 'items',
     featuresTitle: 'What it does',
-    featuresSub: 'Six things. All of them about keeping stuff within reach.',
+    featuresSub: 'Eight things. All of them about keeping stuff within reach.',
     features: [
       { title: 'Drop it in.', desc: 'Drag anything to the top of the screen. The island opens and catches it. Your originals stay put — Ledge keeps references, not copies.' },
       { title: 'Beautify a screenshot.', desc: 'Drop a screenshot onto the Beautify zone — it comes back wrapped in an aurora gradient with rounded corners and a soft shadow, straight to your shelf and clipboard. Eight curated styles, zero sliders.' },
       { title: 'Park a window.', desc: 'Drag a window by its title bar into the notch — or press Control + Option + L — and it folds away with a snapshot thumbnail. Click it and it comes back where it was.' },
       { title: 'Back to that tab.', desc: 'Drop a page in now. Later, one click takes you to the tab you already had open — not a fresh duplicate.' },
       { title: 'Clipboard, sorted.', desc: 'Turn on image or text capture separately. New clipboard items land on the island, then disappear after 24 hours. Password-manager content never gets in.' },
-      { title: 'Private by design.', desc: 'Everything stays on this Mac. Temporary items clear themselves, and password-manager clipboard content is never captured.' },
+      { title: 'Record the meeting.', desc: 'Choose a save folder the first time, then one click mixes Mac system audio and your microphone into a local .m4a. Ledge records audio only — never screen video.' },
+      { title: 'Pin what matters.', desc: 'Pinned items survive expiry and Clear. They stay protected from the card X, Command + Delete, and bulk removal until you unpin them.' },
+      { title: 'Private by design.', desc: 'Shelf content stays on this Mac. Temporary items clear themselves, and password-manager clipboard content is never captured.' },
     ],
     showcaseTitle: 'One drop. Share-ready.',
     showcaseSub: 'Eight curated aurora styles. Rounded corners, soft shadow, straight to your shelf and clipboard. No sliders, no watermark.',
@@ -37,7 +40,7 @@ const copy = {
       { keys: 'Control + Option + L', action: 'Park the current front window' },
       { keys: 'Control + Option + Shift + L', action: 'Restore the most recently parked window' },
       { keys: 'Command + V', action: 'Paste clipboard content while the island is open' },
-      { keys: 'Command + Delete', action: 'Remove the item under your pointer while the island is open' },
+      { keys: 'Command + Delete', action: 'Remove the item under your pointer while the island is open (unpin it first)' },
       { keys: 'Escape', action: 'Close the island immediately' },
       { keys: 'Mouse', action: 'Click to copy, double-click to open, right-click for more actions, or drag an item back out' },
     ],
@@ -46,16 +49,16 @@ const copy = {
     specs: [
       { value: 'Swift', label: 'native macOS app' },
       { value: '14+', label: 'minimum macOS' },
-      { value: '0', label: 'network calls in the core' },
+      { value: 'Local', label: 'core content storage' },
       { value: '~39MB', label: 'observed idle memory' },
     ],
-    privacyTitle: 'No cloud. No account. No kidding.',
-    privacyDesc: 'Everything lives on your Mac. The core never touches the network. The public beta is free to download and needs no account.',
+    privacyTitle: 'Your shelf stays local.',
+    privacyDesc: 'Shelf contents, clipboard captures, and meeting recordings stay on your Mac. The app has no account, cloud sync, or usage telemetry. Sparkle contacts Ledge\'s GitHub Pages update feed and GitHub Releases to check for and retrieve updates.',
     privacyPoints: [
-      'Core features work fully offline',
+      'Core shelf features work offline and content stays local',
       'Password-manager clipboard content never stored',
-      'Update checks run only with your permission',
-      'Free download, no subscription, no sign-up',
+      'Sparkle checks GitHub Pages and retrieves updates from GitHub',
+      'No in-app usage telemetry, account, or cloud sync',
     ],
     setupTitle: 'Install it in a minute.',
     setupSub: 'The latest public beta is a universal build — one download runs on both Apple silicon and Intel Macs.',
@@ -63,6 +66,7 @@ const copy = {
       'Download the DMG and drag Ledge into Applications.',
       'Open Ledge once. If macOS blocks it, use System Settings → Privacy & Security → Open Anyway.',
       'Grant Accessibility only when you use window parking.',
+      'The first recording asks you to choose a folder, then requests Screen Recording (system audio) and Microphone access; Ledge saves audio only.',
     ],
     compatibilityTitle: 'Compatibility',
     compatibility: ['macOS 14 Sonoma or newer', 'Works with or without a physical notch', 'Latest download: universal build (Apple silicon + Intel)'],
@@ -85,13 +89,15 @@ const copy = {
     heroSub: '文件、截图、链接，甚至窗口，拖进去就好。要用的时候拿出来。其余时间，它安安静静待在顶上。',
     items: '项',
     featuresTitle: '它能做什么',
-    featuresSub: '六件事。每一件都为了让东西触手可及。',
+    featuresSub: '八件事。每一件都为了让东西触手可及。',
     features: [
       { title: '拖进去就行。', desc: '任何东西拖到屏幕顶边，岛会张开接住。原文件原地不动——纳岛只存引用，不做拷贝。' },
       { title: '截图一键美化。', desc: '截图拖到「美化」区，回来就是带极光渐变底、圆角和柔和投影的分享图，同时落进架子和剪贴板。八种精选风格，不用调任何参数。' },
       { title: '窗口也能收。', desc: '拖着窗口标题栏到刘海，或者按 Control + Option + L，窗口就带着截图缩略图折进岛里。点一下，原样回来。' },
       { title: '回到那个标签页。', desc: '网页拖进去，之后点一下，回的是你早就开着的那个标签页，不是再开一个新的。' },
       { title: '剪贴板有着落了。', desc: '图片和文字可分别开启自动捕获；新内容落在岛上，24 小时后自己消失。密码管理器里的东西永远进不来。' },
+      { title: '录下这场会议。', desc: '第一次先选择保存文件夹，之后点击一次，就把 Mac 系统声音和麦克风混成一个本地 .m4a。只录音频，不保存屏幕画面。' },
+      { title: '重要内容，永久固定。', desc: '固定后的素材不会过期；“清空”、卡片 X、Command + Delete 和批量删除都动不了。先取消固定，才可以删除。' },
       { title: '只留在这台 Mac。', desc: '收纳内容只保存在本机；临时项目会自动清理，密码管理器剪贴板内容不会被捕获。' },
     ],
     showcaseTitle: '拖进去，就是成片。',
@@ -103,7 +109,7 @@ const copy = {
       { keys: 'Control + Option + L', action: '收纳当前最前方窗口' },
       { keys: 'Control + Option + Shift + L', action: '恢复最近收纳的窗口' },
       { keys: 'Command + V', action: '纳岛展开时粘贴剪贴板内容' },
-      { keys: 'Command + Delete', action: '纳岛展开时，移除鼠标悬停的项目' },
+      { keys: 'Command + Delete', action: '纳岛展开时移除鼠标悬停的项目（固定内容需先取消固定）' },
       { keys: 'Escape', action: '立即收起纳岛' },
       { keys: '鼠标', action: '单击复制、双击打开、右键查看更多操作，也可把项目直接拖出' },
     ],
@@ -112,16 +118,16 @@ const copy = {
     specs: [
       { value: 'Swift', label: '原生 macOS 应用' },
       { value: '14+', label: '最低 macOS 版本' },
-      { value: '0 次', label: '核心功能网络请求' },
+      { value: '本地', label: '核心内容存储' },
       { value: '约 39MB', label: '实测空闲内存' },
     ],
-    privacyTitle: '没有云，没有账号，不开玩笑。',
-    privacyDesc: '所有东西都在你的 Mac 上。核心功能不碰网络。公开测试版免费下载，也不需要账号。',
+    privacyTitle: '收纳内容，只留在本机。',
+    privacyDesc: '收纳内容、剪贴板捕获与会议录音都留在你的 Mac 上。应用没有账号、云同步或使用行为遥测；Sparkle 会访问纳岛的 GitHub Pages 更新源，并从 GitHub 获取更新。',
     privacyPoints: [
-      '核心功能完全离线可用',
+      '核心收纳功能可离线使用，内容留在本机',
       '密码管理器的剪贴板内容绝不入库',
-      '更新检查会先征得你的同意',
-      '免费下载，无订阅，无需注册',
+      'Sparkle 访问 GitHub Pages，并从 GitHub 获取更新',
+      '没有应用内使用遥测、账号或云同步',
     ],
     setupTitle: '一分钟装好。',
     setupSub: '当前最新公开测试版为通用版本：一次下载，Apple 芯片和 Intel Mac 都能用。',
@@ -129,6 +135,7 @@ const copy = {
       '下载 DMG，把 Ledge 拖入“应用程序”。',
       '先尝试打开一次；若被系统拦截，到“系统设置 → 隐私与安全性”选择“仍要打开”。',
       '只有使用窗口收纳时，才需要授予辅助功能权限。',
+      '第一次录音先选择保存文件夹，再授权“屏幕与系统音频录制”（采集系统声音）和“麦克风”；只保存音频。',
     ],
     compatibilityTitle: '兼容性',
     compatibility: ['macOS 14 Sonoma 或更高版本', '有无实体刘海都能使用', '最新下载为通用版本（Apple 芯片 + Intel）'],
@@ -317,7 +324,7 @@ export default function Home({ forceLang }: { forceLang?: Lang } = {}) {
               <Reveal key={f.title} delay={(i % 3) * 90}>
                 <div className="lift h-full rounded-2xl border border-neutral-100 bg-white p-6 hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.12)]">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-900 text-white">
-                    {[<FolderDown size={22} strokeWidth={1.8} />, <Wand2 size={22} strokeWidth={1.8} />, <MonitorDown size={22} strokeWidth={1.8} />, <Link2 size={22} strokeWidth={1.8} />, <ClipboardList size={22} strokeWidth={1.8} />, <ShieldCheck size={22} strokeWidth={1.8} />][i]}
+                    {[<FolderDown size={22} strokeWidth={1.8} />, <Wand2 size={22} strokeWidth={1.8} />, <MonitorDown size={22} strokeWidth={1.8} />, <Link2 size={22} strokeWidth={1.8} />, <ClipboardList size={22} strokeWidth={1.8} />, <AudioLines size={22} strokeWidth={1.8} />, <Pin size={22} strokeWidth={1.8} />, <ShieldCheck size={22} strokeWidth={1.8} />][i]}
                   </div>
                   <h3 className="mt-4 text-[15px] font-semibold">
                     {f.title}
@@ -443,7 +450,7 @@ export default function Home({ forceLang }: { forceLang?: Lang } = {}) {
               <Reveal key={text} delay={i * 90}>
                 <div className="lift flex items-center gap-3 rounded-xl border border-neutral-100 bg-neutral-50/60 px-4 py-3.5 text-[14px] text-neutral-700">
                   <span className="text-neutral-900">
-                    {[<WifiOff size={16} />, <ShieldCheck size={16} />, <Feather size={16} />][i]}
+                    {[<WifiOff size={16} />, <ShieldCheck size={16} />, <RefreshCw size={16} />, <Feather size={16} />][i]}
                   </span>
                   {text}
                 </div>
