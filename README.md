@@ -17,6 +17,15 @@ Drop files, screenshots, links — even windows. Grab them back whenever.
 
 ---
 
+## 🆕 What's new in 0.9.23
+
+- 🖐 **Marquee multi-select** — drag a box across the shelf to grab several items at once, then copy, delete, or drag the whole selection out together.
+- 🔀 **Drag to reorder** — drop any card back onto the shelf to move it where you want; an insertion line shows exactly where it lands.
+- 🚫 **No more duplicates** — dropping something that is already on your shelf moves it instead of adding a second copy.
+- ⚙️ **Sidebar toggles in Settings** — show or hide each tool module; one centers, two or three stack.
+
+---
+
 ## Why Ledge
 
 Your desktop is not a storage system. Ledge lives in the notch — hover, drop, done. Everything stays on your Mac, exactly where you left it, until you need it again.
@@ -33,34 +42,66 @@ Your desktop is not a storage system. Ledge lives in the notch — hover, drop, 
 - 🖥 **Notch or no notch** — melts into the notch on notched MacBooks; becomes a slim Top Handle on notchless Macs, Intel included. One universal build.
 - 🔒 **Local core, transparent updates** — shelf content and recordings stay on your Mac. There is no account, cloud sync, or in-app usage telemetry; Sparkle checks a GitHub Pages feed and retrieves updates from GitHub Releases.
 
-## Installation
+---
+
+## 📊 Ledge vs NotchNook
+
+| | Ledge | NotchNook |
+| --- | --- | --- |
+| Price | Free public beta (paid 1.0 planned) | $25 one-time or $3/month |
+| File & link shelf in the notch | ✅ With batch stacking | ✅ |
+| Park whole windows | ✅ With snapshot thumbnails | ❌ |
+| Drag text out into any input field | ✅ Native drag, works in web & Electron apps | ❌ |
+| Clipboard capture (images / text) | ✅ Optional, password managers hard-blocked | ❌ |
+| One click back to the original browser tab | ✅ | ❌ |
+| Media controls / Now Playing | 🚧 Planned | ✅ |
+| Widgets (calendar, mirror, shortcuts) | 🚧 Planned | ✅ |
+| Works on Macs without a notch | ✅ Slim opaque-black Top Handle | ✅ |
+| Local-only, zero account | ✅ Core makes no network calls | ✅ |
+
+Deeper breakdowns: [Ledge vs NotchNook](https://dhlbigmonster.github.io/ledge/compare/notchnook/) · [Ledge vs Yoink](https://dhlbigmonster.github.io/ledge/compare/yoink/)
+
+---
+
+## 🚀 Installation
 
 **System requirements:** macOS 14 Sonoma or later · Apple Silicon or Intel (one universal build)
 
+<a href="https://github.com/DHLbigmonster/ledge/releases/latest">
+   <img src="public/icon-preview.png" alt="Download Ledge" width="120">
+</a>
+
 1. Download `Ledge.dmg` from the [latest release](https://github.com/DHLbigmonster/ledge/releases/latest).
 2. Open the DMG and drag **Ledge** into `/Applications`.
-3. First launch: macOS will warn that Ledge is from an unidentified developer — expected, the app is not notarized. Bypass it once, either way:
 
-   **Terminal (always works):**
-   ```bash
-   xattr -dr com.apple.quarantine /Applications/Ledge.app
-   ```
-   **Or System Settings:** try to open the app → dismiss the warning → *System Settings → Privacy & Security* → scroll down → **Open Anyway**.
+> [!IMPORTANT]
+> Ledge is not notarized yet, so macOS warns that it comes from an unidentified developer on first launch. This is expected and only needs bypassing once:
 
-4. Optional: for **window stashing**, grant Accessibility access when prompted (*System Settings → Privacy & Security → Accessibility*).
-5. Optional: the first **meeting recording** asks you to choose a save folder, then needs *Screen & System Audio Recording* permission for Mac audio and *Microphone* permission for your mic. Ledge saves audio only as a local `.m4a`; it does not save screen video.
+```bash
+xattr -dr com.apple.quarantine /Applications/Ledge.app
+```
+
+Or: try opening the app → dismiss the warning → *System Settings → Privacy & Security* → scroll down → **Open Anyway**.
+
+> [!TIP]
+> - For **window stashing**, grant Accessibility access when prompted (*System Settings → Privacy & Security → Accessibility*).
+> - The first **meeting recording** asks for a save folder plus *Screen & System Audio Recording* and *Microphone* permissions. Audio only — no screen video.
 
 Ledge uses Sparkle for automatic update checks. Sparkle reads the signed appcast on GitHub Pages and retrieves approved releases from GitHub; Ledge does not send app-usage telemetry.
 
-## Usage
+---
+
+## ⌨️ Usage
 
 1. Launch Ledge — the notch is now alive.
 2. **Hover** over the notch to open the shelf.
 3. **Drop** files, images, links or text onto it — or press `⌘V` while it's open to paste from the clipboard.
-4. **Hover** an item to preview, **double-click** to open, **right-click** for Copy / Open / AirDrop / Delete.
-5. **Drag** an item out to wherever you need it — Finder, a chat box, a browser.
-6. **Pin** anything you need to keep. Pinned items survive expiry and Clear; unpin before deleting.
-7. Use **Record** to choose a folder on first use and start an audio-only meeting recording; stop it to save the local `.m4a` onto the shelf.
+4. **Hover** an item to preview, **double-click** to open, **right-click** for Copy / AirDrop / Delete.
+5. **Drag a box** across empty shelf space to marquee-select several items, then copy, delete, or drag the whole pile out at once.
+6. **Drag any card** along the shelf to reorder it — an accent line marks the landing spot. Dragging a selected card moves the whole selection.
+7. **Drag** items out to wherever you need them — Finder, a chat box, a browser.
+8. **Pin** anything you need to keep. Pinned items survive expiry and Clear; unpin before deleting.
+9. Use **Record** to choose a folder on first use and start an audio-only meeting recording; stop it to save the local `.m4a` onto the shelf.
 
 ### Default shortcuts
 
@@ -73,9 +114,20 @@ Ledge uses Sparkle for automatic update checks. Sparkle reads the signed appcast
 | Delete hovered item | `⌘ ⌫` (while open; pinned items must be unpinned first) |
 | Close the island | `Esc` |
 
-All remappable in **Settings** (gear icon, top-left of the island).
+All remappable in **Settings** (gear icon, top-left of the island). In Settings you can also toggle each sidebar tool module on or off.
 
-## FAQ
+---
+
+## 🗺 Roadmap
+
+- [ ] Smart screen demo recording — camera bubble + auto zoom edit *(in active development)*
+- [ ] Media controls / Now Playing in the notch
+- [ ] Widgets (calendar, mirror, shortcuts)
+- [ ] More beautify presets & custom backgrounds
+
+---
+
+## ❓ FAQ
 
 **Does anything leave my Mac?**
 Your shelf content, clipboard captures, and meeting recordings stay on your Mac. Ledge has no account system, cloud sync, or in-app usage telemetry. Sparkle does contact the signed appcast on GitHub Pages and GitHub Releases to check for and retrieve updates.
@@ -95,6 +147,20 @@ Same download. Ledge detects your screen and attaches a slim, opaque-black Top H
 **Where are my items stored?**
 In `~/Library/Application Support/Ledge`. Files are referenced in place — Ledge never copies or uploads them.
 
+---
+
+## ⭐ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=DHLbigmonster/ledge&type=Timeline)](https://star-history.com/#DHLbigmonster/ledge&Timeline)
+
+---
+
+## 🙏 Acknowledgments
+
+- [Sparkle](https://sparkle-project.org) — MIT-licensed update framework powering transparent updates.
+- [BozhengLong/meetrec](https://github.com/BozhengLong/meetrec) — reference reviewed while designing the audio-recording pipeline.
+- Category inspiration: [boring.notch](https://github.com/TheBoredTeam/boring.notch), [NotchDrop](https://github.com/Lakr233/NotchDrop), NotchNook — and Xnapper-style screenshot beautifying.
+
 ## Feedback
 
 Found a bug? Have an idea? [Open an issue](https://github.com/DHLbigmonster/ledge/issues) — every report gets read.
@@ -104,7 +170,7 @@ Found a bug? Have an idea? [Open an issue](https://github.com/DHLbigmonster/ledg
 <details>
 <summary>中文简介</summary>
 
-纳岛（Ledge）把 MacBook 的刘海变成一个本地收纳架：文件、截图、链接、窗口都能拖进去，随时取回。支持批量堆叠、隔空投送专区、剪贴板捕获、会议录音与永久固定。第一次录音先由用户选择保存文件夹；系统声音和麦克风会保存为本地 `.m4a`，只录音频，不保存屏幕画面。固定素材会被“清空”和删除操作保护。核心内容留在本机，没有账号、云同步或应用内使用遥测；Sparkle 仅通过 GitHub Pages 更新源和 GitHub Releases 检查、获取更新。没有刘海的 Mac（含 Intel）会显示贴顶的纯黑 Top Handle，同一安装包通用。
+纳岛（Ledge）把 MacBook 的刘海变成一个本地收纳架：文件、截图、链接、窗口都能拖进去，随时取回。支持框选多选与整批拖出、拖拽排序（落点指示线）、已有素材防重复入库、批量堆叠、隔空投送专区、剪贴板捕获、会议录音与永久固定。固定素材会被"清空"和删除操作保护。核心内容留在本机，没有账号、云同步或应用内使用遥测；Sparkle 仅通过 GitHub Pages 更新源和 GitHub Releases 检查、获取更新。设置里可以单独显示或隐藏侧边栏的每个工具模块。没有刘海的 Mac（含 Intel）会显示贴顶的纯黑 Top Handle，同一安装包通用。
 
 </details>
 
