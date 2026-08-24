@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
+    "check:build": "node scripts/check-build.mjs",
+    "indexnow": "node scripts/submit-indexnow.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },

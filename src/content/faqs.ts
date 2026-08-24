@@ -9,7 +9,7 @@ export const faqs: { q: string; a: string }[] = [
   },
   {
     q: 'Is Ledge free?',
-    a: 'The public beta is completely free — no account, no trial timer, no subscription. A paid one-time license is planned for version 1.0, and everyone on the beta will get a launch discount.',
+    a: 'The current public beta is free — no account, trial timer, subscription, or payment details. Future pricing is not part of the current beta promise.',
   },
   {
     q: 'Where is my data stored?',
@@ -33,10 +33,10 @@ export const faqs: { q: string; a: string }[] = [
   },
   {
     q: 'What happens to my files if I uninstall?',
-    a: 'Nothing. Ledge stores references, not copies — your originals never move. Delete the app and the shelf data in Application Support, and everything else stays exactly where it was.',
+    a: 'Regular files and folders added from Finder remain at their original paths. Ledge-managed clipboard images, beautified outputs, and shelf metadata can live in ~/Library/Application Support/Ledge; recordings live in the folder you selected. Removing the app does not automatically remove those local data folders.',
   },
   {
     q: 'Why does macOS warn me when I first open it?',
-    a: 'The beta is signed but not yet notarized with Apple, so Gatekeeper asks for one extra confirmation: System Settings → Privacy & Security → Open Anyway. Notarization is planned before the paid release.',
+    a: 'The beta is not yet notarized with Apple, so Gatekeeper asks for one extra confirmation: System Settings → Privacy & Security → Open Anyway. Notarization is planned before a higher-trust public release.',
   },
 ]

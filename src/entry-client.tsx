@@ -1,12 +1,16 @@
 import { StrictMode } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
 import './index.css'
-import { routes } from './routes'
+import { notFoundRoute, routes } from './routeManifest'
 
-// 剥掉 GitHub Pages 的仓库名前缀，再匹配页面
-const path = location.pathname.replace(/^\/ledge/, '')
-const normalized = path.endsWith('/') ? path : path + '/'
-const Page = routes[normalized] ?? routes['/']
+// Strip the configured deployment base. This supports both /ledge/ today and
+// the custom-domain root once VITE_BASE_PATH is set to /.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+const path = base && location.pathname.startsWith(base)
+  ? location.pathname.slice(base.length)
+  : location.pathname
+const normalized = (path || '/').endsWith('/') ? (path || '/') : `${path}/`
+const Page = routes[normalized] ?? notFoundRoute.component
 
 const container = document.getElementById('root')!
 const app = (

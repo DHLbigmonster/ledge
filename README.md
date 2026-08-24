@@ -1,9 +1,9 @@
 <div align="center">
 
-# Ledge · 纳岛
+# Ledge for Mac · 纳岛
 
-**Your MacBook's notch, turned into a shelf.**
-Drop files, screenshots, links — even windows. Grab them back whenever.
+**A work-focused, all-in-one Dynamic Island for Mac.**
+Drop files, screenshots, links, text, recordings — even windows. Grab them back whenever.
 
 [![Release](https://img.shields.io/github/v/release/DHLbigmonster/ledge?style=flat-square)](https://github.com/DHLbigmonster/ledge/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/DHLbigmonster/ledge/total?style=flat-square)](https://github.com/DHLbigmonster/ledge/releases)
@@ -17,12 +17,14 @@ Drop files, screenshots, links — even windows. Grab them back whenever.
 
 ---
 
-## 🆕 What's new in 0.9.23
+## 🆕 What's new in 0.9.25
 
 - 🖐 **Marquee multi-select** — drag a box across the shelf to grab several items at once, then copy, delete, or drag the whole selection out together.
 - 🔀 **Drag to reorder** — drop any card back onto the shelf to move it where you want; an insertion line shows exactly where it lands.
 - 🚫 **No more duplicates** — dropping something that is already on your shelf moves it instead of adding a second copy.
 - ⚙️ **Sidebar toggles in Settings** — show or hide each tool module; one centers, two or three stack.
+- 🎙 **Meeting recording** — capture Mac system audio and microphone audio into one local `.m4a`, saved to a folder you choose.
+- 📌 **Protected pinning** — pinned items survive expiry and Clear until you explicitly unpin them.
 
 ---
 
@@ -53,9 +55,8 @@ Your desktop is not a storage system. Ledge lives in the notch — hover, drop, 
 | Park whole windows | ✅ With snapshot thumbnails | ❌ |
 | Drag text out into any input field | ✅ Native drag, works in web & Electron apps | ❌ |
 | Clipboard capture (images / text) | ✅ Optional, password managers hard-blocked | ❌ |
-| One click back to the original browser tab | ✅ | ❌ |
-| Media controls / Now Playing | 🚧 Planned | ✅ |
-| Widgets (calendar, mirror, shortcuts) | 🚧 Planned | ✅ |
+| Copy a link, then double-click to open it | ✅ | ❌ |
+| AirDrop / beautify / record tools | ✅ Vertical drop targets | Varies |
 | Works on Macs without a notch | ✅ Slim opaque-black Top Handle | ✅ |
 | Local-only, zero account | ✅ Core makes no network calls | ✅ |
 
@@ -96,7 +97,7 @@ Ledge uses Sparkle for automatic update checks. Sparkle reads the signed appcast
 1. Launch Ledge — the notch is now alive.
 2. **Hover** over the notch to open the shelf.
 3. **Drop** files, images, links or text onto it — or press `⌘V` while it's open to paste from the clipboard.
-4. **Hover** an item to preview, **double-click** to open, **right-click** for Copy / AirDrop / Delete.
+4. **Single-click** an item to copy it, **double-click** to open it, or **right-click** for Copy / Quick Look / Open / AirDrop / Delete.
 5. **Drag a box** across empty shelf space to marquee-select several items, then copy, delete, or drag the whole pile out at once.
 6. **Drag any card** along the shelf to reorder it — an accent line marks the landing spot. Dragging a selected card moves the whole selection.
 7. **Drag** items out to wherever you need them — Finder, a chat box, a browser.
@@ -114,16 +115,7 @@ Ledge uses Sparkle for automatic update checks. Sparkle reads the signed appcast
 | Delete hovered item | `⌘ ⌫` (while open; pinned items must be unpinned first) |
 | Close the island | `Esc` |
 
-All remappable in **Settings** (gear icon, top-left of the island). In Settings you can also toggle each sidebar tool module on or off.
-
----
-
-## 🗺 Roadmap
-
-- [ ] Smart screen demo recording — camera bubble + auto zoom edit *(in active development)*
-- [ ] Media controls / Now Playing in the notch
-- [ ] Widgets (calendar, mirror, shortcuts)
-- [ ] More beautify presets & custom backgrounds
+All remappable in **Settings** (gear icon, top-right of the island). In Settings you can also toggle each sidebar tool module on or off and choose a 6, 24, or 72-hour retention window for temporary items (24 hours by default).
 
 ---
 
@@ -145,7 +137,7 @@ macOS requires it to move and resize other apps' windows. Everything else in Led
 Same download. Ledge detects your screen and attaches a slim, opaque-black Top Handle to the top edge. It stays compact while idle and expands into the same solid-black shelf.
 
 **Where are my items stored?**
-In `~/Library/Application Support/Ledge`. Files are referenced in place — Ledge never copies or uploads them.
+Shelf metadata and Ledge-created blobs live in `~/Library/Application Support/Ledge`. Files dragged in from Finder are referenced in place; clipboard images and generated beautified images are stored as local blobs so they remain available. Nothing is uploaded by Ledge.
 
 ---
 

@@ -1,6 +1,9 @@
-import { useEffect, useState, type MouseEvent } from 'react'
+import { useState, type MouseEvent } from 'react'
 import '../App.css'
 import { Reveal } from '../hooks/useReveal'
+import NewsletterSignup from '../components/NewsletterSignup'
+import BeautifyShowcaseImage from '../components/BeautifyShowcaseImage'
+import { DOWNLOAD_LINK, ISSUES_LINK, RELEASE_LINK, goatEvent, sitePath } from '../site'
 import {
   FolderDown, Link2, MonitorDown, ClipboardList, Layers3,
   ShieldCheck, WifiOff, Feather, ArrowDownToLine, Languages,
@@ -15,17 +18,17 @@ const copy = {
     download: 'Download for Mac',
     freeNote: 'macOS 14+ · Apple silicon & Intel · free public beta',
     openingNote: 'Free public beta. On first launch, macOS may ask you to confirm opening it in System Settings → Privacy & Security.',
-    heroTitle1: 'The notch',
-    heroTitle2: 'is a drawer.',
+    heroTitle1: 'The Dynamic Island',
+    heroTitle2: 'your Mac should have.',
     heroSub: 'Drop in files, screenshots, links, even windows. Pull them out whenever. The rest of the time, it stays out of your way.',
     items: 'items',
     featuresTitle: 'What it does',
     featuresSub: 'Eight things. All of them about keeping stuff within reach.',
     features: [
-      { title: 'Drop it in.', desc: 'Drag anything to the top of the screen. The island opens and catches it. Your originals stay put — Ledge keeps references, not copies.' },
+      { title: 'Drop it in.', desc: 'Drag files, screenshots, links or text to the top of the screen. Regular files stay at their original paths; clipboard and generated images can be kept as local Ledge-managed copies.' },
       { title: 'Beautify a screenshot.', desc: 'Drop a screenshot onto the Beautify zone — it comes back wrapped in an aurora gradient with rounded corners and a soft shadow, straight to your shelf and clipboard. Eight curated styles, zero sliders.' },
       { title: 'Park a window.', desc: 'Drag a window by its title bar into the notch — or press Control + Option + L — and it folds away with a snapshot thumbnail. Click it and it comes back where it was.' },
-      { title: 'Back to that tab.', desc: 'Drop a page in now. Later, one click takes you to the tab you already had open — not a fresh duplicate.' },
+      { title: 'Links without the detour.', desc: 'Keep a link beside the task. Single-click copies it; double-click opens it in your default browser. No separate bookmark cleanup required.' },
       { title: 'Clipboard, sorted.', desc: 'Turn on image or text capture separately. New clipboard items land on the island, then disappear after 24 hours. Password-manager content never gets in.' },
       { title: 'Record the meeting.', desc: 'Choose a save folder the first time, then one click mixes Mac system audio and your microphone into a local .m4a. Ledge records audio only — never screen video.' },
       { title: 'Pin what matters.', desc: 'Pinned items survive expiry and Clear. They stay protected from the card X, Command + Delete, and bulk removal until you unpin them.' },
@@ -50,7 +53,7 @@ const copy = {
       { value: 'Swift', label: 'native macOS app' },
       { value: '14+', label: 'minimum macOS' },
       { value: 'Local', label: 'core content storage' },
-      { value: '~39MB', label: 'observed idle memory' },
+      { value: 'Universal', label: 'Apple silicon + Intel' },
     ],
     privacyTitle: 'Your shelf stays local.',
     privacyDesc: 'Shelf contents, clipboard captures, and meeting recordings stay on your Mac. The app has no account, cloud sync, or usage telemetry. Sparkle contacts Ledge\'s GitHub Pages update feed and GitHub Releases to check for and retrieve updates.',
@@ -76,7 +79,7 @@ const copy = {
     buyCta: 'Release notes',
     pricingNote: 'Latest public beta · Universal (Apple silicon + Intel) · macOS 14+ · not notarized yet',
     feedbackTitle: 'Found a bug? Have an idea?',
-    feedbackDesc: 'Ledge is built in the open. Report an issue or suggest a feature on GitHub — every report gets read.',
+    feedbackDesc: 'Ledge develops through public-beta feedback. Report a reproducible issue or suggest a focused workflow improvement on GitHub.',
     feedbackCta: 'Open GitHub Issues',
     footerTag: 'The notch is a drawer · © 2026',
   },
@@ -91,10 +94,10 @@ const copy = {
     featuresTitle: '它能做什么',
     featuresSub: '八件事。每一件都为了让东西触手可及。',
     features: [
-      { title: '拖进去就行。', desc: '任何东西拖到屏幕顶边，岛会张开接住。原文件原地不动——纳岛只存引用，不做拷贝。' },
+      { title: '拖进去就行。', desc: '文件、截图、链接或文字拖到屏幕顶边。普通文件保留原路径；剪贴板图片与生成图片可能作为纳岛管理的本地副本保存。' },
       { title: '截图一键美化。', desc: '截图拖到「美化」区，回来就是带极光渐变底、圆角和柔和投影的分享图，同时落进架子和剪贴板。八种精选风格，不用调任何参数。' },
       { title: '窗口也能收。', desc: '拖着窗口标题栏到刘海，或者按 Control + Option + L，窗口就带着截图缩略图折进岛里。点一下，原样回来。' },
-      { title: '回到那个标签页。', desc: '网页拖进去，之后点一下，回的是你早就开着的那个标签页，不是再开一个新的。' },
+      { title: '链接少绕一步。', desc: '链接与当前任务放在一起：单击复制，双击用默认浏览器打开。' },
       { title: '剪贴板有着落了。', desc: '图片和文字可分别开启自动捕获；新内容落在岛上，24 小时后自己消失。密码管理器里的东西永远进不来。' },
       { title: '录下这场会议。', desc: '第一次先选择保存文件夹，之后点击一次，就把 Mac 系统声音和麦克风混成一个本地 .m4a。只录音频，不保存屏幕画面。' },
       { title: '重要内容，永久固定。', desc: '固定后的素材不会过期；“清空”、卡片 X、Command + Delete 和批量删除都动不了。先取消固定，才可以删除。' },
@@ -119,7 +122,7 @@ const copy = {
       { value: 'Swift', label: '原生 macOS 应用' },
       { value: '14+', label: '最低 macOS 版本' },
       { value: '本地', label: '核心内容存储' },
-      { value: '约 39MB', label: '实测空闲内存' },
+      { value: '通用版', label: 'Apple 芯片 + Intel' },
     ],
     privacyTitle: '收纳内容，只留在本机。',
     privacyDesc: '收纳内容、剪贴板捕获与会议录音都留在你的 Mac 上。应用没有账号、云同步或使用行为遥测；Sparkle 会访问纳岛的 GitHub Pages 更新源，并从 GitHub 获取更新。',
@@ -145,7 +148,7 @@ const copy = {
     buyCta: '查看版本说明',
     pricingNote: '最新公开测试版 · 通用版（Apple 芯片 + Intel）· macOS 14+ · 暂未公证',
     feedbackTitle: '遇到问题？有想法？',
-    feedbackDesc: '纳岛在公开开发中。到 GitHub 提交问题或建议，每一条都会看。',
+    feedbackDesc: '纳岛通过公开测试反馈持续改进。欢迎在 GitHub 提交可复现的问题或聚焦的工作流建议。',
     feedbackCta: '去 GitHub 反馈',
     footerTag: '刘海是个抽屉 · © 2026',
   },
@@ -211,24 +214,12 @@ function IslandDemo({ lang }: { lang: Lang }) {
   )
 }
 
-/* 免费公开测试版由 GitHub Release 提供下载 */
-const DOWNLOAD_LINK = "https://github.com/DHLbigmonster/ledge/releases/latest/download/Ledge.dmg"
-const RELEASE_LINK = "https://github.com/DHLbigmonster/ledge/releases/latest"
-const ISSUES_LINK = "https://github.com/DHLbigmonster/ledge/issues/new/choose"
-
 /* ---------- 首屏演示：与当前应用信息架构同步的响应式界面示意 ---------- */
 
 export default function Home({ forceLang }: { forceLang?: Lang } = {}) {
-  const [lang, setLang] = useState<Lang>(() =>
-    // /zh/ 路由强制中文；否则 SSR 预渲染默认英文，水合后按浏览器语言切换
-    forceLang ?? (typeof navigator !== 'undefined' &&
-    navigator.languages.some((language) => language.toLowerCase().startsWith('zh')) ? 'zh' : 'en')
-  )
+  // Language is URL-bound: / is English and /zh/ is Chinese.
+  const lang: Lang = forceLang ?? 'en'
   const t = copy[lang]
-
-  useEffect(() => {
-    document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en'
-  }, [lang])
 
   // 首屏鼠标视差
   const [tilt, setTilt] = useState({ x: 0, y: 0 })
@@ -252,20 +243,22 @@ export default function Home({ forceLang }: { forceLang?: Lang } = {}) {
         <div className="flex items-center gap-2.5">
           <div className="capsule-breathe h-5 w-10 rounded-full bg-black" />
           <span className="text-[15px] font-semibold tracking-tight">
-            <span translate="no" className="notranslate">Ledge</span> 纳岛
+            {lang === 'en'
+              ? <span translate="no" className="notranslate">Ledge for Mac</span>
+              : <><span translate="no" className="notranslate">Ledge</span> 纳岛</>}
           </span>
         </div>
         <div className="flex items-center gap-3">
-          <button
-            type="button"
+          <a
             translate="no"
             aria-label={lang === 'en' ? '切换为中文' : 'Switch to English'}
-            onClick={() => setLang(lang === 'en' ? 'zh' : 'en')}
+            href={sitePath(lang === 'en' ? '/zh/' : '/')}
+            {...goatEvent('language-switch')}
             className="notranslate inline-flex items-center gap-1.5 rounded-full border border-neutral-200 px-3 py-1.5 text-[12px] text-neutral-600 transition hover:border-neutral-400"
           >
             <Languages size={13} />
             {lang === 'en' ? '中文' : 'EN'}
-          </button>
+          </a>
           <a
             href="#download"
             className="hidden rounded-full bg-black px-4 py-1.5 text-[13px] font-medium text-white transition hover:scale-[1.03] hover:bg-neutral-800 active:scale-100 sm:inline-flex"
@@ -293,6 +286,7 @@ export default function Home({ forceLang }: { forceLang?: Lang } = {}) {
           <a
             id="download"
             href={DOWNLOAD_LINK}
+            {...goatEvent('download-hero')}
             className="inline-flex items-center gap-2 rounded-full bg-black px-6 py-3 text-[15px] font-medium text-white shadow-[0_10px_30px_-10px_rgba(0,0,0,0.4)] transition hover:scale-[1.04] hover:bg-neutral-800 active:scale-100"
           >
             <ArrowDownToLine size={16} />
@@ -348,10 +342,8 @@ export default function Home({ forceLang }: { forceLang?: Lang } = {}) {
             <p className="mx-auto mt-3 max-w-xl text-center text-[15px] text-neutral-500">{t.showcaseSub}</p>
           </Reveal>
           <Reveal delay={120}>
-            <img
-              src={`${import.meta.env.BASE_URL}beautify-current.jpg`}
+            <BeautifyShowcaseImage
               alt="Ledge Beautify — four real outputs from the current app"
-              loading="lazy"
               className="lift mt-12 w-full rounded-2xl border border-neutral-100 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.18)]"
             />
           </Reveal>
@@ -471,6 +463,7 @@ export default function Home({ forceLang }: { forceLang?: Lang } = {}) {
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
             <a
               href={DOWNLOAD_LINK}
+              {...goatEvent('download-footer')}
               className="inline-flex items-center gap-2 rounded-full bg-black px-8 py-3.5 text-[15px] font-medium text-white shadow-[0_10px_30px_-10px_rgba(0,0,0,0.4)] transition hover:scale-[1.04] hover:bg-neutral-800 active:scale-100"
             >
               <ArrowDownToLine size={16} />
@@ -478,6 +471,7 @@ export default function Home({ forceLang }: { forceLang?: Lang } = {}) {
             </a>
             <a
               href={RELEASE_LINK}
+              {...goatEvent('release-notes')}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-neutral-900 px-8 py-3.5 text-[15px] font-medium text-neutral-900 transition hover:scale-[1.04] hover:bg-neutral-900 hover:text-white active:scale-100"
@@ -487,6 +481,26 @@ export default function Home({ forceLang }: { forceLang?: Lang } = {}) {
           </div>
           <p className="mt-4 text-[12px] text-neutral-400">{t.pricingNote}</p>
         </Reveal>
+      </section>
+
+      {/* 搜索入口和订阅：让每个高意图页在三次点击内可到达 */}
+      <section className="border-t border-neutral-100 bg-neutral-50/60">
+        <div className="mx-auto max-w-5xl px-6 py-24">
+          <Reveal><h2 className="text-center text-3xl font-semibold tracking-tight">{lang === 'zh' ? '从你现在的工作开始。' : 'Start with the job in front of you.'}</h2></Reveal>
+          <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { href: '/features/file-shelf/', en: 'Stage files and text', zh: '暂存文件与文字' },
+              { href: '/features/window-parking/', en: 'Park a working window', zh: '收纳当前窗口' },
+              { href: '/features/screenshot-beautifier/', en: 'Beautify a screenshot', zh: '截图一键美化' },
+              { href: '/use-cases/ai-agent-workspace/', en: 'Build an agent work pocket', zh: '给 Agent 工作一个口袋' },
+              { href: '/privacy/', en: 'Read the storage boundary', zh: '了解本地存储边界' },
+              { href: '/compare/boring-notch/', en: 'Compare notch apps', zh: '对比同类刘海工具' },
+            ].map((item) => (
+              <a key={item.href} href={sitePath(item.href)} className="rounded-2xl border border-neutral-200/70 bg-white p-5 text-[14px] font-medium transition hover:-translate-y-0.5 hover:border-neutral-400">{lang === 'zh' ? item.zh : item.en}</a>
+            ))}
+          </div>
+          <Reveal delay={100} className="mt-10"><NewsletterSignup /></Reveal>
+        </div>
       </section>
 
       {/* 反馈 */}
@@ -515,9 +529,16 @@ export default function Home({ forceLang }: { forceLang?: Lang } = {}) {
         <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-3 px-6 py-8 text-[12px] text-neutral-400 sm:flex-row">
           <div className="flex items-center gap-2">
             <div className="h-3.5 w-7 rounded-full bg-neutral-900" />
-            <span><span translate="no" className="notranslate">Ledge</span> 纳岛</span>
+            <span>{lang === 'en'
+              ? <span translate="no" className="notranslate">Ledge for Mac</span>
+              : <><span translate="no" className="notranslate">Ledge</span> 纳岛</>}</span>
           </div>
-          <span>{t.footerTag}</span>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+            <a href={sitePath('/privacy/')} className="hover:text-neutral-800">Privacy</a>
+            <a href={sitePath('/faq/')} className="hover:text-neutral-800">FAQ</a>
+            <a href={sitePath('/changelog/')} className="hover:text-neutral-800">Changelog</a>
+            <span>{t.footerTag}</span>
+          </div>
         </div>
       </footer>
     </div>

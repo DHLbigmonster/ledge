@@ -1,103 +1,167 @@
 /**
- * 构建期预渲染：把每条路由渲染成真实 HTML 写进 dist，
- * 让 Google/Bing 不执行 JS 也能读到完整内容（修 SPA 空壳问题）。
+ * Build-time prerendering and SEO output.
+ * src/routeManifest.ts is the only page inventory: the same records drive
+ * routes, HTML metadata, Schema, sitemap and last-modified dates.
  */
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const { render, faqs } = await import(join(root, 'dist-ssr/entry-server.js'))
+const { render, faqs, routeManifest } = await import(join(root, 'dist-ssr/entry-server.js'))
 
-const SITE = 'https://dhlbigmonster.github.io/ledge'
-const OG_IMAGE = `${SITE}/og-image.png`
+const SITE = (process.env.SITE_URL || 'https://dhlbigmonster.github.io/ledge').replace(/\/$/, '')
+const VERSION = process.env.APP_VERSION || '0.9.25'
 
-const faqJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map(({ q, a }) => ({
-    '@type': 'Question',
-    name: q,
-    acceptedAnswer: { '@type': 'Answer', text: a },
-  })),
+const htmlAttr = (value) => String(value)
+  .replaceAll('&', '&amp;')
+  .replaceAll('"', '&quot;')
+  .replaceAll('<', '&lt;')
+  .replaceAll('>', '&gt;')
+
+const xml = htmlAttr
+const pageUrl = (path) => `${SITE}${path === '/' ? '/' : path}`
+const assetUrl = (path) => `${SITE}/${path.replace(/^\//, '')}`
+
+function schemaFor(page) {
+  const base = {
+    '@context': 'https://schema.org',
+    url: pageUrl(page.path),
+    name: page.title,
+    description: page.description,
+    inLanguage: page.lang,
+    dateModified: page.lastmod,
+  }
+
+  if (page.schema === 'software') {
+    return {
+      ...base,
+      '@type': 'SoftwareApplication',
+      name: page.lang === 'zh-CN' ? 'Ledge 纳岛' : 'Ledge for Mac',
+      alternateName: page.lang === 'zh-CN' ? 'Ledge for Mac' : '纳岛',
+      operatingSystem: 'macOS 14 or later',
+      applicationCategory: 'UtilitiesApplication',
+      softwareVersion: VERSION,
+      processorRequirements: 'Apple silicon and Intel (universal build)',
+      downloadUrl: 'https://github.com/DHLbigmonster/ledge/releases/latest/download/Ledge.dmg',
+      isAccessibleForFree: true,
+      featureList: [
+        'Drag-and-drop shelf for files, folders, screenshots, links and text',
+        'Window parking and restore',
+        'AirDrop target',
+        'Screenshot beautification presets',
+        'Optional image and text clipboard capture',
+        'Audio-only meeting recording for system audio and microphone',
+        'Batch stacking, organization and protected pinning',
+      ],
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    }
+  }
+
+  if (page.schema === 'faq') {
+    return {
+      ...base,
+      '@type': 'FAQPage',
+      mainEntity: faqs.map(({ q, a }) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: a },
+      })),
+    }
+  }
+
+  return {
+    ...base,
+    '@type': page.schema === 'article' ? 'Article' : page.schema === 'privacy' ? 'PrivacyPolicy' : 'WebPage',
+    isPartOf: { '@type': 'WebSite', name: 'Ledge for Mac', url: pageUrl('/') },
+  }
 }
 
-/** 每条路由的独立 head 元信息（title/description/canonical/OG） */
-const pages = [
-  {
-    path: '/',
-    out: 'index.html',
-    title: 'Ledge 纳岛 — Your Mac\'s notch is a drawer',
-    description: 'Ledge turns your Mac\'s notch into a local drawer for files, windows, pinned items, and audio-only meeting recordings. Free public beta for macOS 14+.',
-  },
-  {
-    path: '/zh/',
-    out: 'zh/index.html',
-    lang: 'zh-CN',
-    title: '纳岛 Ledge — 把 Mac 刘海变成抽屉',
-    description: '纳岛 Ledge 把 Mac 刘海变成文件、窗口与永久固定内容的本地抽屉，还能把系统声音和麦克风录成本地 m4a。免费公开测试版，macOS 14+。',
-    keywords: 'Mac 灵动岛, 苹果电脑灵动岛, Mac 刘海利用, mac 文件暂存, 窗口收纳, 会议录音, 系统音频录制, 剪贴板管理, 纳岛, Ledge, dynamic island mac',
-  },
-  {
-    path: '/faq/',
-    out: 'faq/index.html',
-    title: 'FAQ — Ledge, the Mac notch drawer',
-    description: 'Compatibility, privacy, window parking, and the free public beta — answers about Ledge, the app that turns your Mac\'s notch into a drawer.',
-    jsonLd: faqJsonLd,
-  },
-  {
-    path: '/compare/notchnook/',
-    out: 'compare/notchnook/index.html',
-    title: 'Ledge vs NotchNook — an honest comparison',
-    description: 'NotchNook is a widget tray; Ledge is a drawer. Compare price, window parking, text drag-out, clipboard capture, and who should pick which.',
-  },
-  {
-    path: '/compare/yoink/',
-    out: 'compare/yoink/index.html',
-    title: 'Ledge vs Yoink — the notch shelf, compared',
-    description: 'Yoink is the classic Mac drag-and-drop shelf. Ledge rethinks it around the notch, with window parking and text cards. Full comparison and which to choose.',
-  },
-]
+function replaceMeta(html, matcher, value) {
+  return html.replace(matcher, (_match, before, after) => `${before}${htmlAttr(value)}${after}`)
+}
+
+function buildHead(template, page) {
+  const url = pageUrl(page.path)
+  const image = assetUrl(page.ogImage)
+  const robots = page.indexable === false
+    ? 'noindex, follow'
+    : 'index, follow, max-image-preview:large'
+
+  let html = template
+    .replace(/<html lang="[^"]*">/, `<html lang="${page.lang}">`)
+    .replace(/<title>[^<]*<\/title>/, `<title>${htmlAttr(page.title)}</title>`)
+    .replace(/\s*<link rel="alternate" hreflang="[^"]+" href="[^"]+" \/>/g, '')
+    .replace(/\s*<script type="application\/ld\+json">[\s\S]*?<\/script>/g, '')
+
+  html = replaceMeta(html, /(<meta name="description" content=")[^"]*("\s*\/?>)/, page.description)
+  html = replaceMeta(html, /(<meta name="keywords" content=")[^"]*("\s*\/?>)/, page.keywords)
+  html = replaceMeta(html, /(<meta name="robots" content=")[^"]*("\s*\/?>)/, robots)
+  html = replaceMeta(html, /(<link rel="canonical" href=")[^"]*("\s*\/?>)/, url)
+  html = replaceMeta(html, /(<meta property="og:url" content=")[^"]*("\s*\/?>)/, url)
+  html = replaceMeta(html, /(<meta property="og:title" content=")[^"]*("\s*\/?>)/, page.title)
+  html = replaceMeta(html, /(<meta property="og:description" content=")[^"]*("\s*\/?>)/, page.description)
+  html = replaceMeta(html, /(<meta property="og:image" content=")[^"]*("\s*\/?>)/, image)
+  html = replaceMeta(html, /(<meta property="og:image:alt" content=")[^"]*("\s*\/?>)/, page.ogAlt)
+  html = replaceMeta(html, /(<meta property="og:locale" content=")[^"]*("\s*\/?>)/, page.locale)
+  html = replaceMeta(html, /(<meta name="twitter:title" content=")[^"]*("\s*\/?>)/, page.title)
+  html = replaceMeta(html, /(<meta name="twitter:description" content=")[^"]*("\s*\/?>)/, page.description)
+  html = replaceMeta(html, /(<meta name="twitter:image" content=")[^"]*("\s*\/?>)/, image)
+
+  const extras = []
+  extras.push('    <meta property="og:image:width" content="1200" />')
+  extras.push('    <meta property="og:image:height" content="630" />')
+  extras.push(`    <meta name="twitter:image:alt" content="${htmlAttr(page.ogAlt)}" />`)
+  extras.push(`    <meta http-equiv="content-language" content="${page.lang}" />`)
+  if (page.locale === 'en_US') extras.push('    <meta property="og:locale:alternate" content="zh_CN" />')
+  if (page.locale === 'zh_CN') extras.push('    <meta property="og:locale:alternate" content="en_US" />')
+
+  if (page.alternates) {
+    for (const [language, path] of Object.entries(page.alternates)) {
+      extras.push(`    <link rel="alternate" hreflang="${language}" href="${htmlAttr(pageUrl(path))}" />`)
+    }
+  }
+
+  extras.push(`    <script type="application/ld+json">${JSON.stringify(schemaFor(page)).replaceAll('<', '\\u003c')}</script>`)
+  return html.replace('</head>', `${extras.join('\n')}\n  </head>`)
+}
 
 const template = readFileSync(join(root, 'dist/index.html'), 'utf8')
 
-for (const page of pages) {
-  const url = `${SITE}${page.path}`
-  let html = template
+for (const page of routeManifest) {
+  let html = buildHead(template, page)
     .replace('<!--app-html-->', render(page.path))
-    .replace(/<title>[^<]*<\/title>/, `<title>${page.title}</title>`)
-    .replace(/(<meta name="description" content=")[^"]*(")/, `$1${page.description}$2`)
-    .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${url}$2`)
-    .replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${url}$2`)
-    .replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${page.title}$2`)
-    .replace(/(<meta property="og:description" content=")[^"]*(")/, `$1${page.description}$2`)
-    .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${page.title}$2`)
-    .replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${page.description}$2`)
-    .replace(/(<meta property="og:image" content=")[^"]*(")/, `$1${OG_IMAGE}$2`)
-
-  // 页面语言（默认模板为 en）
-  if (page.lang) {
-    html = html.replace('<html lang="en">', `<html lang="${page.lang}">`)
-  }
-  // 页面独立关键词
-  if (page.keywords) {
-    html = html.replace(/(<meta name="keywords" content=")[^"]*(")/, `$1${page.keywords}$2`)
-  }
-  // 中英文首页互指，告诉搜索引擎同一内容的语言版本关系
-  if (page.path === '/' || page.path === '/zh/') {
-    html = html.replace('</head>',
-      `    <link rel="alternate" hreflang="en" href="${SITE}/" />\n` +
-      `    <link rel="alternate" hreflang="zh-CN" href="${SITE}/zh/" />\n` +
-      `    <link rel="alternate" hreflang="x-default" href="${SITE}/" />\n  </head>`)
-  }
-
-  if (page.jsonLd) {
-    html = html.replace('</head>',
-      `    <script type="application/ld+json">${JSON.stringify(page.jsonLd)}</script>\n  </head>`)
-  }
 
   const outPath = join(root, 'dist', page.out)
   mkdirSync(dirname(outPath), { recursive: true })
   writeFileSync(outPath, html)
   console.log(`prerendered ${page.path} -> dist/${page.out} (${(html.length / 1024).toFixed(1)} KB)`)
 }
+
+const indexed = routeManifest.filter((page) => page.indexable !== false)
+const sitemap = [
+  '<?xml version="1.0" encoding="UTF-8"?>',
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
+  ...indexed.flatMap((page) => {
+    const lines = [
+      '  <url>',
+      `    <loc>${xml(pageUrl(page.path))}</loc>`,
+      `    <lastmod>${page.lastmod}</lastmod>`,
+      `    <changefreq>${page.changefreq}</changefreq>`,
+      `    <priority>${page.priority.toFixed(2)}</priority>`,
+    ]
+    if (page.alternates) {
+      for (const [language, path] of Object.entries(page.alternates)) {
+        lines.push(`    <xhtml:link rel="alternate" hreflang="${language}" href="${xml(pageUrl(path))}" />`)
+      }
+    }
+    lines.push('  </url>')
+    return lines
+  }),
+  '</urlset>',
+  '',
+].join('\n')
+
+writeFileSync(join(root, 'dist/sitemap.xml'), sitemap)
+writeFileSync(join(root, 'dist/robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${pageUrl('/sitemap.xml')}\n`)
+console.log(`generated sitemap.xml and robots.txt for ${SITE}`)

@@ -29,7 +29,7 @@ export default function FAQ() {
       <div className="mt-14 rounded-2xl border border-neutral-200/70 bg-neutral-50 p-6 text-center">
         <p className="text-[15px] font-medium">Still curious?</p>
         <p className="mt-1 text-[13px] text-neutral-500">
-          Ledge is built in the open — every issue and idea gets read.
+          Ledge improves through public-beta feedback. Reproducible reports are especially useful.
         </p>
         <a
           href="https://github.com/DHLbigmonster/ledge/issues/new/choose"
