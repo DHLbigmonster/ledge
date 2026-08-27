@@ -1,19 +1,16 @@
 name: Deploy Ledge website
 
+# 本仓库 Pages（dhlbigmonster.github.io/ledge）自 2026-08 起只发布「跳转壳 + appcast」。
+# 品牌主站在 ledgeformac/ledgeformac.github.io（由其自身仓库的 Actions 构建），
+# 因此这里不再需要 vite/lint/prerender 全量构建。
+
 on:
   push:
     branches: [main]
     paths:
       - .github/workflows/deploy-pages.yml
-      - src/**
-      - public/**
-      - scripts/**
-      - index.html
-      - package.json
-      - package-lock.json
-      - vite.config.ts
-      - tsconfig*.json
-      - eslint.config.js
+      - public/appcast.xml
+      - scripts/build-legacy.mjs
   workflow_dispatch:
 
 concurrency:
@@ -27,11 +24,6 @@ permissions:
 
 jobs:
   deploy:
-    env:
-      SITE_URL: ${{ vars.SITE_URL || 'https://dhlbigmonster.github.io/ledge/' }}
-      VITE_BASE_PATH: ${{ vars.VITE_BASE_PATH || '/ledge/' }}
-      VITE_BUTTONDOWN_USERNAME: ${{ vars.VITE_BUTTONDOWN_USERNAME }}
-      INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -44,17 +36,9 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 22
-          cache: npm
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Validate
-        run: npm run lint && npm run build && npm run check:build
-
-      - name: Add IndexNow ownership key when configured
-        if: ${{ env.INDEXNOW_KEY != '' }}
-        run: printf '%s' "$INDEXNOW_KEY" > "dist/$INDEXNOW_KEY.txt"
+      - name: Build legacy redirect shell
+        run: node scripts/build-legacy.mjs
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -62,12 +46,8 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: dist
+          path: dist-legacy
 
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
-
-      - name: Submit canonical URLs to IndexNow when configured
-        if: ${{ env.INDEXNOW_KEY != '' }}
-        run: npm run indexnow
