@@ -141,9 +141,9 @@ export const routeManifest: RouteMeta[] = [
   {
     path: '/changelog/', out: 'changelog/index.html', component: Changelog, lang: 'en', locale: 'en_US',
     title: 'Ledge for Mac Changelog — Public beta updates',
-    description: 'Release notes for Ledge for Mac, including the current v0.9.25 public beta and links to the complete GitHub release history.',
-    keywords: 'Ledge for Mac changelog, Ledge release notes, Ledge 0.9.25',
-    ogImage: '/og-image-en.png', ogAlt: 'Ledge for Mac public beta release notes', schema: 'article', lastmod: '2026-08-24', priority: 0.7, changefreq: 'weekly',
+    description: 'Release notes for Ledge for Mac, including the current v0.9.27 public beta and links to the complete GitHub release history.',
+    keywords: 'Ledge for Mac changelog, Ledge release notes, Ledge 0.9.27',
+    ogImage: '/og-image-en.png', ogAlt: 'Ledge for Mac public beta release notes', schema: 'article', lastmod: '2026-08-29', priority: 0.7, changefreq: 'weekly',
   },
   {
     path: '/404/', out: '404.html', component: NotFound, lang: 'en', locale: 'en_US',
