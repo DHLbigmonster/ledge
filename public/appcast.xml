@@ -3,6 +3,15 @@
     <channel>
         <title>Ledge</title>
         <item>
+            <title>0.9.28</title>
+            <pubDate>Wed, 02 Sep 2026 11:35:22 +0800</pubDate>
+            <sparkle:version>202609020334</sparkle:version>
+            <sparkle:shortVersionString>0.9.28</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <enclosure url="https://github.com/DHLbigmonster/ledge/releases/download/v0.9.28/Ledge-0.9.28.dmg" length="2350146" type="application/octet-stream" sparkle:edSignature="heUO+SYYehEK2qk72tUjLo63oDDFFaZ1KAbeXgnb9LRhPAHge0vWevQA0k8QzUeccYnPYGYP+LR983P1rYnbAA=="/>
+        </item>
+        <item>
             <title>0.9.27</title>
             <pubDate>Sat, 29 Aug 2026 12:00:20 +0800</pubDate>
             <sparkle:version>202608290358</sparkle:version>
@@ -43,15 +52,6 @@
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
             <enclosure url="https://github.com/DHLbigmonster/ledge/releases/download/v0.9.23/Ledge-0.9.23.dmg" length="2157427" type="application/octet-stream" sparkle:edSignature="U2TQtqqi6lBRfW0DY/khBtuxTHmkLNo2WHgptImWeeTZ2xj+0osgXQ3Vgg+e02/ULaomWOChFLpEWpSqe/eHBA=="/>
-        </item>
-        <item>
-            <title>0.9.12</title>
-            <pubDate>Wed, 19 Aug 2026 09:43:15 +0800</pubDate>
-            <sparkle:version>202608190142</sparkle:version>
-            <sparkle:shortVersionString>0.9.12</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <enclosure url="https://github.com/DHLbigmonster/ledge/releases/download/v0.9.12/Ledge-0.9.12.dmg" length="1747957" type="application/octet-stream" sparkle:edSignature="fWHvyIppdJAM1wcovVsI+6b266ao8jYQfyu2iIR+T85SKNFHo21dnTbBbK8B/lUnRYKFqpCmKCaawARfrC8/Bw=="/>
         </item>
     </channel>
 </rss>
