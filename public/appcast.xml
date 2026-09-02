@@ -4,6 +4,14 @@
         <title>Ledge</title>
         <item>
             <title>0.9.28</title>
+            <pubDate>Wed, 02 Sep 2026 11:55:10 +0800</pubDate>
+            <sparkle:version>202609020353</sparkle:version>
+            <sparkle:shortVersionString>0.9.28</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/DHLbigmonster/ledge/releases/download/v0.9.28/Ledge-0.9.28.dmg" length="3471320" type="application/octet-stream" sparkle:edSignature="tJ+/nMpObbZ4I+Pc3k/6u1G/zzq7HUF/e7g2lvTb/BV348aSOlpFEU6nauI2Jh1YimlP9v4KONG8m4A3K6khAQ=="/>
+        </item>
+        <item>
+            <title>0.9.28</title>
             <pubDate>Wed, 02 Sep 2026 11:35:22 +0800</pubDate>
             <sparkle:version>202609020334</sparkle:version>
             <sparkle:shortVersionString>0.9.28</sparkle:shortVersionString>
@@ -26,14 +34,6 @@
             <sparkle:shortVersionString>0.9.26</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <enclosure url="https://github.com/DHLbigmonster/ledge/releases/download/v0.9.26/Ledge-0.9.26.dmg" length="2871866" type="application/octet-stream" sparkle:edSignature="k/IUTyWeYoZxCe5PNl30tet6v4t14OxboRcJu+/3R5v9d85IdfKP8x9BUi0VkiRBB4E7CrpxTXWKVmvqRZuXBA=="/>
-        </item>
-        <item>
-            <title>0.9.25</title>
-            <pubDate>Sun, 23 Aug 2026 22:45:02 +0800</pubDate>
-            <sparkle:version>202608231443</sparkle:version>
-            <sparkle:shortVersionString>0.9.25</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <enclosure url="https://github.com/DHLbigmonster/ledge/releases/download/v0.9.25/Ledge-0.9.25.dmg" length="2872595" type="application/octet-stream" sparkle:edSignature="+OQYO90BM5XAYTBDM7cZqtf/RIpz2pbZkLcvXKC3l+4dmDQLZvEgVLZk550El776WOwmA6ujjJDXKNy/RKGkBw=="/>
         </item>
         <item>
             <title>0.9.24</title>
