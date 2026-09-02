@@ -12,6 +12,20 @@ export default function Changelog() {
 
       <article className="mt-14 rounded-3xl border border-neutral-200/70 p-7 sm:p-9">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <h2 className="text-2xl font-semibold">v0.9.29</h2>
+          <time dateTime="2026-09-02" className="text-[12px] text-neutral-400">Released September 2, 2026</time>
+        </div>
+        <p className="mt-3 text-[14px] leading-relaxed text-neutral-500">A reliability release focused on interaction — the notch no longer loses responsiveness during system-level drags, menus and dialogs.</p>
+        <ul className="mt-6 list-disc space-y-2 pl-5 text-[14px] leading-relaxed text-neutral-700">
+          <li>Timers now run in the common run-loop mode: hover fades, undo windows and background housekeeping keep working during native drag-and-drop, menu-bar tracking and open/save dialogs.</li>
+          <li>Dragging from apps that offer several pasteboard types (files bundled with previews or plain text) no longer loses the underlying file — the strongest type always wins.</li>
+          <li>Diagnostic logging is quieter: off by default in release builds, rotates at 1 MB and throttles repeated messages.</li>
+          <li>Core interaction logic moved into a shared module with automated checks, and a UI smoke test now covers expand/collapse on installed release builds.</li>
+        </ul>
+      </article>
+
+      <article className="mt-6 rounded-3xl border border-neutral-200/70 p-7 sm:p-9">
+        <div className="flex flex-wrap items-baseline justify-between gap-2">
           <h2 className="text-2xl font-semibold">v0.9.28</h2>
           <time dateTime="2026-09-02" className="text-[12px] text-neutral-400">Released September 2, 2026</time>
         </div>
