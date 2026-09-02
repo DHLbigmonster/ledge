@@ -11,7 +11,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const { render, faqs, routeManifest } = await import(join(root, 'dist-ssr/entry-server.js'))
 
 const SITE = (process.env.SITE_URL || 'https://dhlbigmonster.github.io/ledge').replace(/\/$/, '')
-const VERSION = process.env.APP_VERSION || '0.9.25'
+const VERSION = process.env.APP_VERSION || '0.9.27'
 
 const htmlAttr = (value) => String(value)
   .replaceAll('&', '&amp;')

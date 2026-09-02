@@ -17,14 +17,14 @@ Drop files, screenshots, links, text, recordings — even windows. Grab them bac
 
 ---
 
-## 🆕 What's new in 0.9.25
+## 🆕 What's new in 0.9.27
 
-- 🖐 **Marquee multi-select** — drag a box across the shelf to grab several items at once, then copy, delete, or drag the whole selection out together.
-- 🔀 **Drag to reorder** — drop any card back onto the shelf to move it where you want; an insertion line shows exactly where it lands.
-- 🚫 **No more duplicates** — dropping something that is already on your shelf moves it instead of adding a second copy.
-- ⚙️ **Sidebar toggles in Settings** — show or hide each tool module; one centers, two or three stack.
-- 🎙 **Meeting recording** — capture Mac system audio and microphone audio into one local `.m4a`, saved to a folder you choose.
-- 📌 **Protected pinning** — pinned items survive expiry and Clear until you explicitly unpin them.
+- 🖥 **Reliable multi-display routing** — choose the main display or every display; only the screen you are using expands and accepts interaction.
+- 🖱 **One global pointer monitor** — cross-screen hover and drag routing no longer multiply background polling work.
+- 📤 **Correct vertical tool targets** — AirDrop and Beautify now match their visible tiles in every enabled-tool combination.
+- 🧹 **Clean screen transfers** — hover, selection, expanded stacks and confirmation state no longer leak between displays.
+- ⌫ **Predictable selection delete** — `⌘⌫` now handles a single selected item as well as multi-selection.
+- 🔌 **Hot-plug resilience** — newly connected or rearranged displays inherit the correct active/collapsed interaction state.
 
 ---
 
