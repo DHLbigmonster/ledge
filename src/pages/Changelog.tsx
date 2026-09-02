@@ -12,6 +12,21 @@ export default function Changelog() {
 
       <article className="mt-14 rounded-3xl border border-neutral-200/70 p-7 sm:p-9">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <h2 className="text-2xl font-semibold">v0.9.28</h2>
+          <time dateTime="2026-09-02" className="text-[12px] text-neutral-400">Released September 2, 2026</time>
+        </div>
+        <p className="mt-3 text-[14px] leading-relaxed text-neutral-500">The release that introduces iCloud Relay — move material between your Macs and hand files to friends through a shared folder.</p>
+        <ul className="mt-6 list-disc space-y-2 pl-5 text-[14px] leading-relaxed text-neutral-700">
+          <li>New Relay tool: create or connect an iCloud Drive shared folder and send files, folders, images, text and links from the notch.</li>
+          <li>Shelf cards drag straight into Relay with the same cyan highlight as AirDrop and Beautify; the drop auto-opens the Relay view and originals stay on the shelf.</li>
+          <li>The Relay view joins the island state machine: Esc returns to the shelf first, and collapsing always resets to the main view.</li>
+          <li>Transactional imports (partial failures roll back), conflict-free duplicate names, and a disconnect that never deletes shared files.</li>
+          <li>First-time Relay setup defaults to iCloud Drive with a guided flow; footer clipping on 13-inch MacBook Air displays is fixed.</li>
+        </ul>
+      </article>
+
+      <article className="mt-6 rounded-3xl border border-neutral-200/70 p-7 sm:p-9">
+        <div className="flex flex-wrap items-baseline justify-between gap-2">
           <h2 className="text-2xl font-semibold">v0.9.27</h2>
           <time dateTime="2026-08-29" className="text-[12px] text-neutral-400">Released August 29, 2026</time>
         </div>
