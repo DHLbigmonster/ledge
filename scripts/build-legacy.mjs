@@ -1,46 +1,63 @@
 #!/usr/bin/env node
-// 旧站（dhlbigmonster.github.io/ledge）自 2026-08 起降级为「跳转壳」：
-// 唯一品牌主站是 ledgeformac.github.io。本脚本只产出：
-//   dist-legacy/index.html      -> 跳品牌站首页
-//   dist-legacy/zh/index.html   -> 跳品牌站中文页
-//   dist-legacy/appcast.xml     -> 必须原样保留：已装机的 Sparkle 自动更新指向这里
-// 外加站点所有权验证文件，其余营销内容一律不再发布到旧地址。
-import { mkdir, rm, writeFile, copyFile } from 'node:fs/promises';
-import { fileURLToPath } from 'node:url';
+// The old project site remains online because installed app versions still use
+// its appcast. Every marketing URL is reduced to an instant migration page
+// whose canonical points to the matching URL on the single brand site.
+import { copyFile, mkdir, rm, writeFile } from 'node:fs/promises'
+import { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
-const root = fileURLToPath(new URL('..', import.meta.url));
-const out = `${root}dist-legacy`;
-const BRAND = 'https://ledgeformac.github.io';
+const root = fileURLToPath(new URL('..', import.meta.url))
+const out = `${root}dist-legacy`
+const brand = 'https://ledgeformac.github.io'
+const { routeManifest } = await import(`${root}dist-ssr/entry-server.js`)
+
+const html = (value) => String(value)
+  .replaceAll('&', '&amp;')
+  .replaceAll('"', '&quot;')
+  .replaceAll('<', '&lt;')
+  .replaceAll('>', '&gt;')
+
+const brandUrl = (path) => `${brand}${path === '/' ? '/' : path}`
 
 const stub = ({ lang, title, target }) => `<!doctype html>
 <html lang="${lang}">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${title}</title>
-    <link rel="canonical" href="${target}" />
-    <meta http-equiv="refresh" content="0;url=${target}" />
+    <title>${html(title)}</title>
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="${html(target)}" />
+    <meta http-equiv="refresh" content="0;url=${html(target)}" />
     <script>location.replace(${JSON.stringify(target)});</script>
-    <style>body{font-family:-apple-system,"PingFang SC",sans-serif;display:grid;place-items:center;height:100vh;margin:0;color:#111;background:#fafaf8}</style>
+    <style>body{font-family:-apple-system,"PingFang SC",sans-serif;display:grid;place-items:center;min-height:100vh;margin:0;color:#111;background:#fafaf8}p{padding:24px;text-align:center}a{color:inherit}</style>
   </head>
   <body>
-    <p>${lang === 'zh-CN' ? '页面已迁移，正在前往新地址…' : 'This page has moved.'} <a href="${target}" hreflang="${lang === 'zh-CN' ? 'zh-CN' : 'en'}">${BRAND.replace('https://', '')}</a></p>
+    <p>${lang === 'zh-CN' ? 'Ledge 纳岛官网已迁移，正在前往新地址…' : 'The Ledge for Mac website has moved.'} <a href="${html(target)}">ledgeformac.github.io</a></p>
   </body>
 </html>
-`;
+`
 
-await rm(out, { recursive: true, force: true });
-await mkdir(`${out}/zh`, { recursive: true });
-await writeFile(
-  `${out}/index.html`,
-  stub({ lang: 'en', title: 'Ledge for Mac', target: `${BRAND}/` }),
-);
-await writeFile(
-  `${out}/zh/index.html`,
-  stub({ lang: 'zh-CN', title: 'Ledge（纳岛）for Mac', target: `${BRAND}/zh/` }),
-);
-await copyFile(`${root}public/appcast.xml`, `${out}/appcast.xml`);
-for (const f of ['google09ccf1c8710b4212.html', 'BingSiteAuth.xml']) {
-  await copyFile(`${root}public/${f}`, `${out}/${f}`);
+await rm(out, { recursive: true, force: true })
+
+for (const page of routeManifest.filter((route) => route.indexable !== false)) {
+  const target = brandUrl(page.path)
+  const output = `${out}/${page.out}`
+  await mkdir(dirname(output), { recursive: true })
+  await writeFile(output, stub({
+    lang: page.lang,
+    title: page.lang === 'zh-CN' ? '页面已迁移 — Ledge 纳岛' : 'Page moved — Ledge for Mac',
+    target,
+  }))
 }
-console.log(`dist-legacy ready -> ${out} (index, zh/, appcast.xml)`);
+
+await writeFile(`${out}/404.html`, `<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="robots" content="noindex, follow"><title>Page moved — Ledge for Mac</title></head>
+<body><p>The Ledge for Mac website has moved to <a href="${brand}/">ledgeformac.github.io</a>.</p><script>location.replace(${JSON.stringify(brand)} + location.pathname.replace(/^\\/ledge/, '') + location.search + location.hash);</script></body></html>`)
+await writeFile(`${out}/robots.txt`, 'User-agent: *\nAllow: /\n')
+await copyFile(`${root}public/appcast.xml`, `${out}/appcast.xml`)
+
+for (const file of ['google09ccf1c8710b4212.html', 'BingSiteAuth.xml']) {
+  await copyFile(`${root}public/${file}`, `${out}/${file}`)
+}
+
+console.log(`dist-legacy ready: ${routeManifest.filter((route) => route.indexable !== false).length} migration pages plus appcast.xml`)

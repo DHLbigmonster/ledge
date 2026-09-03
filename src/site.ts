@@ -4,8 +4,8 @@ export const ISSUES_LINK = 'https://github.com/DHLbigmonster/ledge/issues/new/ch
 export const GITHUB_LINK = 'https://github.com/DHLbigmonster/ledge'
 
 /**
- * Internal links must work both on the current GitHub Pages subdirectory and
- * on the future custom-domain root. VITE_BASE_PATH controls Vite's BASE_URL.
+ * Internal links use Vite's configured base. The canonical brand site is at
+ * the root; VITE_BASE_PATH can still override it for deployment checks.
  */
 export function sitePath(path: string): string {
   if (/^(?:https?:|mailto:|#)/.test(path)) return path

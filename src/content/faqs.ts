@@ -1,5 +1,13 @@
 export const faqs: { q: string; a: string }[] = [
   {
+    q: 'Is there a Dynamic Island app for Mac?',
+    a: 'Yes. Ledge is a native Mac notch app that turns the area around the MacBook notch into a work shelf for files, screenshots, links, text and windows. It is currently a free public beta for macOS 14 or later.',
+  },
+  {
+    q: 'Can I download the Mac notch app from GitHub?',
+    a: 'Yes. Ledge is distributed through the DHLbigmonster/ledge GitHub Releases page. The latest DMG is a universal build for Apple silicon and Intel Macs. The public beta is not notarized yet, so macOS may require one manual confirmation on first launch.',
+  },
+  {
     q: 'Does Ledge work on a Mac without a notch?',
     a: 'Yes. On Macs with a physical notch, Ledge fuses with it. On Macs without one — including every Intel model — it attaches a slim, opaque-black Top Handle to the top edge. It stays compact when idle and expands into the same solid-black shelf. The solid finish keeps the handle crisp over the menu bar.',
   },

@@ -4,9 +4,11 @@ import { fileURLToPath } from 'node:url'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const dist = join(root, 'dist')
-const siteUrl = new URL(process.env.SITE_URL || 'https://dhlbigmonster.github.io/ledge/')
+const siteUrl = new URL(process.env.SITE_URL || 'https://ledgeformac.github.io/')
 const basePath = siteUrl.pathname.replace(/\/$/, '')
 const errors = []
+const seenTitles = new Map()
+const seenDescriptions = new Map()
 
 async function walk(directory) {
   const entries = await readdir(directory, { withFileTypes: true })
@@ -49,6 +51,17 @@ for (const file of htmlFiles) {
   if (!/<link rel="canonical" href="https:\/\//i.test(html)) errors.push(`${label}: missing absolute canonical`)
   if (!/<meta property="og:image:width" content="1200"/i.test(html)) errors.push(`${label}: missing OG width`)
   if (!/<meta property="og:image:height" content="630"/i.test(html)) errors.push(`${label}: missing OG height`)
+
+  if (!/<meta name="robots" content="noindex/i.test(html)) {
+    const title = html.match(/<title>([^<]+)<\/title>/i)?.[1]
+    const description = html.match(/<meta name="description" content="([^"]+)"/i)?.[1]
+    if (!title) errors.push(`${label}: missing title`)
+    else if (seenTitles.has(title)) errors.push(`${label}: duplicate title also used by ${seenTitles.get(title)}`)
+    else seenTitles.set(title, label)
+    if (!description) errors.push(`${label}: missing description`)
+    else if (seenDescriptions.has(description)) errors.push(`${label}: duplicate description also used by ${seenDescriptions.get(description)}`)
+    else seenDescriptions.set(description, label)
+  }
 
   for (const match of html.matchAll(/\b(?:href|src)="([^"]+)"/g)) {
     const path = localPath(match[1])

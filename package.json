@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "check:build": "node scripts/check-build.mjs",
     "build:legacy": "node scripts/build-legacy.mjs",
+    "check:legacy": "node scripts/check-legacy.mjs",
     "indexnow": "node scripts/submit-indexnow.mjs",
     "lint": "eslint .",
     "preview": "vite preview"

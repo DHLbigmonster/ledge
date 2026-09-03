@@ -11,6 +11,8 @@ import AiAgentWorkspace from './pages/AiAgentWorkspace'
 import CompareBoringNotch from './pages/CompareBoringNotch'
 import Privacy from './pages/Privacy'
 import Changelog from './pages/Changelog'
+import MacNotchGuide from './pages/MacNotchGuide'
+import ZhMacNotchGuide from './pages/ZhMacNotchGuide'
 import NotFound from './pages/NotFound'
 
 export type SchemaKind = 'software' | 'faq' | 'webpage' | 'article' | 'privacy'
@@ -35,6 +37,11 @@ export type RouteMeta = {
 }
 
 const homeAlternates = { en: '/', 'zh-CN': '/zh/', 'x-default': '/' } as const
+const macNotchGuideAlternates = {
+  en: '/guides/macbook-notch-app/',
+  'zh-CN': '/zh/guides/mac-lingdongdao/',
+  'x-default': '/guides/macbook-notch-app/',
+} as const
 
 /**
  * The single source of truth for routable pages and build-time SEO output.
@@ -47,13 +54,13 @@ export const routeManifest: RouteMeta[] = [
     component: Home,
     lang: 'en',
     locale: 'en_US',
-    title: 'Ledge for Mac — A Dynamic Island that gets things done',
-    description: 'Turn your Mac notch into a work shelf for files, screenshots, links, windows, AirDrop, beautification and audio recording. Free public beta for macOS 14+.',
-    keywords: 'Dynamic Island for Mac, Mac notch app, Mac file shelf, drag and drop shelf, window parking Mac, Ledge for Mac',
+    title: 'Dynamic Island for Mac — Free Mac Notch App | Ledge',
+    description: 'Ledge is a free public-beta Mac notch app that turns the MacBook notch into a Dynamic Island for files, screenshots, links and windows. macOS 14+.',
+    keywords: 'Dynamic Island for Mac, free Mac notch app, MacBook notch app, Mac file shelf, macOS notch app, Ledge for Mac',
     ogImage: '/og-image-en.png',
     ogAlt: 'Ledge for Mac expanded from the notch with work items ready to drag',
     schema: 'software',
-    lastmod: '2026-08-24',
+    lastmod: '2026-09-03',
     priority: 1,
     changefreq: 'weekly',
     alternates: homeAlternates,
@@ -64,16 +71,32 @@ export const routeManifest: RouteMeta[] = [
     component: ZhHome,
     lang: 'zh-CN',
     locale: 'zh_CN',
-    title: 'Ledge 纳岛 — 真正能干活的 Mac 灵动岛',
-    description: '把 Mac 刘海变成工作抽屉：收纳文件、截图、链接、文字与窗口，还能投送、截图美化和录音。macOS 14+ 免费公测。',
-    keywords: 'Mac 灵动岛, Mac 刘海工具, Mac 文件暂存, 窗口收纳, 截图美化, 纳岛, Ledge for Mac',
+    title: 'Mac 灵动岛软件：把 MacBook 刘海变成工作抽屉 | Ledge 纳岛',
+    description: 'Ledge 纳岛是一款免费公开测试中的 Mac 灵动岛工具：在 MacBook 刘海暂存文件、截图、链接、文字和窗口。支持 macOS 14+、Apple 芯片与 Intel。',
+    keywords: 'Mac 灵动岛, Mac 灵动岛软件, Mac 刘海工具, Mac 文件暂存, MacBook 刘海, 纳岛, Ledge for Mac',
     ogImage: '/og-image-zh.png',
     ogAlt: 'Ledge 纳岛展开后收纳工作素材的 Mac 灵动岛',
     schema: 'software',
-    lastmod: '2026-08-24',
+    lastmod: '2026-09-03',
     priority: 0.9,
     changefreq: 'weekly',
     alternates: homeAlternates,
+  },
+  {
+    path: '/guides/macbook-notch-app/', out: 'guides/macbook-notch-app/index.html', component: MacNotchGuide, lang: 'en', locale: 'en_US',
+    title: 'MacBook Notch App Guide: Make a Dynamic Island | Ledge',
+    description: 'Learn how a Mac notch app turns the MacBook notch into a Dynamic Island and temporary file shelf. Try Ledge free on macOS 14+, including Intel Macs.',
+    keywords: 'MacBook notch app, Mac notch app free, Mac notch app GitHub, MacBook notch Dynamic Island, macOS notch app',
+    ogImage: '/og-image-en.png', ogAlt: 'Ledge turning the MacBook notch into a Dynamic Island file shelf', schema: 'article', lastmod: '2026-09-03', priority: 0.9, changefreq: 'monthly',
+    alternates: macNotchGuideAlternates,
+  },
+  {
+    path: '/zh/guides/mac-lingdongdao/', out: 'zh/guides/mac-lingdongdao/index.html', component: ZhMacNotchGuide, lang: 'zh-CN', locale: 'zh_CN',
+    title: 'Mac 灵动岛怎么用？MacBook 刘海工具指南 | Ledge 纳岛',
+    description: 'Mac 灵动岛软件能做什么？用 Ledge 纳岛把 MacBook 刘海变成文件暂存架，收纳文件、截图、链接和窗口。macOS 14+ 免费公开测试。',
+    keywords: 'Mac 灵动岛软件, Mac 灵动岛怎么用, Mac 刘海工具, MacBook 刘海, Mac 文件暂存, 纳岛',
+    ogImage: '/og-image-zh.png', ogAlt: 'Ledge 纳岛把 MacBook 刘海变成文件暂存架', schema: 'article', lastmod: '2026-09-03', priority: 0.9, changefreq: 'monthly',
+    alternates: macNotchGuideAlternates,
   },
   {
     path: '/faq/', out: 'faq/index.html', component: FAQ, lang: 'en', locale: 'en_US',
@@ -106,30 +129,30 @@ export const routeManifest: RouteMeta[] = [
   {
     path: '/use-cases/ai-agent-workspace/', out: 'use-cases/ai-agent-workspace/index.html', component: AiAgentWorkspace, lang: 'en', locale: 'en_US',
     title: 'A Mac Shelf for AI Agent Workflows — Ledge for Mac',
-    description: 'Keep prompts, screenshots, output files, reference links and working windows close while you use Codex or another AI agent. Ledge stages materials; it does not control the agent.',
+    description: 'Keep prompts, screenshots, output files, links and windows close while using Codex or another AI agent. Ledge stages materials; it does not control the agent.',
     keywords: 'AI agent workspace Mac, Codex workflow Mac, prompt shelf, AI work files Mac',
-    ogImage: '/og-image-en.png', ogAlt: 'Ledge holding working materials beside an AI agent workflow', schema: 'article', lastmod: '2026-08-24', priority: 0.85, changefreq: 'monthly',
+    ogImage: '/og-image-en.png', ogAlt: 'Ledge holding working materials beside an AI agent workflow', schema: 'article', lastmod: '2026-09-03', priority: 0.85, changefreq: 'monthly',
   },
   {
     path: '/compare/notchnook/', out: 'compare/notchnook/index.html', component: CompareNotchNook, lang: 'en', locale: 'en_US',
     title: 'Ledge vs NotchNook — Work shelf or notch utility?',
     description: 'An evidence-linked comparison of Ledge and NotchNook: work-material staging and window parking versus a broader notch utility experience.',
     keywords: 'Ledge vs NotchNook, NotchNook alternative, Mac notch shelf comparison',
-    ogImage: '/og-image-en.png', ogAlt: 'Ledge for Mac work shelf', schema: 'article', lastmod: '2026-08-24', priority: 0.75, changefreq: 'monthly',
+    ogImage: '/og-image-en.png', ogAlt: 'Ledge for Mac work shelf', schema: 'article', lastmod: '2026-09-03', priority: 0.75, changefreq: 'monthly',
   },
   {
     path: '/compare/yoink/', out: 'compare/yoink/index.html', component: CompareYoink, lang: 'en', locale: 'en_US',
     title: 'Ledge vs Yoink — Two Mac drag-and-drop shelves compared',
     description: 'An evidence-linked comparison of Ledge and Yoink for temporary file staging, text, window parking, platform maturity and App Store availability.',
     keywords: 'Ledge vs Yoink, Yoink alternative Mac, Mac drag and drop shelf comparison',
-    ogImage: '/og-image-en.png', ogAlt: 'Ledge for Mac drag-and-drop shelf', schema: 'article', lastmod: '2026-08-24', priority: 0.75, changefreq: 'monthly',
+    ogImage: '/og-image-en.png', ogAlt: 'Ledge for Mac drag-and-drop shelf', schema: 'article', lastmod: '2026-09-03', priority: 0.75, changefreq: 'monthly',
   },
   {
     path: '/compare/boring-notch/', out: 'compare/boring-notch/index.html', component: CompareBoringNotch, lang: 'en', locale: 'en_US',
     title: 'Ledge vs boring.notch — Mac notch apps for different jobs',
     description: 'Compare Ledge’s work-material shelf and window parking with boring.notch’s open-source notch utilities and media-focused experience.',
     keywords: 'Ledge vs boring notch, boring.notch alternative, Mac Dynamic Island comparison',
-    ogImage: '/og-image-en.png', ogAlt: 'Ledge for Mac Dynamic Island work shelf', schema: 'article', lastmod: '2026-08-24', priority: 0.8, changefreq: 'monthly',
+    ogImage: '/og-image-en.png', ogAlt: 'Ledge for Mac Dynamic Island work shelf', schema: 'article', lastmod: '2026-09-03', priority: 0.8, changefreq: 'monthly',
   },
   {
     path: '/privacy/', out: 'privacy/index.html', component: Privacy, lang: 'en', locale: 'en_US',
@@ -141,9 +164,9 @@ export const routeManifest: RouteMeta[] = [
   {
     path: '/changelog/', out: 'changelog/index.html', component: Changelog, lang: 'en', locale: 'en_US',
     title: 'Ledge for Mac Changelog — Public beta updates',
-    description: 'Release notes for Ledge for Mac, including the current v0.9.27 public beta and links to the complete GitHub release history.',
-    keywords: 'Ledge for Mac changelog, Ledge release notes, Ledge 0.9.27',
-    ogImage: '/og-image-en.png', ogAlt: 'Ledge for Mac public beta release notes', schema: 'article', lastmod: '2026-08-29', priority: 0.7, changefreq: 'weekly',
+    description: 'Release notes for Ledge for Mac, including the current v0.9.30 universal public beta and links to the complete GitHub release history.',
+    keywords: 'Ledge for Mac changelog, Ledge release notes, Ledge 0.9.30',
+    ogImage: '/og-image-en.png', ogAlt: 'Ledge for Mac public beta release notes', schema: 'article', lastmod: '2026-09-03', priority: 0.7, changefreq: 'weekly',
   },
   {
     path: '/404/', out: '404.html', component: NotFound, lang: 'en', locale: 'en_US',

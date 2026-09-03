@@ -28,8 +28,8 @@ permissions:
 jobs:
   deploy:
     env:
-      SITE_URL: ${{ vars.SITE_URL || 'https://dhlbigmonster.github.io/ledge/' }}
-      VITE_BASE_PATH: ${{ vars.VITE_BASE_PATH || '/ledge/' }}
+      SITE_URL: ${{ vars.SITE_URL || 'https://ledgeformac.github.io/' }}
+      VITE_BASE_PATH: ${{ vars.VITE_BASE_PATH || '/' }}
       VITE_BUTTONDOWN_USERNAME: ${{ vars.VITE_BUTTONDOWN_USERNAME }}
       INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
     environment:
@@ -52,8 +52,12 @@ jobs:
       - name: Validate
         run: npm run lint && npm run build && npm run check:build
 
+      - name: Build and verify old-site migration pages
+        if: ${{ github.repository == 'DHLbigmonster/ledge' }}
+        run: npm run build:legacy && npm run check:legacy
+
       - name: Add IndexNow ownership key when configured
-        if: ${{ env.INDEXNOW_KEY != '' }}
+        if: ${{ github.repository == 'ledgeformac/ledgeformac.github.io' && env.INDEXNOW_KEY != '' }}
         run: printf '%s' "$INDEXNOW_KEY" > "dist/$INDEXNOW_KEY.txt"
 
       - name: Configure Pages
@@ -62,12 +66,12 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: dist
+          path: ${{ github.repository == 'DHLbigmonster/ledge' && 'dist-legacy' || 'dist' }}
 
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
 
       - name: Submit canonical URLs to IndexNow when configured
-        if: ${{ env.INDEXNOW_KEY != '' }}
+        if: ${{ github.repository == 'ledgeformac/ledgeformac.github.io' && env.INDEXNOW_KEY != '' }}
         run: npm run indexnow

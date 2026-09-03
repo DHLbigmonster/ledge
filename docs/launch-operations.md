@@ -4,8 +4,9 @@ This runbook separates changes that are safe to ship now from account-bound acti
 
 ## Already safe to ship
 
-- The website defaults to `https://dhlbigmonster.github.io/ledge/` and the `/ledge/` base path.
-- `SITE_URL` and `VITE_BASE_PATH` can override those defaults for the future custom domain.
+- The single canonical website defaults to `https://ledgeformac.github.io/` at the root path.
+- The old `https://dhlbigmonster.github.io/ledge/` project site publishes matching migration pages plus the historical Sparkle appcast; it must not publish duplicate marketing pages or a duplicate sitemap.
+- `SITE_URL` and `VITE_BASE_PATH` can override the brand-site defaults for a future custom domain.
 - The Buttondown form remains inactive until `VITE_BUTTONDOWN_USERNAME` is configured.
 - The signed Sparkle feed stays at the existing GitHub Pages URL so installed versions keep receiving updates.
 
@@ -15,7 +16,7 @@ Do not perform this section until `ledgeformac.com` is registered to the project
 
 1. Verify the domain in GitHub before changing DNS.
 2. In the public website repository's Pages settings, set the custom domain to `ledgeformac.com`.
-3. Configure the apex records required by GitHub Pages and add `www` as a CNAME to `dhlbigmonster.github.io`.
+3. Configure the apex records required by GitHub Pages and add `www` as a CNAME to `ledgeformac.github.io`.
 4. After DNS resolves, enable HTTPS in GitHub Pages.
 5. Set repository variables:
 
@@ -29,10 +30,10 @@ Do not perform this section until `ledgeformac.com` is registered to the project
 
 ## Search indexing
 
-After the custom domain is live:
+On the current brand domain (repeat after any future custom-domain cutover):
 
-1. Add and verify the domain property in Google Search Console.
-2. Submit `https://ledgeformac.com/sitemap.xml`.
+1. Add and verify the URL-prefix property `https://ledgeformac.github.io/` in Google Search Console.
+2. Submit `https://ledgeformac.github.io/sitemap.xml`.
 3. Inspect the home page and each high-intent page; request indexing once when needed.
 4. Add or import the site in Bing Webmaster Tools and submit the same sitemap.
 5. Generate an IndexNow key, host the key file at the site root, configure the deploy secret, and submit only canonical URLs from the route manifest.

@@ -2,7 +2,7 @@
 
 # Ledge for Mac · 纳岛
 
-**A work-focused, all-in-one Dynamic Island for Mac.**
+**A free public-beta, work-focused Dynamic Island app for Mac.**
 Drop files, screenshots, links, text, recordings — even windows. Grab them back whenever.
 
 [![Release](https://img.shields.io/github/v/release/DHLbigmonster/ledge?style=flat-square)](https://github.com/DHLbigmonster/ledge/releases/latest)
@@ -11,20 +11,17 @@ Drop files, screenshots, links, text, recordings — even windows. Grab them bac
 
 <img src="public/demo.gif" alt="Ledge demo" width="710">
 
-[Download](https://github.com/DHLbigmonster/ledge/releases/latest) · [Website](https://dhlbigmonster.github.io/ledge/) · [Report an issue](https://github.com/DHLbigmonster/ledge/issues)
+[Download](https://github.com/DHLbigmonster/ledge/releases/latest) · [Website](https://ledgeformac.github.io/) · [Report an issue](https://github.com/DHLbigmonster/ledge/issues)
 
 </div>
 
 ---
 
-## 🆕 What's new in 0.9.27
+## 🆕 What's new in 0.9.30
 
-- 🖥 **Reliable multi-display routing** — choose the main display or every display; only the screen you are using expands and accepts interaction.
-- 🖱 **One global pointer monitor** — cross-screen hover and drag routing no longer multiply background polling work.
-- 📤 **Correct vertical tool targets** — AirDrop and Beautify now match their visible tiles in every enabled-tool combination.
-- 🧹 **Clean screen transfers** — hover, selection, expanded stacks and confirmation state no longer leak between displays.
-- ⌫ **Predictable selection delete** — `⌘⌫` now handles a single selected item as well as multi-selection.
-- 🔌 **Hot-plug resilience** — newly connected or rearranged displays inherit the correct active/collapsed interaction state.
+- 🖥 **Universal build restored** — one release now serves both Apple silicon and Intel Macs again.
+- 🔄 **Intel automatic updates restored** — the Sparkle feed no longer excludes Intel Macs after the Apple-silicon-only v0.9.29 build.
+- ✅ **Architecture is release-verified** — the release pipeline checks every app and framework binary before publishing.
 
 ---
 
@@ -60,7 +57,7 @@ Your desktop is not a storage system. Ledge lives in the notch — hover, drop, 
 | Works on Macs without a notch | ✅ Slim opaque-black Top Handle | ✅ |
 | Local-only, zero account | ✅ Core makes no network calls | ✅ |
 
-Deeper breakdowns: [Ledge vs NotchNook](https://dhlbigmonster.github.io/ledge/compare/notchnook/) · [Ledge vs Yoink](https://dhlbigmonster.github.io/ledge/compare/yoink/)
+Deeper breakdowns: [Ledge vs NotchNook](https://ledgeformac.github.io/compare/notchnook/) · [Ledge vs Yoink](https://ledgeformac.github.io/compare/yoink/)
 
 ---
 

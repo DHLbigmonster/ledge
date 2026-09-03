@@ -15,6 +15,7 @@ export default function ContentPage({
   sections,
   related,
   image,
+  lang = 'en',
 }: {
   eyebrow: string
   title: string
@@ -22,9 +23,12 @@ export default function ContentPage({
   sections: Section[]
   related: { href: string; label: string; description: string }[]
   image?: { src: string; alt: string; width: number; height: number }
+  lang?: 'en' | 'zh'
 }) {
+  const zh = lang === 'zh'
+
   return (
-    <Layout>
+    <Layout lang={lang}>
       <header className="text-center">
         <p className="text-[13px] font-medium uppercase tracking-[0.18em] text-neutral-400">{eyebrow}</p>
         <h1 className="mt-3 text-balance text-4xl font-semibold tracking-tight sm:text-5xl">{title}</h1>
@@ -46,7 +50,7 @@ export default function ContentPage({
       </div>
 
       <section className="mt-16 border-t border-neutral-100 pt-10">
-        <h2 className="text-xl font-semibold tracking-tight">Keep exploring</h2>
+        <h2 className="text-xl font-semibold tracking-tight">{zh ? '继续了解' : 'Keep exploring'}</h2>
         <div className="mt-5 grid gap-3 sm:grid-cols-2">
           {related.map((item) => (
             <a key={item.href} href={sitePath(item.href)} className="rounded-2xl border border-neutral-200/70 p-5 transition hover:-translate-y-0.5 hover:border-neutral-400">
@@ -58,10 +62,10 @@ export default function ContentPage({
       </section>
 
       <section className="mt-14 rounded-3xl bg-black px-7 py-10 text-center text-white">
-        <h2 className="text-2xl font-semibold">Make the notch useful.</h2>
-        <p className="mx-auto mt-2 max-w-md text-[13px] leading-relaxed text-white/60">Free public beta for macOS 14+. Universal for Apple silicon and Intel. Not notarized yet.</p>
+        <h2 className="text-2xl font-semibold">{zh ? '让刘海真正有用。' : 'Make the notch useful.'}</h2>
+        <p className="mx-auto mt-2 max-w-md text-[13px] leading-relaxed text-white/60">{zh ? 'macOS 14+ 免费公开测试版，Apple 芯片与 Intel 通用。当前版本暂未完成 Apple 公证。' : 'Free public beta for macOS 14+. Universal for Apple silicon and Intel. Not notarized yet.'}</p>
         <a href={DOWNLOAD_LINK} {...goatEvent('download-footer')} className="mt-6 inline-flex rounded-full bg-white px-6 py-2.5 text-[13px] font-medium text-black transition hover:scale-[1.03] active:scale-100">
-          Download Ledge for Mac
+          {zh ? '下载 Ledge 纳岛' : 'Download Ledge for Mac'}
         </a>
       </section>
     </Layout>

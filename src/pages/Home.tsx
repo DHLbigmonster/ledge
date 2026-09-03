@@ -18,9 +18,10 @@ const copy = {
     download: 'Download for Mac',
     freeNote: 'macOS 14+ · Apple silicon & Intel · free public beta',
     openingNote: 'Free public beta. On first launch, macOS may ask you to confirm opening it in System Settings → Privacy & Security.',
-    heroTitle1: 'The Dynamic Island',
-    heroTitle2: 'your Mac should have.',
+    heroTitle1: 'A Dynamic Island for Mac',
+    heroTitle2: 'that gets things done.',
     heroSub: 'Drop in files, screenshots, links, even windows. Pull them out whenever. The rest of the time, it stays out of your way.',
+    heroDetail: 'Ledge turns the MacBook notch—or the top edge of a notchless Mac—into a temporary file shelf for files, screenshots, links, text and windows.',
     items: 'items',
     featuresTitle: 'What it does',
     featuresSub: 'Eight things. All of them about keeping stuff within reach.',
@@ -87,9 +88,10 @@ const copy = {
     download: '免费下载',
     freeNote: 'macOS 14+ · Apple 芯片 / Intel · 免费公开测试版',
     openingNote: '免费公开测试版。首次打开时，macOS 可能要求前往“系统设置 → 隐私与安全性”确认打开。',
-    heroTitle1: '刘海，',
-    heroTitle2: '是个抽屉。',
+    heroTitle1: '真正能干活的',
+    heroTitle2: 'Mac 灵动岛。',
     heroSub: '文件、截图、链接，甚至窗口，拖进去就好。要用的时候拿出来。其余时间，它安安静静待在顶上。',
+    heroDetail: 'Ledge 纳岛是一款免费公开测试中的 Mac 灵动岛软件：把 MacBook 刘海（无刘海机型则是屏幕顶边）变成文件、截图、链接、文字和窗口的临时暂存架。',
     items: '项',
     featuresTitle: '它能做什么',
     featuresSub: '八件事。每一件都为了让东西触手可及。',
@@ -281,6 +283,9 @@ export default function Home({ forceLang }: { forceLang?: Lang } = {}) {
         </h1>
         <p className="hero-rise mx-auto mt-6 max-w-xl text-balance text-[17px] leading-relaxed text-neutral-500" style={{ animationDelay: '120ms' }}>
           {t.heroSub}
+        </p>
+        <p className="hero-rise mx-auto mt-3 max-w-2xl text-balance text-[13px] leading-relaxed text-neutral-400" style={{ animationDelay: '180ms' }}>
+          {t.heroDetail}
         </p>
         <div className="hero-rise mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row" style={{ animationDelay: '240ms' }}>
           <a
@@ -489,6 +494,7 @@ export default function Home({ forceLang }: { forceLang?: Lang } = {}) {
           <Reveal><h2 className="text-center text-3xl font-semibold tracking-tight">{lang === 'zh' ? '从你现在的工作开始。' : 'Start with the job in front of you.'}</h2></Reveal>
           <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {[
+              { href: lang === 'zh' ? '/zh/guides/mac-lingdongdao/' : '/guides/macbook-notch-app/', en: 'Use the MacBook notch', zh: 'Mac 灵动岛怎么用' },
               { href: '/features/file-shelf/', en: 'Stage files and text', zh: '暂存文件与文字' },
               { href: '/features/window-parking/', en: 'Park a working window', zh: '收纳当前窗口' },
               { href: '/features/screenshot-beautifier/', en: 'Beautify a screenshot', zh: '截图一键美化' },
@@ -534,9 +540,10 @@ export default function Home({ forceLang }: { forceLang?: Lang } = {}) {
               : <><span translate="no" className="notranslate">Ledge</span> 纳岛</>}</span>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
-            <a href={sitePath('/privacy/')} className="hover:text-neutral-800">Privacy</a>
-            <a href={sitePath('/faq/')} className="hover:text-neutral-800">FAQ</a>
-            <a href={sitePath('/changelog/')} className="hover:text-neutral-800">Changelog</a>
+            <a href={sitePath(lang === 'zh' ? '/zh/guides/mac-lingdongdao/' : '/guides/macbook-notch-app/')} className="hover:text-neutral-800">{lang === 'zh' ? '使用指南' : 'Notch guide'}</a>
+            <a href={sitePath('/privacy/')} className="hover:text-neutral-800">{lang === 'zh' ? '隐私' : 'Privacy'}</a>
+            <a href={sitePath('/faq/')} className="hover:text-neutral-800">{lang === 'zh' ? '常见问题' : 'FAQ'}</a>
+            <a href={sitePath('/changelog/')} className="hover:text-neutral-800">{lang === 'zh' ? '更新记录' : 'Changelog'}</a>
             <span>{t.footerTag}</span>
           </div>
         </div>

@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url'
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const { render, faqs, routeManifest } = await import(join(root, 'dist-ssr/entry-server.js'))
 
-const SITE = (process.env.SITE_URL || 'https://dhlbigmonster.github.io/ledge').replace(/\/$/, '')
+const SITE = (process.env.SITE_URL || 'https://ledgeformac.github.io').replace(/\/$/, '')
 const VERSION = process.env.APP_VERSION || '0.9.30'
 
 const htmlAttr = (value) => String(value)
@@ -70,9 +70,23 @@ function schemaFor(page) {
     }
   }
 
+  if (page.schema === 'article') {
+    return {
+      ...base,
+      '@type': 'Article',
+      headline: page.title,
+      image: [assetUrl(page.ogImage)],
+      datePublished: page.lastmod,
+      dateModified: page.lastmod,
+      mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl(page.path) },
+      author: { '@type': 'Organization', name: 'Ledge for Mac', url: pageUrl('/') },
+      publisher: { '@type': 'Organization', name: 'Ledge for Mac', url: pageUrl('/') },
+    }
+  }
+
   return {
     ...base,
-    '@type': page.schema === 'article' ? 'Article' : page.schema === 'privacy' ? 'PrivacyPolicy' : 'WebPage',
+    '@type': page.schema === 'privacy' ? 'PrivacyPolicy' : 'WebPage',
     isPartOf: { '@type': 'WebSite', name: 'Ledge for Mac', url: pageUrl('/') },
   }
 }
