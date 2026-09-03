@@ -3,6 +3,14 @@
     <channel>
         <title>Ledge</title>
         <item>
+            <title>0.9.30</title>
+            <pubDate>Thu, 03 Sep 2026 08:40:23 +0800</pubDate>
+            <sparkle:version>202609030038</sparkle:version>
+            <sparkle:shortVersionString>0.9.30</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <enclosure url="https://github.com/DHLbigmonster/ledge/releases/download/v0.9.30/Ledge-0.9.30.dmg" length="3610207" type="application/octet-stream" sparkle:edSignature="AWD1Ubq1bFrS8GqS6LhzLSPapmGklaHGkzq9u8DuvVEVoMTj/GU/LNaSHxX7IBbE6rZcxVTrSvXWRIb9ErJAAw=="/>
+        </item>
+        <item>
             <title>0.9.29</title>
             <pubDate>Wed, 02 Sep 2026 23:21:59 +0800</pubDate>
             <sparkle:version>202609021520</sparkle:version>
@@ -35,14 +43,6 @@
             <sparkle:shortVersionString>0.9.27</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <enclosure url="https://github.com/DHLbigmonster/ledge/releases/download/v0.9.27/Ledge-0.9.27.dmg" length="2929995" type="application/octet-stream" sparkle:edSignature="dg4xNSMelb5KmbqKFkXou8qt7M7XNROxb0DgevSrrqDV484UlmMdjNKY38NhfdQAvECiZF/wndcnaaSxvePxCg=="/>
-        </item>
-        <item>
-            <title>0.9.26</title>
-            <pubDate>Thu, 27 Aug 2026 19:21:30 +0800</pubDate>
-            <sparkle:version>202608271119</sparkle:version>
-            <sparkle:shortVersionString>0.9.26</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-            <enclosure url="https://github.com/DHLbigmonster/ledge/releases/download/v0.9.26/Ledge-0.9.26.dmg" length="2871866" type="application/octet-stream" sparkle:edSignature="k/IUTyWeYoZxCe5PNl30tet6v4t14OxboRcJu+/3R5v9d85IdfKP8x9BUi0VkiRBB4E7CrpxTXWKVmvqRZuXBA=="/>
         </item>
         <item>
             <title>0.9.24</title>
