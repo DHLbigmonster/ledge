@@ -11,7 +11,10 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const { render, faqs, routeManifest } = await import(join(root, 'dist-ssr/entry-server.js'))
 
 const SITE = (process.env.SITE_URL || 'https://ledgeformac.github.io').replace(/\/$/, '')
-const VERSION = process.env.APP_VERSION || '0.9.30'
+const appcast = readFileSync(join(root, 'public/appcast.xml'), 'utf8')
+const appcastVersion = appcast.match(/<sparkle:shortVersionString>([^<]+)<\/sparkle:shortVersionString>/)?.[1]
+if (!appcastVersion) throw new Error('Unable to read the latest version from public/appcast.xml')
+const VERSION = process.env.APP_VERSION || appcastVersion
 
 const htmlAttr = (value) => String(value)
   .replaceAll('&', '&amp;')

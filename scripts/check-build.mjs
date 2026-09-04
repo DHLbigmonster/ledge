@@ -10,6 +10,10 @@ const errors = []
 const seenTitles = new Map()
 const seenDescriptions = new Map()
 
+const appcast = await readFile(join(root, 'public/appcast.xml'), 'utf8')
+const releaseVersion = appcast.match(/<sparkle:shortVersionString>([^<]+)<\/sparkle:shortVersionString>/)?.[1]
+if (!releaseVersion) errors.push('public/appcast.xml: missing latest shortVersionString')
+
 async function walk(directory) {
   const entries = await readdir(directory, { withFileTypes: true })
   const nested = await Promise.all(entries.map((entry) => {
@@ -92,6 +96,21 @@ for (const location of locations) {
 const notFound = await readFile(join(dist, '404.html'), 'utf8')
 if (!/<meta name="robots" content="noindex, follow"/i.test(notFound)) {
   errors.push('404.html: must be noindex, follow')
+}
+
+if (releaseVersion) {
+  const home = await readFile(join(dist, 'index.html'), 'utf8')
+  const changelog = await readFile(join(dist, 'changelog/index.html'), 'utf8')
+  const readme = await readFile(join(root, 'README.md'), 'utf8')
+  if (!home.includes(`"softwareVersion":"${releaseVersion}"`)) {
+    errors.push(`index.html: softwareVersion must match appcast ${releaseVersion}`)
+  }
+  if (!changelog.includes(`v${releaseVersion}`)) {
+    errors.push(`changelog/index.html: missing current appcast version v${releaseVersion}`)
+  }
+  if (!readme.includes(`What's new in ${releaseVersion}`)) {
+    errors.push(`README.md: missing current appcast version ${releaseVersion}`)
+  }
 }
 
 if (errors.length) {

@@ -12,6 +12,20 @@ export default function Changelog() {
 
       <article className="mt-14 rounded-3xl border border-neutral-200/70 p-7 sm:p-9">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <h2 className="text-2xl font-semibold">v0.9.31</h2>
+          <time dateTime="2026-09-03" className="text-[12px] text-neutral-400">Released September 3, 2026</time>
+        </div>
+        <p className="mt-3 text-[14px] leading-relaxed text-neutral-500">A focused interaction release for pinned items, multi-selection and iCloud Relay.</p>
+        <ul className="mt-6 list-disc space-y-2 pl-5 text-[14px] leading-relaxed text-neutral-700">
+          <li>Pinned cards stay at the front of the shelf, keeping important material immediately reachable.</li>
+          <li>Marquee selection yields to card dragging, so a selected batch drags out together instead of falling back to one card.</li>
+          <li>Relay now matches the main shelf for batch dragging, selection clearing and post-drag state.</li>
+          <li>Hover tracking is restored throughout Relay, including when its view is not the key window.</li>
+        </ul>
+      </article>
+
+      <article className="mt-6 rounded-3xl border border-neutral-200/70 p-7 sm:p-9">
+        <div className="flex flex-wrap items-baseline justify-between gap-2">
           <h2 className="text-2xl font-semibold">v0.9.30</h2>
           <time dateTime="2026-09-03" className="text-[12px] text-neutral-400">Released September 3, 2026</time>
         </div>

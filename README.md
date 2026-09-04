@@ -17,11 +17,11 @@ Drop files, screenshots, links, text, recordings — even windows. Grab them bac
 
 ---
 
-## 🆕 What's new in 0.9.30
+## 🆕 What's new in 0.9.31
 
-- 🖥 **Universal build restored** — one release now serves both Apple silicon and Intel Macs again.
-- 🔄 **Intel automatic updates restored** — the Sparkle feed no longer excludes Intel Macs after the Apple-silicon-only v0.9.29 build.
-- ✅ **Architecture is release-verified** — the release pipeline checks every app and framework binary before publishing.
+- 📌 **Pinned means first** — pinned cards stay at the front of the shelf, so important material remains immediately reachable.
+- 🖱 **Reliable multi-selection** — marquee selection no longer steals card drags, and a selected batch drags out together from the shelf or Relay.
+- 🔄 **Relay interaction fixes** — hover, selection clearing and post-drag state now behave consistently with the main shelf.
 
 ---
 
