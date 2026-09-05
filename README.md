@@ -17,6 +17,12 @@ Drop files, screenshots, links, text, recordings — even windows. Grab them bac
 
 ---
 
+## 🆕 What's new in 0.9.32
+
+- 😴 **Macs can sleep again** — fixed an assertion that kept the system from idle-sleeping for as long as Ledge ran.
+- 🔋 **Sleep-safe hover** — App Nap stays opted out via `userInitiatedAllowingIdleSystemSleep`, so hover latency is unchanged without blocking sleep.
+- 🎙 **Recordings block sleep correctly** — an idle-sleep assertion is held only while a meeting recording runs and released on stop.
+
 ## 🆕 What's new in 0.9.31
 
 - 📌 **Pinned means first** — pinned cards stay at the front of the shelf, so important material remains immediately reachable.

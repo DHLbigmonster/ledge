@@ -12,6 +12,19 @@ export default function Changelog() {
 
       <article className="mt-14 rounded-3xl border border-neutral-200/70 p-7 sm:p-9">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <h2 className="text-2xl font-semibold">v0.9.32</h2>
+          <time dateTime="2026-09-04" className="text-[12px] text-neutral-400">Released September 4, 2026</time>
+        </div>
+        <p className="mt-3 text-[14px] leading-relaxed text-neutral-500">A power-behaviour fix release: Ledge no longer keeps your Mac awake, and recordings now do.</p>
+        <ul className="mt-6 list-disc space-y-2 pl-5 text-[14px] leading-relaxed text-neutral-700">
+          <li>Fixed a sleep-prevention assertion held from launch — Macs can idle-sleep again while Ledge runs in the background.</li>
+          <li>Hover responsiveness is unchanged: App Nap stays opted out via a sleep-safe activity type.</li>
+          <li>Meeting recordings now prevent idle sleep only while recording and release the assertion the moment they stop.</li>
+        </ul>
+      </article>
+
+      <article className="mt-6 rounded-3xl border border-neutral-200/70 p-7 sm:p-9">
+        <div className="flex flex-wrap items-baseline justify-between gap-2">
           <h2 className="text-2xl font-semibold">v0.9.31</h2>
           <time dateTime="2026-09-03" className="text-[12px] text-neutral-400">Released September 3, 2026</time>
         </div>
