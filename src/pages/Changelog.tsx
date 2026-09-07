@@ -12,6 +12,18 @@ export default function Changelog() {
 
       <article className="mt-14 rounded-3xl border border-neutral-200/70 p-7 sm:p-9">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <h2 className="text-2xl font-semibold">v0.9.33</h2>
+          <time dateTime="2026-09-07" className="text-[12px] text-neutral-400">Released September 7, 2026</time>
+        </div>
+        <p className="mt-3 text-[14px] leading-relaxed text-neutral-500">Hover preview and wake behaviour polish: previews stop blinking between cards, and the island only opens when you actually reach for it.</p>
+        <ul className="mt-6 list-disc space-y-2 pl-5 text-[14px] leading-relaxed text-neutral-700">
+          <li>Hover previews no longer disappear while moving between overlapping cards — the outgoing card can no longer cancel the incoming one.</li>
+          <li>The notch wake zone is tightened to the real notch (plus a 4pt margin), so sweeping the top-centre of the screen no longer opens the island by accident.</li>
+        </ul>
+      </article>
+
+      <article className="mt-6 rounded-3xl border border-neutral-200/70 p-7 sm:p-9">
+        <div className="flex flex-wrap items-baseline justify-between gap-2">
           <h2 className="text-2xl font-semibold">v0.9.32</h2>
           <time dateTime="2026-09-04" className="text-[12px] text-neutral-400">Released September 4, 2026</time>
         </div>

@@ -17,6 +17,11 @@ Drop files, screenshots, links, text, recordings — even windows. Grab them bac
 
 ---
 
+## 🆕 What's new in 0.9.33
+
+- 👁 **Steady hover previews** — moving between overlapping cards no longer cancels the incoming preview, so previews stop blinking out.
+- 🎯 **Tighter notch wake zone** — the island only opens when you reach the actual notch, not while sweeping the top-centre of the screen.
+
 ## 🆕 What's new in 0.9.32
 
 - 😴 **Macs can sleep again** — fixed an assertion that kept the system from idle-sleeping for as long as Ledge ran.
