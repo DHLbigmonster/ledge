@@ -17,6 +17,11 @@ Drop files, screenshots, links, text, recordings — even windows. Grab them bac
 
 ---
 
+## 🆕 What's new in 0.9.34
+
+- 🖱 **Reliable hover on macOS 27** — reaching the exact screen edge now wakes the island and keeps it open instead of missing the hit or flickering closed.
+- 🧭 **Stable island hosting** — display and menu-bar layout updates reuse the existing SwiftUI host without letting content size move the AppKit panel.
+
 ## 🆕 What's new in 0.9.33
 
 - 👁 **Steady hover previews** — moving between overlapping cards no longer cancels the incoming preview, so previews stop blinking out.

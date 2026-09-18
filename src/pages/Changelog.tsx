@@ -12,6 +12,20 @@ export default function Changelog() {
 
       <article className="mt-14 rounded-3xl border border-neutral-200/70 p-7 sm:p-9">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <h2 className="text-2xl font-semibold">v0.9.34</h2>
+          <time dateTime="2026-09-18" className="text-[12px] text-neutral-400">Released September 18, 2026</time>
+        </div>
+        <p className="mt-3 text-[14px] leading-relaxed text-neutral-500">A macOS 27 hover-compatibility release: the island reliably wakes at the exact screen edge and stays stable while the pointer remains there.</p>
+        <ul className="mt-6 list-disc space-y-2 pl-5 text-[14px] leading-relaxed text-neutral-700">
+          <li>The exact top edge is now included in screen, wake-zone and expanded-panel hit testing, fixing missed wakes and repeated closing at the edge.</li>
+          <li>The fixed-size AppKit panel now owns its geometry while SwiftUI content changes inside it, preventing content sizing from shifting the island.</li>
+          <li>Display and menu-bar layout updates reuse the existing hosting view so hover tracking is not torn down under a stationary pointer.</li>
+          <li>Verified on macOS 27.0 (26A428) with a 12-second edge hold and 20 consecutive expand/collapse cycles; the universal build still supports Apple silicon and Intel.</li>
+        </ul>
+      </article>
+
+      <article className="mt-6 rounded-3xl border border-neutral-200/70 p-7 sm:p-9">
+        <div className="flex flex-wrap items-baseline justify-between gap-2">
           <h2 className="text-2xl font-semibold">v0.9.33</h2>
           <time dateTime="2026-09-07" className="text-[12px] text-neutral-400">Released September 7, 2026</time>
         </div>
