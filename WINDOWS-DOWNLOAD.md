@@ -1,11 +1,21 @@
-# Ledge Windows review3 测试包
+# Ledge Windows review5 测试包
 
-[免登录下载 ZIP](https://github.com/DHLbigmonster/ledge/raw/refs/heads/windows-public-download/Ledge-Windows.zip)
+[完整包（免登录下载）](https://github.com/DHLbigmonster/ledge/raw/refs/heads/windows-public-download/Ledge-Windows.zip?v=review5)
 
-支持 Windows 10 22H2 / Windows 11 的 Intel、AMD 电脑。完整解压后运行 Ledge.exe，自带 .NET 运行时，无需安装。
+[已有旧版，下载小补丁](https://github.com/DHLbigmonster/ledge/raw/refs/heads/windows-public-download/Ledge-Motion-Patch.zip)
 
-旧版先从系统托盘退出。顶部显示“剪贴板已暂停”时点击开启自动收纳。
+Ledge review5 动效候选补丁
 
-开发预览 0.1.0-review3，未签名，尚未完成原生 Windows 实机验收。实体录音、系统共享与完整拖放仍需验证。本分支仅公开测试二进制及校验信息，不改变源码许可证。
+1. 从系统托盘退出旧 Ledge。
+2. 将补丁内的文件全部解压到原 Ledge.exe 所在目录，替换同名文件。
+3. 双击 Ledge.exe。设置底部应显示 review5。
 
-SHA-256：`84c716d9168e4690d50990bee1f556bce5f16660fadee48342ef61e9cc21664b`
+包含 review4 的紧凑面板、固定单卡尺寸、明显的小把手，以及立即生效的外观 / 大小选择；无需先安装 review4 补丁。
+
+参考 WinIsland 的动效策略，宽度先展开、高度跟随，快速进出时保留运动速度。远程桌面会话允许播放应用动画；“减少动态效果”可关闭。
+
+79 项核心检查与 x64 编译通过；本轮没有原生 Windows 视觉 / 帧率验收，不保证与 WinIsland 相同观感。
+
+此补丁依赖原完整包的运行时，不删除已有数据与设置。
+
+完整包首次运行：完整解压后运行 Ledge.exe，无需额外安装 .NET。
